@@ -2,14 +2,14 @@
 <div class="widget-author  boxed  push-down-30">
     <div class="widget-author__image-container">
         <div class="widget-author__avatar--blurred">
-            <img src="images/dummy/about-1.jpg" alt="Avatar image" width="90" height="90">
+            <img src="{{ asset('images/dev-human-sticker.png') }}" alt="Avatar image" width="90" height="90">
         </div>
-        <img class="widget-author__avatar" src="images/dummy/about-1.jpg" alt="Avatar image" width="90" height="90">
+        <img class="widget-author__avatar" src="{{ asset('images/dev-human-sticker.png') }}" alt="Avatar image" width="90" height="90">
     </div>
     <div class="row">
         <div class="col-xs-10  col-xs-offset-1">
-            <h4>Timothy Miler</h4>
-            <p>User Interface Designer, Amateurish Poker Player and Imaginary Breakdancer ...</p>
+            <h4>About</h4>
+            <p><strong>devhuman</strong> is a collaborative, non-technical blog written by developers. We talk about life and stuff robots can't understand </p>
         </div>
     </div>
 </div>
@@ -19,13 +19,11 @@
         <div class="col-xs-10  col-xs-offset-1">
             <!-- Widget categories -->
             <div class="widget-categories  push-down-30">
-                <h6>Categories</h6>
+                <h6>Collections</h6>
                 <ul>
-                    <li><a href="#">Technology &nbsp;<span class="widget-categories__text">(16)</span></a></li>
-                    <li><a href="#">User Interface design &nbsp;<span class="widget-categories__text">(13)</span></a></li>
-                    <li><a href="#">User Experience &nbsp;<span class="widget-categories__text">(9)</span></a></li>
-                    <li><a href="#">Startups &nbsp;<span class="widget-categories__text">(23)</span></a></li>
-                    <li><a href="#">Reading &amp; Books &nbsp;<span class="widget-categories__text">(3)</span></a></li>
+                    {% for collection in collection_list %}
+                        <li><a href="#">{{ collection.name }} &nbsp;<span class="widget-categories__text">(16)</span></a></li>
+                    {% endfor %}
                 </ul>
             </div>
             <!-- Widget featured post -->
@@ -40,12 +38,12 @@
                 <h6>Facebook</h6>
                 <div id="likebox-wrapper">
                     <!--[if IE]>
-                    <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fproteusthemes&amp;width&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=false&amp;show_border=false&amp;appId=685180284845706"
+                    <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fdevhuman&amp;width&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=false&amp;show_border=false&amp;appId=685180284845706"
                             allowTransparency="true">
                     </iframe>
                     <![endif]-->
                     <!--[if !IE]>-->
-                    <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fproteusthemes&amp;width&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=false&amp;show_border=false&amp;appId=685180284845706">
+                    <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fdevhuman&amp;width&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=false&amp;show_border=false&amp;appId=685180284845706">
                     </iframe>
                     <!--<![endif]-->
                 </div>
@@ -108,7 +106,7 @@
             <!-- Widget Twitter -->
             <div class="widget-twitter  push-down-30">
                 <h6>Twitter</h6>
-                <a class="twitter-timeline" href="https://twitter.com/ProteusNetCom" data-widget-id="452057937674915840">Tweets by @ProteusNetCom</a>
+                <a class="twitter-timeline" href="https://twitter.com/devhumanproject" data-widget-id="452057937674915840">Tweets by @DevHumanProject</a>
                 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
             </div>
             <div class="widget-recent-comments  push-down-30">

@@ -3,7 +3,7 @@
     <div class="container">
 
         <div class="logo  pull-left">
-            <a href="index.html"><img src="images/logo.png" alt="Logo" width="352" height="140"></a>
+            <a href="{{ path('devhuman_homepage') }}"><img src="{{ asset('images/logo.png') }}" alt="Logo" width="352" height="140"></a>
         </div>
 
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -24,11 +24,11 @@
 
 
                     <li class="dropdown  active">
-                        <a href="index.html" class="dropdown-toggle" data-toggle="dropdown">Home</a>
+                        <a href="{{ path('devhuman_homepage') }}" class="dropdown-toggle" data-toggle="dropdown">Home</a>
 
                         <ul class="navigation__dropdown">
 
-                            <li><a href="index.html">Home (Sidebar)</a></li>
+                            <li><a href="{{ path('devhuman_homepage') }}">Home (Sidebar)</a></li>
 
                             <li><a href="home-slider.html">Home (Slider)</a></li>
 
@@ -46,34 +46,19 @@
 
 
                     <li class="dropdown">
-                        <a href="single-post.html" class="dropdown-toggle" data-toggle="dropdown">Post formats</a>
+                        <a href="single-post.html" class="dropdown-toggle" data-toggle="dropdown">Collections</a>
 
                         <ul class="navigation__dropdown">
-
-                            <li><a href="single-post.html">Single Post</a></li>
-
-                            <li><a href="single-post-without-image.html">Single Post (No Image)</a></li>
-
-                            <li><a href="single-post-video.html">Single Post (Video)</a></li>
-
-                            <li><a href="single-post-full-width.html">Single Post (Full Width Image)</a></li>
-
-                            <li><a href="search-results.html">Search Results</a></li>
-
+                            {% for collection in collection_list %}
+                                <li><a href="#">{{ collection.name }}</a></li>
+                            {% endfor %}
                         </ul>
 
                     </li>
 
 
                     <li class="">
-                        <a href="elements.html" class="dropdown-toggle" data-toggle="dropdown">Elements</a>
-
-                    </li>
-
-
-                    <li class="">
-                        <a href="features.html" class="dropdown-toggle" data-toggle="dropdown">Features</a>
-
+                        <a href="{{ path('devhuman_authors') }}" class="dropdown-toggle" data-toggle="dropdown">Authors</a>
                     </li>
 
 

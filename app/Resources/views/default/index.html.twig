@@ -1,6 +1,59 @@
 {% extends 'main.html.twig' %}
 
 {% block content %}
+
+  {% if stories is defined %}
+    {% for story in stories %}
+    <div class="boxed  push-down-45">
+      <div class="meta">
+        <div class="row">
+          <div class="col-xs-12  col-sm-10  col-sm-offset-1">
+            <div class="meta__container--without-image">
+              <div class="row">
+                <div class="col-xs-12  col-sm-8">
+                  <div class="meta__info">
+                    <span class="meta__author">
+                      <a href="{{ path('devhuman_user', {user: story.author.username}) }}" title="{{ story.author.name }}'s Profile"><img src="{{ gravatar(story.author.email, 30) }}" alt="{{ story.author.name }}" width="30" height="30"></a> <a href="{{ path('devhuman_user', {user: story.author.username}) }}" title="{{ story.author.name }}'s Profile">{{ story.author.name }}</a>
+                      {% if story.collections %}in <a href="#">News</a> {% endif %}</span>
+                    <span class="meta__date"><span class="glyphicon glyphicon-calendar"></span> &nbsp; {{ story.created|date('F d, Y') }}</span>
+                  </div>
+                </div>
+                <div class="col-xs-12  col-sm-4">
+                  <div class="meta__comments">
+                    <span class="glyphicon glyphicon-comment"></span> &nbsp; <a href="single-post-without-image.html#disqus_thread"></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Meta without image end -->
+      <!-- Start of the blogpost -->
+      <div class="row">
+        <div class="col-xs-10  col-xs-offset-1">
+          <!-- Start of the content -->
+          <div class="post-content--front-page">
+            <h2 class="front-page-title"><a href="{{ path('devhuman_show_article', {slug: story.slug}) }}">{{ story.title }}</a></h2>
+            <p>{{ story.preview|default(story.content|truncate(200)) }}</p>
+          </div>
+          <!-- End of the content -->
+          <a href="{{ path('devhuman_show_article', {slug: story.slug}) }}">
+            <div class="read-more">
+              Continue reading
+              <div class="read-more__arrow">
+                <span class="glyphicon  glyphicon-chevron-right"></span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+  </div>
+  {% endfor %}
+{% endif %}
+{#
+<!-- Post with featured image -->
+<div class="boxed  sticky  push-down-45">
 <!-- Featured image and meta start -->
 <div class="meta">
   <img class="wp-post-image" src="images/dummy-licensed/blog-image.jpg" alt="Blog image" width="748" height="324">
@@ -48,6 +101,7 @@
   </div>
 </div>
 </div>
+           </div>
 <!-- Post with video -->
 <div class="boxed  push-down-45">
   <!-- Featured image and meta start -->
@@ -233,4 +287,5 @@
       </a>
     </div>
   </div>
+  #}
 {% endblock %}

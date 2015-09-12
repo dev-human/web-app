@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use \DateTime;
+use Michelf\MarkdownExtra;
 
 /**
  * Class Story
@@ -252,5 +253,10 @@ class Story
     public function setTags(array $tags = [])
     {
         $this->tags = $tags;
+    }
+
+    public function getHTMLContent()
+    {
+        return MarkdownExtra::defaultTransform($this->getContent());
     }
 }

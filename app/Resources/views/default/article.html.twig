@@ -1,0 +1,136 @@
+{% extends 'main.html.twig' %}
+
+{% block title %}{{ story.title }} ~ dev-human{% endblock %}
+
+
+{% block body %}
+
+<div class="container">
+    <div class="boxed  push-down-60">
+        <!-- Meta without image start (Needed for WP theme)-->
+        <div class="meta">
+            <div class="row">
+                <div class="col-xs-12  col-sm-10  col-sm-offset-1  col-md-8  col-md-offset-2">
+                    <div class="meta__container--without-image">
+                        <div class="row">
+                            <div class="col-xs-12  col-sm-8">
+                                <div class="meta__info">
+                                    <span class="meta__author"><img src="{{ gravatar(story.author.email, 30) }}" alt="Meta avatar" width="30" height="30"> <a href="#">{{ story.author.name }}</a> in <a href="#">News</a></span>
+                                    <span class="meta__date"><span class="glyphicon glyphicon-calendar"></span> &nbsp; {{ story.created|date('F d, Y') }}</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12  col-sm-4">
+                                <div class="meta__comments">
+                                    <span class="glyphicon glyphicon-comment"></span> &nbsp; <a href="#disqus_thread"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Meta without image end -->
+
+        <!-- Start of the blogpost -->
+        <div class="row">
+            <div class="col-xs-10  col-xs-offset-1  col-md-8  col-md-offset-2  push-down-60">
+                <!-- Start of the content -->
+                <div class="post-content">
+                    <h1>{{ story.title }}</h1>
+                    {{ content|raw }}
+                </div>
+                <!-- End of the content -->
+                <div class="row">
+                    <div class="col-xs-12  col-sm-6">
+                        <!-- Start of comments button -->
+                        <div class="post-comments">
+                            <a class="btn  btn-primary" href="#disqus_thread"></a>
+                        </div>
+                        <!-- End of comments button -->
+                    </div>
+                    <div class="col-xs-12  col-sm-6">
+                        <!-- Start of social icons -->
+                        <div class="social-icons">
+                            <a href="#" class="social-icons__container"><span class="zocial-facebook"></span></a>
+                            <a href="#" class="social-icons__container"><span class="zocial-twitter"></span></a>
+                            <a href="#" class="social-icons__container"><span class="zocial-email"></span></a>
+                        </div>
+                        <!-- End of social icons -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12  col-sm-6">
+                        <!-- Start of post author -->
+                        <div class="post-author">
+                            <h6>Written By</h6>
+                            <hr>
+                            <a href="{{ path('devhuman_user', {user: story.author.username}) }}" title="{{ story.author.name }}'s Profile"><img src="{{ gravatar(story.author.email, 120) }}" alt="Post author"></a>
+                            <h5><a href="{{ path('devhuman_user', {user: story.author.username}) }}" title="{{ story.author.name }}'s Profile">{{ story.author.name }}</a></h5>
+                            <span class="post-author__text">{{ story.author.bio }}</span>
+
+                            <div class="push-down-15"></div>
+                            <div class="social-icons center-block" style="float: none">
+                                {% if story.author.websiteUrl %}<a href="{{ story.author.websiteUrl }}" title="Website" target="_blank" class="social-icons__container"><span class="glyphicon glyphicon-globe"></span></a>{% endif %}
+                                {% if story.author.twitterUrl %}<a href="{{ story.author.twitterUrl }}" title="Twitter" target="_blank" class="social-icons__container"><span class="zocial-twitter"></span></a>{% endif %}
+                                {% if story.author.githubUrl %}<a href="{{ story.author.githubUrl }}" title="GitHub" target="_blank" class="social-icons__container"><span class="zocial-github"></span></a>{% endif %}
+                                {% if story.author.googleplusUrl %}<a href="{{ story.author.googleplusUrl }}" title="Google Plus" target="_blank" class="social-icons__container"><span class="zocial-googleplus"></span></a>{% endif %}
+                            </div>
+                            <!-- End of social icons -->
+                        </div>
+                        <!-- End of post author -->
+                        <!-- Start of social icons -->
+                    </div>
+                    <div class="col-xs-12  col-sm-6">
+                        <!-- Start of post tags -->
+                        <div class="tags">
+                            <h6>Tags</h6>
+                            <hr>
+                            {% for tag in story.tags %}
+                                <a href="#" class="tags__link">{{ tag }}</a>
+                            {% endfor %}
+                        </div>
+                        <!-- End of post tags -->
+                    </div>
+                </div>
+
+                <div class="disqus-comments push-down-45">
+                    <div id="disqus_thread"></div>
+                    <script type="text/javascript">
+                        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                        var disqus_shortname = 'devhuman'; // required: replace example with your forum shortname
+
+                        /* * * DON'T EDIT BELOW THIS LINE * * */
+                        (function() {
+                            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </div>
+
+
+                <!-- Start of related stories -->
+                <div class="related-stories">
+                    <h6>Related Stories</h6>
+                    <hr>
+                    <h4><a href="#">Thoughts on Apple Design</a></h4>
+                    <h5>Why Apple's tech is so much better than everyone else's.</h5>
+                    <hr />
+                    <h4><a href="#">10 Things I Know About Being Happy</a></h4>
+                    <h5>Why Google's tech is so much better than everyone else's.</h5>
+                    <hr />
+                    <h4><a href="#">Taking Time to Reflect on Your Life Journey</a></h4>
+                    <h5>Why Microsoft's tech is so much better than everyone else's.</h5>
+                </div>
+                <!-- End of related stories -->
+
+            </div>
+        </div>
+        <!-- End of the blogpost -->
+    </div>
+</div>
+
+{% endblock %}
