@@ -19,7 +19,10 @@
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "incenteev/composer-parameter-handler": "~2.0",
+        "stof/doctrine-extensions-bundle": "^1.2",
+        "michelf/php-markdown": "^1.5",
+        "symfony/yaml": "^2.7"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
