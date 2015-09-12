@@ -15,7 +15,7 @@ services:
 
   app.twig_extension:
         class: AppBundle\Twig\DevHumanExtension
-        arguments: ["@=service('doctrine').getEntityManager()"]
+        arguments: ["@=service('doctrine').getManager()"]
         public: false
         tags:
             - { name: twig.extension }

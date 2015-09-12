@@ -15,7 +15,13 @@
                         <div class="row">
                             <div class="col-xs-12  col-sm-8">
                                 <div class="meta__info">
-                                    <span class="meta__author"><img src="{{ gravatar(story.author.email, 30) }}" alt="Meta avatar" width="30" height="30"> <a href="#">{{ story.author.name }}</a> in <a href="#">News</a></span>
+                                    <span class="meta__author"><img src="{{ gravatar(story.author.email, 30) }}" alt="Meta avatar" width="30" height="30"> <a href="#">{{ story.author.name }}</a>
+                                        {% if story.collections %}in
+                                            {% for collection in story.collections %}
+                                                {% if loop.index != 1 %}, {% endif %}<a href="#">{{ collection.name }}</a>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </span>
                                     <span class="meta__date"><span class="glyphicon glyphicon-calendar"></span> &nbsp; {{ story.created|date('F d, Y') }}</span>
                                 </div>
                             </div>

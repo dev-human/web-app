@@ -23,6 +23,20 @@ class DefaultController extends Controller
     }
 
     /**
+     * Shows the list of articles in a collection
+     * @Route("/c/{slug}", name="devhuman_collection")
+     */
+    public function collectionAction($slug)
+    {
+        $doctrine = $this->getDoctrine();
+        $collection = $doctrine->getRepository('AppBundle:Collection')->findOneBySlug($slug);
+
+        return $this->render('default/index.html.twig', [
+            'stories' => $collection->getStories()
+        ]);
+    }
+
+    /**
      * Shows an Article
      * @Route("/stories/{slug}", name="devhuman_show_article")
      */

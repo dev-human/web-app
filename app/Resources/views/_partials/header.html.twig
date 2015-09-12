@@ -22,57 +22,31 @@
             <div class="collapse  navbar-collapse" id="readable-navbar-collapse">
                 <ul class="navigation">
 
-
                     <li class="dropdown  active">
                         <a href="{{ path('devhuman_homepage') }}" class="dropdown-toggle" data-toggle="dropdown">Home</a>
-
-                        <ul class="navigation__dropdown">
-
-                            <li><a href="{{ path('devhuman_homepage') }}">Home (Sidebar)</a></li>
-
-                            <li><a href="home-slider.html">Home (Slider)</a></li>
-
-                            <li><a href="home-multi-columns.html">Home (Multi Columns)</a></li>
-
-                            <li><a href="home-ads.html">Home (With Ads)</a></li>
-
-                            <li><a href="home-no-sidebar.html">Home (No Sidebar)</a></li>
-
-                            <li><a href="home-full-width.html">Home (Full Width)</a></li>
-
-                        </ul>
-
                     </li>
-
 
                     <li class="dropdown">
                         <a href="single-post.html" class="dropdown-toggle" data-toggle="dropdown">Collections</a>
-
                         <ul class="navigation__dropdown">
                             {% for collection in collection_list %}
-                                <li><a href="#">{{ collection.name }}</a></li>
+                                <li><a href="{{ path('devhuman_collection', {slug: collection.slug}) }}" title="See all posts under the '{{ collection.name }}' Collection">{{ collection.name }}</a></li>
                             {% endfor %}
                         </ul>
 
                     </li>
 
-
                     <li class="">
                         <a href="{{ path('devhuman_authors') }}" class="dropdown-toggle" data-toggle="dropdown">Authors</a>
                     </li>
 
-
                     <li class="">
                         <a href="about-us.html" class="dropdown-toggle" data-toggle="dropdown">About</a>
-
                     </li>
-
 
                     <li class="">
                         <a href="contact.html" class="dropdown-toggle" data-toggle="dropdown">Contact</a>
-
                     </li>
-
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

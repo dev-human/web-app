@@ -14,7 +14,11 @@
                   <div class="meta__info">
                     <span class="meta__author">
                       <a href="{{ path('devhuman_user', {user: story.author.username}) }}" title="{{ story.author.name }}'s Profile"><img src="{{ gravatar(story.author.email, 30) }}" alt="{{ story.author.name }}" width="30" height="30"></a> <a href="{{ path('devhuman_user', {user: story.author.username}) }}" title="{{ story.author.name }}'s Profile">{{ story.author.name }}</a>
-                      {% if story.collections %}in <a href="#">News</a> {% endif %}</span>
+                      {% if story.collections %}in
+                        {% for collection in story.collections %}
+                          {% if loop.index != 1 %}, {% endif %}<a href="#">{{ collection.name }}</a>
+                        {% endfor %}
+                      {% endif %}</span>
                     <span class="meta__date"><span class="glyphicon glyphicon-calendar"></span> &nbsp; {{ story.created|date('F d, Y') }}</span>
                   </div>
                 </div>
@@ -35,7 +39,7 @@
           <!-- Start of the content -->
           <div class="post-content--front-page">
             <h2 class="front-page-title"><a href="{{ path('devhuman_show_article', {slug: story.slug}) }}">{{ story.title }}</a></h2>
-            <p>{{ story.preview|default(story.content|truncate(200)) }}</p>
+            <p>{{ story.preview|default(story.getHTMLContent()|striptags|truncate(240)) }}</p>
           </div>
           <!-- End of the content -->
           <a href="{{ path('devhuman_show_article', {slug: story.slug}) }}">

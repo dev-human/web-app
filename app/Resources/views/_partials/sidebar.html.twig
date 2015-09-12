@@ -22,7 +22,7 @@
                 <h6>Collections</h6>
                 <ul>
                     {% for collection in collection_list %}
-                        <li><a href="#">{{ collection.name }} &nbsp;<span class="widget-categories__text">(16)</span></a></li>
+                        <li><a href="{{ path('devhuman_collection', {slug: collection.slug}) }}" title="See all posts under the '{{ collection.name }}' Collection">{{ collection.name }} &nbsp;<span class="widget-categories__text">(16)</span></a></li>
                     {% endfor %}
                 </ul>
             </div>
