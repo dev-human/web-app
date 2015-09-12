@@ -1,0 +1,27 @@
+---
+server:
+    install: '1'
+    packages: [vim, git]
+    timezone: Europe/Amsterdam
+    locale: en_US.UTF-8
+vagrant_local:
+    install: '1'
+    vm: { base_box: trusty64, hostname: dev.dev-human.com, ip: 192.168.11.15, memory: '1024', sharedfolder: ./, useVagrantCloud: '1', syncType: nfs }
+nginx:
+    install: '1'
+    docroot: /vagrant/web
+    servername: dev.dev-human.com
+mysql:
+    install: '1'
+    root_password: r00t
+    database: devhuman
+    user: devhuman
+    password: d3vhum4n01d
+    dump: ''
+php:
+    install: '1'
+    ppa: php5-5.6
+    packages: [php5-cli, php5-intl, php5-mcrypt, php5-mysql]
+composer:
+    install: '1'
+
