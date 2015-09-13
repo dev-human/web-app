@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class User
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CollectionRepository")
  */
 class Collection
 {

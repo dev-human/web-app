@@ -1,0 +1,11 @@
+
+<div class="widget-categories  push-down-30">
+    <h6>Collections</h6>
+    <ul>
+        {% for collection in collections %}
+            {% set coll = collection.0 %}
+            {% set total = collection.total %}
+            <li><a href="{{ path('devhuman_collection', {slug: coll.slug}) }}" title="See all posts under the '{{ coll.name }}' Collection">{{ coll.name }} &nbsp;<span class="widget-categories__text"> ({{ total }})</span></a></li>
+        {% endfor %}
+    </ul>
+</div>

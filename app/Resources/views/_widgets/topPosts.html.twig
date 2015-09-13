@@ -1,0 +1,29 @@
+
+<div class="widget-posts  push-down-30">
+    <h6>Popular / Recent</h6>
+    <!-- Nav tabs -->
+    <ul class="nav  nav-tabs">
+        <li class="active"><a href="#recent-posts" data-toggle="tab"><span class="glyphicon  glyphicon-time"></span> &nbsp;Recent Posts</a></li>
+        <li><a href="#popular-posts" data-toggle="tab"><span class="glyphicon  glyphicon-flash"></span> &nbsp;Popular Posts</a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane  fade  in  active" id="recent-posts">
+            {% for story in recentPosts %}
+            <div class="push-down-15">
+                <h5><a href="{{ path('devhuman_show_article', {slug: story.slug}) }}" title="{{ story.title }}">{{ story.title }}</a></h5>
+                <span class="widget-posts__time">19 hours ago</span>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="tab-pane  fade" id="popular-posts">
+            {% for story in topPosts %}
+                <div class="push-down-15">
+                    <img src="{{ asset('images/dummy-licensed/blog-image-small.jpg')}}" alt="Posts">
+                    <h5><a href="{{ path('devhuman_show_article', {slug: story.slug}) }}" title="{{ story.title }}">{{ story.title }}</a></h5>
+                    <span class="widget-posts__time">19 hours ago</span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

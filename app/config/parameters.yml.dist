@@ -15,5 +15,10 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
 
+    predis_settings:
+        scheme: tcp
+        host: localhost
+        port: 6379
+
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt

@@ -9,7 +9,7 @@ use Michelf\MarkdownExtra;
 
 /**
  * Class Story
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="StoryRepository")
  */
 class Story
 {

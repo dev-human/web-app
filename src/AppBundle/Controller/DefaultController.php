@@ -17,7 +17,7 @@ class DefaultController extends Controller
     {
         $doctrine = $this->getDoctrine();
 
-        $data['stories'] = $doctrine->getRepository('AppBundle:Story')->findAll();
+        $data['stories'] = $doctrine->getRepository('AppBundle:Story')->findAllOrderedByDate();
 
         return $this->render('default/index.html.twig', $data);
     }

@@ -17,98 +17,28 @@
 <div class="sidebar  boxed  push-down-30">
     <div class="row">
         <div class="col-xs-10  col-xs-offset-1">
-            <!-- Widget categories -->
-            <div class="widget-categories  push-down-30">
-                <h6>Collections</h6>
-                <ul>
-                    {% for collection in collection_list %}
-                        <li><a href="{{ path('devhuman_collection', {slug: collection.slug}) }}" title="See all posts under the '{{ collection.name }}' Collection">{{ collection.name }} &nbsp;<span class="widget-categories__text">(16)</span></a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <!-- Widget featured post -->
-            <div class="widget-featured-post  push-down-30">
-                <h6>Featured post</h6>
-                <img src="images/dummy-licensed/blog-image.jpg" alt="Featured post" width="293" height="127">
-                <h4><a href="single-post.html">Featured Author Post</a></h4>
-                <p>Why ProteusThemes products is so much better than lorem everyone else's.</p>
-            </div>
+            <!-- Widget Collections -->
+            {{ render(controller('AppBundle:Widget:collectionsWidget')) }}
+
+            <!-- Widget Featured Post -->
+            {{ render(controller('AppBundle:Widget:featuredPostWidget')) }}
+
             <!-- Widget Facebook -->
-            <div class="widget-facebook  push-down-30">
-                <h6>Facebook</h6>
-                <div id="likebox-wrapper">
-                    <!--[if IE]>
-                    <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fdevhuman&amp;width&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=false&amp;show_border=false&amp;appId=685180284845706"
-                            allowTransparency="true">
-                    </iframe>
-                    <![endif]-->
-                    <!--[if !IE]>-->
-                    <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fdevhuman&amp;width&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=false&amp;show_border=false&amp;appId=685180284845706">
-                    </iframe>
-                    <!--<![endif]-->
-                </div>
-            </div>
-            <!-- Widget posts -->
-            <div class="widget-posts  push-down-30">
-                <h6>Popular / Recent</h6>
-                <!-- Nav tabs -->
-                <ul class="nav  nav-tabs">
-                    <li class="active"><a href="#recent-posts" data-toggle="tab"><span class="glyphicon  glyphicon-time"></span> &nbsp;Recent Posts</a></li>
-                    <li><a href="#popular-posts" data-toggle="tab"><span class="glyphicon  glyphicon-flash"></span> &nbsp;Popular Posts</a></li>
-                </ul>
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <div class="tab-pane  fade  in  active" id="recent-posts">
-                        <div class="push-down-15">
-                            <img src="images/dummy-licensed/blog-image-small.jpg" alt="Posts">
-                            <h5><a href="single-post.html">This is a showcase of the most recent posts</a></h5>
-                            <span class="widget-posts__time">19 hours ago</span>
-                        </div>
-                        <div class="push-down-15">
-                            <img src="images/dummy-licensed/blog-image-3-small.jpg" alt="Posts">
-                            <h5><a href="single-post.html">This is a showcase of the most recent posts</a></h5>
-                            <span class="widget-posts__time">19 hours ago</span>
-                        </div>
-                        <div class="push-down-15">
-                            <img src="images/dummy-licensed/blog-image-small.jpg" alt="Posts">
-                            <h5><a href="single-post.html">This is a showcase of the most recent posts</a></h5>
-                            <span class="widget-posts__time">19 hours ago</span>
-                        </div>
-                    </div>
-                    <div class="tab-pane  fade" id="popular-posts">
-                        <div class="push-down-15">
-                            <img src="images/dummy-licensed/blog-image-3-small.jpg" alt="Posts">
-                            <h5><a href="single-post.html">This is a showcase of the most popular posts</a></h5>
-                            <span class="widget-posts__time">9 hours ago</span>
-                        </div>
-                        <div class="push-down-15">
-                            <img src="images/dummy-licensed/blog-image-small.jpg" alt="Posts">
-                            <h5><a href="single-post.html">This is a showcase of the most popular posts</a></h5>
-                            <span class="widget-posts__time">12 hours ago</span>
-                        </div>
-                        <div class="push-down-15">
-                            <img src="images/dummy-licensed/blog-image-3-small.jpg" alt="Posts">
-                            <h5><a href="single-post.html">This is a showcase of the most popular posts</a></h5>
-                            <span class="widget-posts__time">19 hours ago</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tags  widget-tags">
-                <h6>Tags</h6>
-                <hr>
-                <a href="#" class="tags__link">Tech</a>
-                <a href="#" class="tags__link">Web</a>
-                <a href="#" class="tags__link">UI/UX</a>
-                <a href="#" class="tags__link">Tutorials</a>
-                <a href="#" class="tags__link">Workflow</a>
-            </div>
+            {{ render(controller('AppBundle:Widget:facebookWidget')) }}
+
+            <!-- Widget Top Posts and Recent Posts -->
+            {{ render(controller('AppBundle:Widget:topPosts', { 'max': 3 })) }}
+
+            <!-- Widget Tags -->
+            {{ render(controller('AppBundle:Widget:tagsWidget', { 'max': 10 })) }}
+
             <!-- Widget Twitter -->
             <div class="widget-twitter  push-down-30">
                 <h6>Twitter</h6>
                 <a class="twitter-timeline" href="https://twitter.com/devhumanproject" data-widget-id="452057937674915840">Tweets by @DevHumanProject</a>
                 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
             </div>
+
             <div class="widget-recent-comments  push-down-30">
                 <h6>Recent Comments</h6>
                 <ul>

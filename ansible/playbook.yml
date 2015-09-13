@@ -10,4 +10,5 @@
     - mysql
     - php
     - composer
+    - redis
     - app

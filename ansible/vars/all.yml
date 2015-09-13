@@ -24,4 +24,7 @@ php:
     packages: [php5-cli, php5-intl, php5-mcrypt, php5-mysql]
 composer:
     install: '1'
+redis:
+    install: '1'
+    port: '6379'
 
