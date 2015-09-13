@@ -34,6 +34,8 @@ class UpdateCacheCommand extends ContainerAwareCommand
             '<comment>Updating Cache: Collections</comment>'
         );
 
+        $collections = $em->getRepository('AppBundle:Collection')->getListWithCounter();
+        $redis->saveSerializedCache($this->getContainer()->getParameter('key_cache_collections'), $collections);
 
         $output->writeln(
             '<comment>Updating Cache: Top Stories</comment>'

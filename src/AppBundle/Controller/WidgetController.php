@@ -16,7 +16,7 @@ class WidgetController extends Controller
      */
     public function collectionsWidgetAction()
     {
-        $collections = $this->getDoctrine()->getRepository('AppBundle:Collection')->getListWithCounter();
+        $collections = $this->get('redis')->getSerializedCache($this->getParameter('key_cache_collections'));
 
         return $this->render(
             '_widgets/collections.html.twig',

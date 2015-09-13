@@ -1,6 +1,6 @@
 <?php
 /**
- * Imports an article in a markdown file ("old" posts from PRs)
+ * Imports multiple markdown files ("old" posts from PRs)
  */
 
 namespace AppBundle\Command;
@@ -10,44 +10,51 @@ use AppBundle\Entity\Story;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class ImportArticleCommand extends ContainerAwareCommand
+class ImportArticlesFromDirCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
         $this
-            ->setName('devhuman:import:file')
-            ->setDescription('Import a markdown article from a file (Sculpin format)')
+            ->setName('devhuman:import:dir')
+            ->setDescription('Import multiple markdown articles from a directory (files in Sculpin format)')
             ->addArgument(
-                'file',
+                'dir',
                 InputArgument::REQUIRED,
-                'Path to a .md file with the article'
+                'Path to a directory containing .md files in Sculpin format'
             )
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $file = $input->getArgument('file');
+        $dir = $input->getArgument('dir');
 
-        if (!$file or !is_file($file)) {
+        if (!$dir or !is_dir($dir)) {
             $output->writeln('<error>Invalid file.</error>');
         }
 
-        $story = $this->extractStory($file);
+        $command = $this->getApplication()->find('devhuman:import:file');
 
-        $em = $this->getDoctrine();
-        $em->persist($story);
-        $em->flush();
+        foreach (glob($dir . '/*.md') as $file) {
 
-        $output->writeln(
-            '<info>Successfully imported the article "'.
-            $story->getTitle() . '" from ' . $story->getAuthor()->getName() . '</info>'
-        );
+            $arguments = [
+            'command' => 'devhuman:import:file',
+                'file'    => $file
+            ];
+
+            $input = new ArrayInput($arguments);
+            if ($command->run($input, $output)) {
+                $output->writeln("<comment>Article imported: $file</comment>");
+            };
+        }
+
+        $output->writeln("<info>Finished.</info>");
     }
 
     /**
