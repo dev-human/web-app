@@ -28,6 +28,11 @@ class Collection
     protected $description;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $image;
+
+    /**
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(length=128, unique=true)
      */
@@ -100,6 +105,22 @@ class Collection
     public function setSlug($slug)
     {
         $this->slug = $slug;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
     }
 
     /**

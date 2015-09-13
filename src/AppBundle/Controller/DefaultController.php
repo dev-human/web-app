@@ -31,7 +31,8 @@ class DefaultController extends Controller
         $doctrine = $this->getDoctrine();
         $collection = $doctrine->getRepository('AppBundle:Collection')->findOneBySlug($slug);
 
-        return $this->render('default/index.html.twig', [
+        return $this->render('default/collection.html.twig', [
+            'collection' => $collection,
             'stories' => $collection->getStories()
         ]);
     }
