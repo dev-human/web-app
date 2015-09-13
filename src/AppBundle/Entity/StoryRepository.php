@@ -46,7 +46,7 @@ class StoryRepository extends EntityRepository
 
         return $qb->select('s')
             ->from('AppBundle:Story', 's')
-            ->orderBy('s.created', 'DESC')
+            ->orderBy('s.views', 'DESC')
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();

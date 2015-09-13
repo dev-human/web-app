@@ -52,6 +52,10 @@ class DefaultController extends Controller
 
         $content = MarkdownExtra::defaultTransform($story->getContent());
 
+        $story->addView();
+        $doctrine->getManager()->persist($story);
+        $doctrine->getManager()->flush();
+
         return $this->render('story/show.html.twig', [
             'story'   => $story,
             'content' => $content,

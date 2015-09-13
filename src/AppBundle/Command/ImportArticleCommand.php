@@ -7,6 +7,7 @@ namespace AppBundle\Command;
 
 use AppBundle\Entity\Collection;
 use AppBundle\Entity\Story;
+use AppBundle\Entity\Tag;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -71,8 +72,9 @@ class ImportArticleCommand extends ContainerAwareCommand
         $story->setContentChanged($date);
         $story->setAuthor($this->getAuthor($meta));
         $story->setSlug($this->getSlug($file));
-        $story->setTags($meta['tags']);
         $story->setCollections($this->getCollections($meta));
+        $story->setTags($this->getTags($meta));
+        $story->setViews(0);
 
         return $story;
     }
@@ -134,6 +136,16 @@ class ImportArticleCommand extends ContainerAwareCommand
         return $collections;
     }
 
+    protected function getTags(array $meta)
+    {
+        $tags = [];
+        foreach ($meta['tags'] as $tag) {
+            $tags[] = $this->getTag($tag);
+        }
+
+        return $tags;
+    }
+
     /**
      * @param string $name
      * @return Collection
@@ -150,6 +162,24 @@ class ImportArticleCommand extends ContainerAwareCommand
         }
 
         return $collection;
+    }
+
+    /**
+     * @param string $name
+     * @return Tag
+     */
+    protected function getTag($name)
+    {
+        $em = $this->getDoctrine();
+        $tag = $em->getRepository('AppBundle:Tag')->findOneByName($name);
+
+        if (!$tag) {
+            $tag = new Tag();
+            $tag->setName($name);
+            $this->getDoctrine()->persist($tag);
+        }
+
+        return $tag;
     }
 
     /**

@@ -41,7 +41,7 @@ class Story
     protected $collections;
 
     /**
-     * @ORM\Column(type="simple_array", nullable=true)
+     * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
      */
     protected $tags;
 
@@ -78,6 +78,13 @@ class Story
      * @Gedmo\Timestampable(on="change", field={"title", "body"})
      */
     protected $contentChanged;
+
+    /**
+     * @var int $views
+     *
+     * @ORM\Column(type="integer", options={"unsigned": true})
+     */
+    protected $views;
 
     /**
      * @return mixed
@@ -252,9 +259,42 @@ class Story
      */
     public function setTags(array $tags = [])
     {
-        $this->tags = $tags;
+        foreach ($tags as $tag) {
+            $this->addTag($tag);
+        }
     }
 
+    public function addTag(Tag $tag)
+    {
+        $this->tags[] = $tag;
+    }
+    /**
+     * @return int
+     */
+    public function getViews()
+    {
+        return $this->views;
+    }
+
+    /**
+     * @param int $views
+     */
+    public function setViews($views)
+    {
+        $this->views = $views;
+    }
+
+    /**
+     *
+     */
+    public function addView()
+    {
+        $this->views++;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getHTMLContent()
     {
         return MarkdownExtra::defaultTransform($this->getContent());
