@@ -33,40 +33,8 @@
             {{ render(controller('AppBundle:Widget:tagsWidget', { 'max': 10 })) }}
 
             <!-- Widget Twitter -->
-            <div class="widget-twitter  push-down-30">
-                <h6>Twitter</h6>
-                <a class="twitter-timeline" href="https://twitter.com/devhumanproject" data-widget-id="452057937674915840">Tweets by @DevHumanProject</a>
-                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-            </div>
-
-            <div class="widget-recent-comments  push-down-30">
-                <h6>Recent Comments</h6>
-                <ul>
-                    <li>
-                        Mihael on <a href="single-post.html#comments">ProteusThemes and its products are great</a><br/>
-                    </li>
-                    <li>
-                        Jaka on <a href="single-post.html#comments">Readable is most readable WordPress theme out there</a>
-                    </li>
-                    <li>
-                        Mihael on <a href="single-post.html#comments">Everybody loves Readable</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="social-icons  widget-social-icons  push-down-30">
-                <h6>Social Icons</h6>
-                <a href="#" class="social-icons__container"><span class="zocial-facebook"></span></a>
-                <a href="#" class="social-icons__container"><span class="zocial-twitter"></span></a>
-                <a href="#" class="social-icons__container"><span class="zocial-skype"></span></a>
-                <a href="#" class="social-icons__container"><span class="zocial-youtube"></span></a>
-                <a href="#" class="social-icons__container"><span class="zocial-reddit"></span></a>
-                <a href="#" class="social-icons__container"><span class="zocial-wordpress"></span></a>
-                <a href="#" class="social-icons__container"><span class="zocial-bitbucket"></span></a>
-                <a href="#" class="social-icons__container"><span class="zocial-github"></span></a>
-                <a href="#" class="social-icons__container"><span class="zocial-html5"></span></a>
-                <a href="#" class="social-icons__container"><span class="zocial-meetup"></span></a>
-            </div>
+            {{ render(controller('AppBundle:Widget:twitterWidget')) }}
+            
         </div>
     </div>
 </div>

@@ -51,6 +51,17 @@ class WidgetController extends Controller
     }
 
     /**
+     * @Route("/widget/twitter", name="widget_twitter")
+     */
+    public function twitterWidgetAction()
+    {
+
+        return $this->render(
+            '_widgets/twitter.html.twig'
+        );
+    }
+
+    /**
      * @Route("/widget/tags", name="widget_tags")
      */
     public function tagsWidgetAction()
