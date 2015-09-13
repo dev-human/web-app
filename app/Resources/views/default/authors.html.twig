@@ -13,7 +13,7 @@
                         <div class="widget-author__avatar--blurred">
                             <img src="{{ gravatar(author.email, 90) }}" alt="Avatar image" width="90" height="90">
                         </div>
-                        <img class="widget-author__avatar" src="{{ gravatar(author.email, 90) }}" alt="Avatar image" width="90" height="90">
+                        <a href="{{ path('devhuman_user', {user: author.username}) }}"><img class="widget-author__avatar" src="{{ gravatar(author.email, 90) }}" alt="Avatar image" width="90" height="90"></a>
                     </div>
                     <div class="row">
                         <div class="col-xs-10  col-xs-offset-1">

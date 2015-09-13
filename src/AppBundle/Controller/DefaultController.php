@@ -31,7 +31,7 @@ class DefaultController extends Controller
         $doctrine = $this->getDoctrine();
         $collection = $doctrine->getRepository('AppBundle:Collection')->findOneBySlug($slug);
 
-        return $this->render('default/collection.html.twig', [
+        return $this->render('story/collection.html.twig', [
             'collection' => $collection,
             'stories' => $collection->getStories()
         ]);
@@ -39,12 +39,12 @@ class DefaultController extends Controller
 
     /**
      * Shows an Article
-     * @Route("/stories/{slug}", name="devhuman_show_article")
+     * @Route("/{author}/{slug}", name="devhuman_show_article")
      */
-    public function showArticleAction($slug)
+    public function showArticleAction($author, $slug)
     {
         $doctrine = $this->getDoctrine();
-        $story = $doctrine->getRepository('AppBundle:Story')->findOneBySlug($slug);
+        $story = $doctrine->getRepository('AppBundle:Story')->findOneFromAuthorAndSlug($author, $slug);
 
         if (!$story) {
             throw new NotFoundHttpException("The requested article could not be found.");
@@ -52,7 +52,7 @@ class DefaultController extends Controller
 
         $content = MarkdownExtra::defaultTransform($story->getContent());
 
-        return $this->render('default/article.html.twig', [
+        return $this->render('story/show.html.twig', [
             'story'   => $story,
             'content' => $content,
         ]);
@@ -85,7 +85,7 @@ class DefaultController extends Controller
             throw new NotFoundHttpException("User not found.");
         }
 
-        return $this->render('profile/index.html.twig', [
+        return $this->render('default/profile.html.twig', [
             'user'   => $user
         ]);
     }

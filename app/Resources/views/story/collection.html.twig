@@ -1,0 +1,32 @@
+{% extends 'main.html.twig' %}
+
+{% block title %}{{ collection.name }} ~ devhuman{% endblock %}
+
+{% block body %}
+    <div class="slider">
+        <div class="carousel-inner">
+            <div class="item active">
+                <!-- 1920 x 420 image -->
+                <img src="{{ asset(collection.getImage|default('images/collections/devhuman_collection.jpg')) }}" alt="Slider">
+                <div class="carousel-caption">
+
+                    <div class="slider__container">
+                        <h1 class="slider__title">{{ collection.name }}</h1>
+                        <h3 class="slider__subtitle">{{ collection.description }}</h3>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+    <div class="row">
+    <div class="col-xs-12">
+
+        {% include 'story/loop.html.twig' with { 'stories': stories} %}
+
+    </div></div>
+    </div><!-- container -->
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'main.html.twig' %}
+
+{% block title %}{{ user.name }} (@{{ user.username }}) ~ devhuman{% endblock %}
+
+{% block content %}
+
+    {% if user.stories is defined %}
+        {% include 'story/loop.html.twig' with { 'stories': user.stories} %}
+        {% else %}
+        <p>No content found from this author.</p>
+    {% endif %}
+
+{% endblock %}
+
+{% block sidebar %}
+    <!-- Widget author -->
+    <div class="widget-author  boxed  push-down-30">
+        <div class="widget-author__image-container">
+            <div class="widget-author__avatar--blurred">
+                <img src="{{ gravatar(user.email, 90) }}" alt="Avatar image" width="90" height="90">
+            </div>
+            <img class="widget-author__avatar" src="{{ gravatar(user.email, 90) }}" alt="Avatar image" width="90" height="90">
+        </div>
+        <div class="row">
+            <div class="col-xs-10  col-xs-offset-1">
+                <h4>{{ user.name }}</h4>
+                <p>{{ user.bio }}</p>
+
+                <div class="social-icons center-block" style="float: none">
+                    {% if user.websiteUrl %}<a href="{{ user.websiteUrl }}" title="Website" target="_blank" class="social-icons__container"><span class="glyphicon glyphicon-globe"></span></a>{% endif %}
+                    {% if user.twitterUrl %}<a href="{{ user.twitterUrl }}" title="Twitter" target="_blank" class="social-icons__container"><span class="zocial-twitter"></span></a>{% endif %}
+                    {% if user.githubUrl %}<a href="{{ user.githubUrl }}" title="GitHub" target="_blank" class="social-icons__container"><span class="zocial-github"></span></a>{% endif %}
+                    {% if user.googleplusUrl %}<a href="{{ user.googleplusUrl }}" title="Google Plus" target="_blank" class="social-icons__container"><span class="zocial-googleplus"></span></a>{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

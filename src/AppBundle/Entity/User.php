@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class User
  * @ORM\Entity
+ * @ORM\Table="dh_user"
  */
 class User
 {

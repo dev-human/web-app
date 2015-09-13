@@ -1,0 +1,53 @@
+{% if stories is defined %}
+    {% for story in stories %}
+        <div class="boxed  push-down-45">
+            <div class="meta">
+                <div class="row">
+                    <div class="col-xs-12  col-sm-10  col-sm-offset-1">
+                        <div class="meta__container--without-image">
+                            <div class="row">
+                                <div class="col-xs-12  col-sm-8">
+                                    <div class="meta__info">
+                    <span class="meta__author">
+                      <a href="{{ path('devhuman_user', {user: story.author.username}) }}" title="{{ story.author.name }}'s Profile"><img src="{{ gravatar(story.author.email, 30) }}" alt="{{ story.author.name }}" width="30" height="30"></a> <a href="{{ path('devhuman_user', {user: story.author.username}) }}" title="{{ story.author.name }}'s Profile">{{ story.author.name }}</a>
+                        {% if story.collections %}in
+                            {% for collection in story.collections %}
+                                {% if loop.index != 1 %}, {% endif %}<a href="#">{{ collection.name }}</a>
+                            {% endfor %}
+                      {% endif %}</span>
+                                        <span class="meta__date"><span class="glyphicon glyphicon-calendar"></span> &nbsp; {{ story.created|date('F d, Y') }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12  col-sm-4">
+                                    <div class="meta__comments">
+                                        <span class="glyphicon glyphicon-comment"></span> &nbsp; <a href="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}#disqus_thread"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Meta without image end -->
+            <!-- Start of the blogpost -->
+            <div class="row">
+                <div class="col-xs-10  col-xs-offset-1">
+                    <!-- Start of the content -->
+                    <div class="post-content--front-page">
+                        <h2 class="front-page-title"><a href="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}">{{ story.title }}</a></h2>
+                        <p>{{ story.preview|default(story.getHTMLContent()|striptags|truncate(240)) }}</p>
+                    </div>
+                    <!-- End of the content -->
+                    <a href="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}">
+                        <div class="read-more">
+                            Continue reading
+                            <div class="read-more__arrow">
+                                <span class="glyphicon  glyphicon-chevron-right"></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
