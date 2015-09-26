@@ -25,8 +25,8 @@ parameters:
     key_cache_topstories: devhuman_topstories
 
     github_settings:
-        client_id: 1ef6a79cebfbfcf5060e
-        client_secret: 8cd89363e90a26fea6b1581a40c6bdd15a6ef550
+        client_id: ~
+        client_secret: ~
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
