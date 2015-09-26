@@ -21,7 +21,12 @@ parameters:
         port: 6379
 
     key_cache_collections: devhuman_collections
+    key_cache_tags: devhuman_tags
     key_cache_topstories: devhuman_topstories
+
+    github_settings:
+        client_id: 1ef6a79cebfbfcf5060e
+        client_secret: 8cd89363e90a26fea6b1581a40c6bdd15a6ef550
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt

@@ -79,3 +79,16 @@ stof_doctrine_extensions:
         default:
             sluggable: true
             timestampable: true
+
+heidi_labs_sauth:
+    user_class: AppBundle\Entity\User #this is the default value
+    credentials_class: AppBundle\Entity\Credentials #this is the default value
+    allow_registration: true #this is true by default
+    services:
+        github:
+            class: HeidiLabs\SauthBundle\OAuthService\GithubService
+            config:
+                client_name: APPNAME
+                client_id: YOUR_GOOGLE_API_CLIENT_ID
+                client_secret: YOUR_GOOGLE_API_CLIENT_SECRET
+                callback_url: http://allowed_callback

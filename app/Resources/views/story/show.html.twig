@@ -18,7 +18,7 @@
                                     <span class="meta__author"><img src="{{ gravatar(story.author.email, 30) }}" alt="Meta avatar" width="30" height="30"> <a href="#">{{ story.author.name }}</a>
                                         {% if story.collections %}in
                                             {% for collection in story.collections %}
-                                                {% if loop.index != 1 %}, {% endif %}<a href="#">{{ collection.name }}</a>
+                                                {% if loop.index != 1 %}, {% endif %}<a href="{{ path('devhuman_collection', {slug: collection.slug}) }}" title="See all articles under {{ collection.name }}">{{ collection.name }}</a>
                                             {% endfor %}
                                         {% endif %}
                                     </span>
@@ -48,11 +48,13 @@
                 <!-- End of the content -->
                 <div class="row">
                     <div class="col-xs-12  col-sm-6">
-                        <!-- Start of comments button -->
-                        <div class="post-comments">
-                            <a class="btn  btn-primary" href="#disqus_thread"></a>
-                        </div>
-                        <!-- End of comments button -->
+                        {% if story.commentsEnabled %}
+                            <!-- Start of comments button -->
+                            <div class="post-comments">
+                                <a class="btn  btn-primary" href="#disqus_thread">Leave a Comment</a>
+                            </div>
+                            <!-- End of comments button -->
+                        {% endif %}
                     </div>
                     <div class="col-xs-12  col-sm-6">
                         <!-- Start of social icons -->
@@ -100,6 +102,7 @@
                     </div>
                 </div>
 
+                {% if story.commentsEnabled %}
                 <div class="disqus-comments push-down-45">
                     <div id="disqus_thread"></div>
                     <script type="text/javascript">
@@ -116,27 +119,27 @@
                     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
                     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
                 </div>
+                {% endif %}
 
+                    <!-- Start of related stories -->
+                    <div class="related-stories">
+                        <h6>Related Stories</h6>
+                        <hr>
+                        <h4><a href="#">Thoughts on Apple Design</a></h4>
+                        <h5>Why Apple's tech is so much better than everyone else's.</h5>
+                        <hr />
+                        <h4><a href="#">10 Things I Know About Being Happy</a></h4>
+                        <h5>Why Google's tech is so much better than everyone else's.</h5>
+                        <hr />
+                        <h4><a href="#">Taking Time to Reflect on Your Life Journey</a></h4>
+                        <h5>Why Microsoft's tech is so much better than everyone else's.</h5>
+                    </div>
+                    <!-- End of related stories -->
 
-                <!-- Start of related stories -->
-                <div class="related-stories">
-                    <h6>Related Stories</h6>
-                    <hr>
-                    <h4><a href="#">Thoughts on Apple Design</a></h4>
-                    <h5>Why Apple's tech is so much better than everyone else's.</h5>
-                    <hr />
-                    <h4><a href="#">10 Things I Know About Being Happy</a></h4>
-                    <h5>Why Google's tech is so much better than everyone else's.</h5>
-                    <hr />
-                    <h4><a href="#">Taking Time to Reflect on Your Life Journey</a></h4>
-                    <h5>Why Microsoft's tech is so much better than everyone else's.</h5>
                 </div>
-                <!-- End of related stories -->
-
             </div>
+            <!-- End of the blogpost -->
         </div>
-        <!-- End of the blogpost -->
     </div>
-</div>
 
 {% endblock %}

@@ -16,7 +16,7 @@ class WidgetController extends Controller
      */
     public function collectionsWidgetAction()
     {
-        $collections = $this->get('redis')->getSerializedCache($this->getParameter('key_cache_collections'));
+        $collections = $this->get('cache')->fetch($this->getParameter('key_cache_collections'));
 
         return $this->render(
             '_widgets/collections.html.twig',
@@ -66,11 +66,13 @@ class WidgetController extends Controller
      */
     public function tagsWidgetAction()
     {
+        $tags = $this->get('cache')->fetch($this->getParameter('key_cache_tags'));
 
         return $this->render(
             '_widgets/tags.html.twig',
             [
-                'tags' => ''            ]
+                'tags' => $tags
+            ]
         );
     }
 
@@ -80,6 +82,8 @@ class WidgetController extends Controller
      */
     public function topPostsAction($max = 3)
     {
+        //$topPosts = $this->get('redis')->getSerializedCache($this->getParameter('key_cache_topstories'));
+
         $topPosts = $this->getDoctrine()->getRepository('AppBundle:Story')->findTopPosts($max);
         $recentPosts = $this->getDoctrine()->getRepository('AppBundle:Story')->findRecentPosts($max);
 

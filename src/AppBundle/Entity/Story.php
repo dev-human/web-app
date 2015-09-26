@@ -56,6 +56,24 @@ class Story
     protected $content;
 
     /**
+     * @var bool Published
+     * @ORM\Column(type="boolean")
+     */
+    protected $published = 0;
+
+    /**
+     * @var bool Featured
+     * @ORM\Column(type="boolean")
+     */
+    protected $featured = 0;
+
+    /**
+     * @var bool Comments Enabled (default yes)
+     * @ORM\Column(type="boolean")
+     */
+    protected $commentsEnabled = 1;
+
+    /**
      * @var \DateTime $created
      *
      * @Gedmo\Timestampable(on="create")
@@ -298,5 +316,53 @@ class Story
     public function getHTMLContent()
     {
         return MarkdownExtra::defaultTransform($this->getContent());
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isPublished()
+    {
+        return $this->published;
+    }
+
+    /**
+     * @param boolean $published
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isFeatured()
+    {
+        return $this->featured;
+    }
+
+    /**
+     * @param boolean $featured
+     */
+    public function setFeatured($featured)
+    {
+        $this->featured = $featured;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function commentsEnabled()
+    {
+        return $this->commentsEnabled;
+    }
+
+    /**
+     * @param boolean $value
+     */
+    public function setCommentsEnabled($value)
+    {
+        $this->commentsEnabled = $value;
     }
 }

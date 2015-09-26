@@ -24,7 +24,9 @@
         "michelf/php-markdown": "^1.5",
         "symfony/yaml": "^2.7",
         "twig/extensions": "^1.2",
-        "predis/predis": "^1.0"
+        "predis/predis": "^1.0",
+        "knplabs/github-api": "^1.4",
+        "heidilabs/sauth-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
@@ -62,5 +64,7 @@
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

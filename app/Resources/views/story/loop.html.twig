@@ -12,7 +12,7 @@
                       <a href="{{ path('devhuman_user', {user: story.author.username}) }}" title="{{ story.author.name }}'s Profile"><img src="{{ gravatar(story.author.email, 30) }}" alt="{{ story.author.name }}" width="30" height="30"></a> <a href="{{ path('devhuman_user', {user: story.author.username}) }}" title="{{ story.author.name }}'s Profile">{{ story.author.name }}</a>
                         {% if story.collections %}in
                             {% for collection in story.collections %}
-                                {% if loop.index != 1 %}, {% endif %}<a href="#">{{ collection.name }}</a>
+                                {% if loop.index != 1 %}, {% endif %}<a href="{{ path('devhuman_collection', {slug: collection.slug}) }}" title="See all articles under {{ collection.name }}">{{ collection.name }}</a>
                             {% endfor %}
                       {% endif %}</span>
                                         <span class="meta__date"><span class="glyphicon glyphicon-calendar"></span> &nbsp; {{ story.created|date('F d, Y') }}</span>
@@ -35,12 +35,16 @@
                     <!-- Start of the content -->
                     <div class="post-content--front-page">
                         <h2 class="front-page-title"><a href="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}">{{ story.title }}</a></h2>
-                        <p>{{ story.preview|default(story.getHTMLContent()|striptags|truncate(240)) }}</p>
+                        {% if show_full is defined %}
+                            {{ story.getHTMLContent()|raw }}
+                        {% else %}
+                            <p>{{ story.preview|default(story.getHTMLContent()|striptags|truncate(240)) }}</p>
+                        {% endif %}
                     </div>
                     <!-- End of the content -->
                     <a href="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}">
                         <div class="read-more">
-                            Continue reading
+                            Comment and Share
                             <div class="read-more__arrow">
                                 <span class="glyphicon  glyphicon-chevron-right"></span>
                             </div>

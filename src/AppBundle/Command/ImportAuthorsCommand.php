@@ -52,6 +52,7 @@ class ImportAuthorsCommand extends ContainerAwareCommand
             $user->setGithubUrl(isset($info['github']) ? $info['github'] : "");
             $user->setTwitterUrl(isset($info['twitter']) ? $info['twitter'] : "");
             $user->setGooglePlusUrl(isset($info['googleplus']) ? $info['googleplus'] : "");
+            $user->setRoles(['ROLE_USER']);
 
             $em->persist($user);
         }

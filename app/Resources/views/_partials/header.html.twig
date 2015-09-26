@@ -27,7 +27,7 @@
                     </li>
 
                     <li class="dropdown">
-                        <a href="single-post.html" class="dropdown-toggle" data-toggle="dropdown">Collections</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Collections</a>
                         <ul class="navigation__dropdown">
                             {% for collection in collection_list %}
                                 <li><a href="{{ path('devhuman_collection', {slug: collection.slug}) }}" title="See all posts under the '{{ collection.name }}' Collection">{{ collection.name }}</a></li>
@@ -41,11 +41,11 @@
                     </li>
 
                     <li class="">
-                        <a href="about-us.html" class="dropdown-toggle" data-toggle="dropdown">About</a>
+                        <a href="{{ path('devhuman_about') }}" class="dropdown-toggle" data-toggle="dropdown">About</a>
                     </li>
 
                     <li class="">
-                        <a href="contact.html" class="dropdown-toggle" data-toggle="dropdown">Contact</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contact</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->

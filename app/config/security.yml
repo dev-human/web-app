@@ -2,23 +2,28 @@
 # http://symfony.com/doc/current/book/security.html
 security:
 
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
     providers:
-        in_memory:
-            memory: ~
+        sauth.user_manager:
+            id: sauth.user_manager
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
         main:
-            anonymous: ~
-            # activate different ways to authenticate
+            pattern: ^/
+            anonymous: true
+            stateless: false
+            simple_preauth:
+                authenticator: sauth.authenticator
+            provider: sauth.user_manager
+            logout:
+                path: /logout
+                target: /
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/home, roles: ROLE_USER }
+        - { path: ^/submit, roles: ROLE_USER }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class DefaultController extends Controller
 {
     /**
+     * Index
      * @Route("/", name="devhuman_homepage")
      */
     public function indexAction(Request $request)
@@ -57,8 +58,8 @@ class DefaultController extends Controller
         $doctrine->getManager()->flush();
 
         return $this->render('story/show.html.twig', [
-            'story'   => $story,
-            'content' => $content,
+            'story'    => $story,
+            'content'  => $content,
         ]);
     }
 
@@ -74,6 +75,15 @@ class DefaultController extends Controller
         return $this->render('default/authors.html.twig', [
             'authors'   => $authors
         ]);
+    }
+
+    /**
+     * Shows About page
+     * @Route("/about", name="devhuman_about")
+     */
+    public function aboutAction()
+    {
+        return $this->render('default/about.html.twig');
     }
 
     /**
