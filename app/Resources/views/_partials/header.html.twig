@@ -21,11 +21,11 @@
             <div class="collapse  navbar-collapse" id="readable-navbar-collapse">
                 <ul class="navigation">
 
-                    <li class="dropdown  active">
+                    <li class="dropdown  {% if active is defined and active == 'homepage' %} active{% endif %}">
                         <a href="{{ path('devhuman_homepage') }}" class="dropdown-toggle" data-toggle="dropdown">Home</a>
                     </li>
 
-                    <li class="dropdown">
+                    <li class="dropdown {% if active is defined and active == 'collections' %} active{% endif %}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Collections</a>
                         <ul class="navigation__dropdown">
                             {% for collection in collection_list %}
@@ -35,15 +35,15 @@
 
                     </li>
 
-                    <li class="">
+                    <li class="{% if active is defined and active == 'authors' %} active{% endif %}">
                         <a href="{{ path('devhuman_authors') }}" class="dropdown-toggle" data-toggle="dropdown">Authors</a>
                     </li>
 
-                    <li class="">
+                    <li class="{% if active is defined and active == 'about' %} active{% endif %}">
                         <a href="{{ path('devhuman_page', {page: 'about'}) }}" class="dropdown-toggle" data-toggle="dropdown">About</a>
                     </li>
 
-                    <li class="">
+                    <li class="{% if active is defined and active == 'contact' %} active{% endif %}">
                         <a href="{{ path('devhuman_page', {page: 'contact'}) }}" class="dropdown-toggle" data-toggle="dropdown">Contact</a>
                     </li>
                 </ul>
@@ -69,7 +69,7 @@
                         <img src="{{ gravatar(app.user.email, 30) }}" class="img-circle" alt="Meta avatar" width="30" height="30">
                     </a>
                     <ul class="social__dropdown">
-                        <li><a href="#" class="social__container">My Stuff</a></li>
+                        <li><a href="{{ path('devhuman_userhome') }}" class="social__container">My Stuff</a></li>
                         <li><a href="{{ path('sauth_logout') }}" class="social__container">Logout</a></li>
                     </ul>
                 </div>

@@ -69,7 +69,7 @@ class DefaultController extends Controller
 
     /**
      * Show the User/Author Profile
-     * @Route("/{user}", name="devhuman_user")
+     * @Route("/~{user}", name="devhuman_user")
      */
     public function userProfileAction($user)
     {

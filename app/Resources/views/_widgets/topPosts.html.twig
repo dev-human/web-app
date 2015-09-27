@@ -9,21 +9,29 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div class="tab-pane  fade  in  active" id="recent-posts">
-            {% for story in recentPosts %}
-            <div class="push-down-15">
-                <h5><a href="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}" title="{{ story.title }}">{{ story.title }}</a></h5>
-                <span class="widget-posts__time">19 hours ago</span>
-            </div>
-            {% endfor %}
-        </div>
-        <div class="tab-pane  fade" id="popular-posts">
-            {% for story in topPosts %}
+            {% if recentPosts is defined and recentPosts %}
+                {% for story in recentPosts %}
                 <div class="push-down-15">
-                    <img src="{{ asset('images/dummy-licensed/blog-image-small.jpg')}}" alt="Posts">
                     <h5><a href="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}" title="{{ story.title }}">{{ story.title }}</a></h5>
                     <span class="widget-posts__time">19 hours ago</span>
                 </div>
-            {% endfor %}
+                {% endfor %}
+                {% else %}
+                <p>No Recent stories at the moment, sorry...</p>
+            {% endif %}
+        </div>
+        <div class="tab-pane  fade" id="popular-posts">
+            {% if topPosts is defined and topPosts %}
+                {% for story in topPosts %}
+                    <div class="push-down-15">
+                        <img src="{{ asset('images/dummy-licensed/blog-image-small.jpg')}}" alt="Posts">
+                        <h5><a href="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}" title="{{ story.title }}">{{ story.title }}</a></h5>
+                        <span class="widget-posts__time">19 hours ago</span>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No Popular Stories at the moment, sorry...</p>
+            {% endif %}
         </div>
     </div>
 </div>
