@@ -85,9 +85,9 @@ class WidgetController extends Controller
      */
     public function topPostsAction($max = 3)
     {
-        //$topPosts = $this->get('redis')->getSerializedCache($this->getParameter('key_cache_topstories'));
+        $topPosts = $this->get('cache')->fetch($this->getParameter('key_cache_topstories'));
 
-        $topPosts = $this->getDoctrine()->getRepository('AppBundle:Story')->findTopPosts($max);
+        //$topPosts = $this->getDoctrine()->getRepository('AppBundle:Story')->findTopPosts($max);
         $recentPosts = $this->getDoctrine()->getRepository('AppBundle:Story')->findRecentPosts($max);
 
         return $this->render(
