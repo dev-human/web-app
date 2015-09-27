@@ -1,0 +1,13 @@
+{% if relatedPosts is defined and relatedPosts %}
+    <!-- Start of related stories -->
+    <div class="related-stories">
+        <h6>Related Stories</h6>
+        {% for story in relatedPosts %}
+            <hr>
+            <h4><a href="#">{{ story.title }}</a></h4>
+            <h5>{{ story.preview }}</h5>
+        {% endfor %}
+    </div>
+    <!-- End of related stories -->
+
+{% endif %}

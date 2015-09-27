@@ -121,20 +121,8 @@
                 </div>
                 {% endif %}
 
-                    <!-- Start of related stories -->
-                    <div class="related-stories">
-                        <h6>Related Stories</h6>
-                        <hr>
-                        <h4><a href="#">Thoughts on Apple Design</a></h4>
-                        <h5>Why Apple's tech is so much better than everyone else's.</h5>
-                        <hr />
-                        <h4><a href="#">10 Things I Know About Being Happy</a></h4>
-                        <h5>Why Google's tech is so much better than everyone else's.</h5>
-                        <hr />
-                        <h4><a href="#">Taking Time to Reflect on Your Life Journey</a></h4>
-                        <h5>Why Microsoft's tech is so much better than everyone else's.</h5>
-                    </div>
-                    <!-- End of related stories -->
+                <!-- Widget Related Stories -->
+                {{ render(controller('AppBundle:Widget:relatedPostsWidget', { 'post': story, 'max': 3 })) }}
 
                 </div>
             </div>

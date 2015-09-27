@@ -52,6 +52,25 @@ class StoryRepository extends EntityRepository
             ->getResult();
     }
 
+    public function findFeaturedPost()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        $result = $qb->select('s')
+            ->from('AppBundle:Story', 's')
+            ->where('s.featured = 1')
+            ->orderBy('s.created', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult();
+
+        if (count($result)) {
+            return $result[0];
+        }
+
+        return null;
+    }
+
     public function findRecentPosts($limit = 3)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
@@ -62,5 +81,16 @@ class StoryRepository extends EntityRepository
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * Improve this :)
+     * @param int $post Post ID
+     * @param int $limit
+     * @return array
+     */
+    public function findRelatedPosts($post, $limit = 3)
+    {
+        return $this->findRecentPosts($limit);
     }
 }

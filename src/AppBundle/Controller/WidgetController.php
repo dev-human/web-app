@@ -31,11 +31,13 @@ class WidgetController extends Controller
      */
     public function featuredPostWidgetAction()
     {
+        $featured = $this->getDoctrine()->getRepository('AppBundle:Story')->findFeaturedPost();
 
         return $this->render(
             '_widgets/featured.html.twig',
             [
-                'featured' => ''            ]
+                'featured' => $featured
+            ]
         );
     }
 
@@ -86,8 +88,6 @@ class WidgetController extends Controller
     public function topPostsAction($max = 3)
     {
         $topPosts = $this->get('cache')->fetch($this->getParameter('key_cache_topstories'));
-
-        //$topPosts = $this->getDoctrine()->getRepository('AppBundle:Story')->findTopPosts($max);
         $recentPosts = $this->getDoctrine()->getRepository('AppBundle:Story')->findRecentPosts($max);
 
         return $this->render(
@@ -95,6 +95,24 @@ class WidgetController extends Controller
             [
                 'topPosts'    => $topPosts,
                 'recentPosts' => $recentPosts
+            ]
+        );
+    }
+
+    /**
+     * @param $post
+     * @param int $max
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/widget/relatedPosts/{post}", name="widget_relatedPosts")
+     */
+    public function relatedPostsWidgetAction($post, $max = 3)
+    {
+        $relatedPosts = $this->getDoctrine()->getRepository('AppBundle:Story')->findRelatedPosts($post, $max);
+
+        return $this->render(
+            '_widgets/relatedPosts.html.twig',
+            [
+                'relatedPosts'    => $relatedPosts
             ]
         );
     }
