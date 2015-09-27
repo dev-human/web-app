@@ -25,8 +25,8 @@
         "symfony/yaml": "^2.7",
         "twig/extensions": "^1.2",
         "predis/predis": "^1.0",
-        "knplabs/github-api": "^1.4",
-        "heidilabs/sauth-bundle": "dev-master"
+        "heidilabs/sauth-bundle": "dev-master",
+        "guzzlehttp/guzzle": "^6.1@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

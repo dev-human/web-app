@@ -16,7 +16,6 @@
             </button>
         </div>
 
-
         <nav class="navbar  navbar-default" role="navigation">
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse  navbar-collapse" id="readable-navbar-collapse">
@@ -41,16 +40,15 @@
                     </li>
 
                     <li class="">
-                        <a href="{{ path('devhuman_about') }}" class="dropdown-toggle" data-toggle="dropdown">About</a>
+                        <a href="{{ path('devhuman_page', {page: 'about'}) }}" class="dropdown-toggle" data-toggle="dropdown">About</a>
                     </li>
 
                     <li class="">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contact</a>
+                        <a href="{{ path('devhuman_page', {page: 'contact'}) }}" class="dropdown-toggle" data-toggle="dropdown">Contact</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
-
 
         <div class="hidden-xs  hidden-sm">
             <a href="#" class="search__container  js--toggle-search-mode">
@@ -65,7 +63,21 @@
                     <li><a href="https://twitter.com/devhumanproject" target="_blank" class="social__container"><span class="zocial-twitter"></span></a></li>
                 </ul>
             </div>
+            {% if app.user and is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <div class="social">
+                    <a href="#" class="social__container">
+                        <img src="{{ gravatar(app.user.email, 30) }}" class="img-circle" alt="Meta avatar" width="30" height="30">
+                    </a>
+                    <ul class="social__dropdown">
+                        <li><a href="#" class="social__container">My Stuff</a></li>
+                        <li><a href="{{ path('sauth_logout') }}" class="social__container">Logout</a></li>
+                    </ul>
+                </div>
+            {% else %}
+                <a href="{{ path('sauth_connect', {service: 'github'}) }}" class="social__container" title="Log In with Github">
+                    <span class="glyphicon  glyphicon-log-in"></span> Log In
+                </a>
+            {% endif %}
         </div>
-
     </div>
 </header>

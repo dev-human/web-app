@@ -1,0 +1,49 @@
+---
+- hosts: devhuman-prod
+  user: "{{ app.system_user }}"
+  vars:
+    repository: 'git@github.com:dev-human/web-app.git'
+    deps: [ 'acl' ]
+  vars_prompt:
+    - name: deploy_version
+      default: master
+      prompt: "Tag, Branch or Hash to deploy"
+      private: no
+
+  tasks:
+    - name: Install dependencies
+      apt: pkg={{ item }} state=latest
+      sudo: yes
+      with_items: deps
+
+    - name: Make sure docroot directory exists
+      sudo: yes
+      file: path={{ app.docroot }} state=directory owner={{ app.system_user }} group={{ app.system_user }}
+
+    - name: Set Maintenance Page
+      shell: cp {{ nginx.docroot }}/maintenance/maintenance.html {{ nginx.docroot }}/maintenance.html
+      ignore_errors: true
+
+    - name: Checkout code
+      git: repo={{ repository }} dest={{ app.docroot }} accept_hostkey=true version={{ deploy_version }}
+
+    - name: Make sure config.yml is in place
+      template: src=roles/app/templates/config.yml.tpl dest={{ app.docroot }}/app/config/config.yml
+
+    - name: Self-update Composer
+      sudo: yes
+      shell: /usr/local/bin/composer self-update
+
+    - name: Run Composer
+      shell: /usr/local/bin/composer install --no-dev --no-progress --prefer-dist chdir={{ app.docroot }}
+
+    - name: Read ACLs for web_user
+      sudo: yes
+      shell: 'setfacl -Rn -m u:"{{ app.web_user }}":rX -m d:u:"{{ app.web_user }}":rX {{ app.docroot }}'
+
+    - name: Read and Write ACLs for shell user
+      sudo: yes
+      shell: 'setfacl -Rn -m u:"{{ app.system_user }}":rwX -m d:u:"{{ app.system_user }}":rwX {{ app.docroot }}'
+
+    - name: Remove maintenance page
+      file: path="{{ nginx.docroot }}/maintenance.html" state=absent

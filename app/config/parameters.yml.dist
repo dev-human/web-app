@@ -24,9 +24,5 @@ parameters:
     key_cache_tags: devhuman_tags
     key_cache_topstories: devhuman_topstories
 
-    github_settings:
-        client_id: ~
-        client_secret: ~
-
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt

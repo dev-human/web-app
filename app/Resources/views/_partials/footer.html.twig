@@ -9,15 +9,7 @@
             </div>
         </div>
         <div class="col-xs-12  col-md-3">
-            <div class="tags  widget-tags">
-                <h6>Tags</h6>
-                <hr>
-                <a href="#" class="tags__link">Tech</a>
-                <a href="#" class="tags__link">Web</a>
-                <a href="#" class="tags__link">UI/UX</a>
-                <a href="#" class="tags__link">Tutorials</a>
-                <a href="#" class="tags__link">Workflow</a>
-            </div>
+            {{ render(controller('AppBundle:Widget:tagsWidget', { 'max': 4 })) }}
         </div>
         <div class="col-xs-12  col-md-3">
             <nav class="widget-navigation  push-down-30">

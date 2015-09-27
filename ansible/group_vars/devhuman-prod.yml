@@ -1,0 +1,24 @@
+---
+server:
+    install: '1'
+    packages: [vim, git, fail2ban]
+    timezone: Europe/Amsterdam
+    locale: en_US.UTF-8
+app:
+    system_user: erika
+    web_user: www-data
+    docroot: /var/www/devhuman
+vagrant_local:
+    install: '0'
+nginx:
+    install: '1'
+    docroot: /var/www/devhuman/web
+    servername: dev-human.io
+mysql:
+    install: '1'
+    root_password: d3vHu!m4n0ID
+    database: devhuman
+    user: devhuman
+    password: D3V!hUm4n8@
+    dump: ''
+

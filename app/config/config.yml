@@ -88,7 +88,7 @@ heidi_labs_sauth:
         github:
             class: HeidiLabs\SauthBundle\OAuthService\GithubService
             config:
-                client_name: APPNAME
-                client_id: YOUR_GOOGLE_API_CLIENT_ID
-                client_secret: YOUR_GOOGLE_API_CLIENT_SECRET
-                callback_url: http://allowed_callback
+                client_name: dev-human
+                client_id: 34f21becacd88ed7ac9c
+                client_secret: 4b40fe7399ff38b75a3af0c1a7c29f78fae8523d
+                callback_url: http://dev.dev-human.com/app_dev.php/connect/github

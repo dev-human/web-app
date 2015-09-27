@@ -23,15 +23,3 @@ services:
   cache:
         class: AppBundle\Service\RedisCacheService
         arguments: ["@redis"]
-
-  github:
-      class: AppBundle\Service\GithubService
-      arguments: ["%github_settings%","@request_stack", "@session" ]
-
-  github.authenticator:
-      class: AppBundle\Security\GithubAuthenticator
-      public: false
-      arguments: ["@github"]
-
-  github.user_provider:
-      class: AppBundle\Security\GithubUserProvider

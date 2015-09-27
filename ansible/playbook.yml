@@ -1,8 +1,6 @@
 ---
 - hosts: all
   sudo: true
-  vars_files:
-    - vars/all.yml
   roles:
     - server
     - vagrant_local

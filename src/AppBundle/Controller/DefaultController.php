@@ -39,6 +39,53 @@ class DefaultController extends Controller
     }
 
     /**
+     * Lists the Authors
+     * @Route("/authors", name="devhuman_authors")
+     */
+    public function authorsAction()
+    {
+        $doctrine = $this->getDoctrine();
+        $authors = $doctrine->getRepository('AppBundle:User')->findAll();
+
+        return $this->render('default/authors.html.twig', [
+            'authors'   => $authors
+        ]);
+    }
+
+    /**
+     * Shows Static Pages
+     * @Route("/p/{page}", name="devhuman_page")
+     */
+    public function pagesAction($page)
+    {
+        $template = "pages/$page.html.twig";
+
+        if (!$this->get('templating')->exists($template)) {
+            throw new NotFoundHttpException("The requested content could not be found.");
+        }
+
+        return $this->render($template);
+    }
+
+    /**
+     * Show the User/Author Profile
+     * @Route("/{user}", name="devhuman_user")
+     */
+    public function userProfileAction($user)
+    {
+        $doctrine = $this->getDoctrine();
+        $user = $doctrine->getRepository('AppBundle:User')->findOneByUsername($user);
+
+        if (!$user) {
+            throw new NotFoundHttpException("User not found.");
+        }
+
+        return $this->render('default/profile.html.twig', [
+            'user'   => $user
+        ]);
+    }
+
+    /**
      * Shows an Article
      * @Route("/{author}/{slug}", name="devhuman_show_article")
      */
@@ -60,47 +107,6 @@ class DefaultController extends Controller
         return $this->render('story/show.html.twig', [
             'story'    => $story,
             'content'  => $content,
-        ]);
-    }
-
-    /**
-     * Lists the Authors
-     * @Route("/authors", name="devhuman_authors")
-     */
-    public function authorsAction()
-    {
-        $doctrine = $this->getDoctrine();
-        $authors = $doctrine->getRepository('AppBundle:User')->findAll();
-
-        return $this->render('default/authors.html.twig', [
-            'authors'   => $authors
-        ]);
-    }
-
-    /**
-     * Shows About page
-     * @Route("/about", name="devhuman_about")
-     */
-    public function aboutAction()
-    {
-        return $this->render('default/about.html.twig');
-    }
-
-    /**
-     * Show the User/Author Profile
-     * @Route("/{user}", name="devhuman_user")
-     */
-    public function userProfileAction($user)
-    {
-        $doctrine = $this->getDoctrine();
-        $user = $doctrine->getRepository('AppBundle:User')->findOneByUsername($user);
-
-        if (!$user) {
-            throw new NotFoundHttpException("User not found.");
-        }
-
-        return $this->render('default/profile.html.twig', [
-            'user'   => $user
         ]);
     }
 }
