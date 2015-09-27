@@ -81,6 +81,7 @@ stof_doctrine_extensions:
             timestampable: true
 
 heidi_labs_sauth:
+    home: devhuman_homepage #route name for the app entry point when the user is logged in (redirect after successfull auth)
     user_class: AppBundle\Entity\User #this is the default value
     credentials_class: AppBundle\Entity\Credentials #this is the default value
     allow_registration: true #this is true by default
