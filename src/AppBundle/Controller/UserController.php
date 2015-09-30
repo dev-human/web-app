@@ -5,8 +5,12 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Exception\StoryNotFoundException;
+use AppBundle\Exception\UnauthorizedException;
+use AppBundle\Form\StoryType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
 {
@@ -19,7 +23,7 @@ class UserController extends Controller
     {
         $user = $this->getUser();
 
-        return $this->render('default/home.html.twig', [
+        return $this->render('user/home.html.twig', [
             'user'   => $user
         ]);
     }

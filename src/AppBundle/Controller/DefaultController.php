@@ -84,29 +84,4 @@ class DefaultController extends Controller
             'user'   => $user
         ]);
     }
-
-    /**
-     * Shows an Article
-     * @Route("/{author}/{slug}", name="devhuman_show_article")
-     */
-    public function showArticleAction($author, $slug)
-    {
-        $doctrine = $this->getDoctrine();
-        $story = $doctrine->getRepository('AppBundle:Story')->findOneFromAuthorAndSlug($author, $slug);
-
-        if (!$story) {
-            throw new NotFoundHttpException("The requested article could not be found.");
-        }
-
-        $content = MarkdownExtra::defaultTransform($story->getContent());
-
-        $story->addView();
-        $doctrine->getManager()->persist($story);
-        $doctrine->getManager()->flush();
-
-        return $this->render('story/show.html.twig', [
-            'story'    => $story,
-            'content'  => $content,
-        ]);
-    }
 }

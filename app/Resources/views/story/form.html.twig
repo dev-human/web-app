@@ -1,0 +1,134 @@
+{% extends 'main.html.twig' %}
+
+{% block title %}edit/new story ~ dev-human{% endblock %}
+
+
+{% block body %}
+
+    <div class="container">
+        <div class="boxed  push-down-60">
+
+            <!-- Start of the content -->
+            <div class="story-form">
+
+                {{ form_start(form) }}
+
+                <div class="form-group">
+                    {{ form_widget(form.title, {id: 'content-title', attr: {class: 'input-lg story-title'}}) }}
+                </div>
+
+                <div class="editor-buttons">
+                    <ul class="editor-menu-buttons">
+                        <li><a href="#" id="button-write" onclick="edit()" class="active"><span class="glyphicon glyphicon-pencil"></span> Write</a></li>
+                        <li><a href="#" id="button-preview" onclick="preview()"><span class="glyphicon glyphicon-eye-open"></span> Preview</a></li>
+
+                    </ul>
+
+                    <ul class="editor-menu-floating">
+                        <li><li><a class="save" href="#" id="button-preview" onclick="preview()"><span class="glyphicon glyphicon-save"></span> Save Story</a></li></li>
+                        <li><li><a class="save" href="#" id="button-preview" onclick="preview()"><span class="glyphicon glyphicon-resize-full"></span> Full Screen</a></li></li>
+                    </ul>
+                </div>
+
+                <div class="editor-content tab-pane active" id="editor-content">
+                    <div id="epiceditor"></div>
+                    {{ form_widget(form.content, {id: 'epic-editor-content', attr: {class: 'input-lg', placeholder: 'Content'}}) }}
+                </div>
+                <div class="editor-preview tab-pane" id="editor-preview">
+                </div>
+
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+
+                <div class="form-group text-center">
+                    <button class="btn btn-lg btn-primary">Save Story</button>
+                </div>
+
+            </div>
+            <!-- End of the blogpost -->
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset('assets/epic/js/epiceditor.min.js') }}"></script>
+
+    <script type="text/javascript">
+        var editor;
+
+        var opts = {
+            container: 'epiceditor',
+            textarea: 'epic-editor-content',
+            basePath: '/assets/css',
+            clientSideStorage: true,
+            localStorageName: 'epiceditor',
+            useNativeFullscreen: true,
+            parser: marked,
+            file: {
+                name: 'epiceditor',
+                defaultContent: '',
+                autoSave: 100
+            },
+            theme: {
+                base: '/epic/base.css',
+                preview: '/epic/preview.css',
+                editor: '/epic/editor.css'
+            },
+            button: {
+                preview: true,
+                fullscreen: true,
+                bar: "auto"
+            },
+            focusOnLoad: false,
+            shortcut: {
+                modifier: 18,
+                fullscreen: 70,
+                preview: 80
+            },
+            string: {
+                togglePreview: 'Toggle Preview Mode',
+                toggleEdit: 'Toggle Edit Mode',
+                toggleFullscreen: 'Enter Fullscreen'
+            },
+            autogrow: true
+        };
+
+        $(function() {
+            editor = new EpicEditor(opts);
+            editor.load();
+        });
+
+        function preview() {
+            $('#button-write').removeClass('active');
+            $('#button-preview').addClass('active');
+
+            var title = $('#content-title').val();
+            var content = $('#epic-editor-content').val();
+
+            $.post("{{ path('devhuman_preview_md') }}", { title: title, content: content })
+                    .done(function( data ) {
+                        $('#editor-preview').html(data);
+                    });
+
+            $('#editor-content').fadeOut();
+            $('#editor-preview').fadeIn();
+        }
+
+        function edit() {
+            $('#button-preview').removeClass('active');
+            $('#button-write').addClass('active');
+
+            $('#editor-preview').fadeOut();
+            $('#editor-content').fadeIn();
+        }
+
+        function save() {
+            
+        }
+    </script>
+
+
+{% endblock %}
