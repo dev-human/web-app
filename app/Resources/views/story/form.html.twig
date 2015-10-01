@@ -25,24 +25,19 @@
                     </ul>
 
                     <ul class="editor-menu-floating">
-                        <li><li><a class="save" href="#" id="button-preview" onclick="preview()"><span class="glyphicon glyphicon-save"></span> Save Story</a></li></li>
-                        <li><li><a class="save" href="#" id="button-preview" onclick="preview()"><span class="glyphicon glyphicon-resize-full"></span> Full Screen</a></li></li>
+                        <li><a href="#" id="button-save" onclick="save()"><span class="glyphicon glyphicon-save"></span> Save Story</a></li>
+                        <!--<li><a href="#" id="button-fullscreen" onclick="fullscreen()"><span class="glyphicon glyphicon-resize-full"></span> Full Screen</a></li>-->
                     </ul>
                 </div>
 
                 <div class="editor-content tab-pane active" id="editor-content">
                     <div id="epiceditor"></div>
-                    {{ form_widget(form.content, {id: 'epic-editor-content', attr: {class: 'input-lg', placeholder: 'Content'}}) }}
+                    {{ form_widget(form.content, {id: 'epic-editor-content', attr: {placeholder: 'Content'}}) }}
                 </div>
                 <div class="editor-preview tab-pane" id="editor-preview">
                 </div>
 
-                {{ form_widget(form) }}
                 {{ form_end(form) }}
-
-                <div class="form-group text-center">
-                    <button class="btn btn-lg btn-primary">Save Story</button>
-                </div>
 
             </div>
             <!-- End of the blogpost -->
@@ -80,9 +75,9 @@
             button: {
                 preview: true,
                 fullscreen: true,
-                bar: "auto"
+                bar: false
             },
-            focusOnLoad: false,
+            focusOnLoad: true,
             shortcut: {
                 modifier: 18,
                 fullscreen: 70,
@@ -126,8 +121,15 @@
         }
 
         function save() {
-            
+            $( ".form-horizontal" ).submit();
         }
+
+        function fullscreen() {
+            editor.enterFullscreen(function () {
+                console.log('Welcome to fullscreen mode!');
+            });
+        }
+
     </script>
 
 
