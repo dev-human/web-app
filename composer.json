@@ -26,7 +26,8 @@
         "twig/extensions": "^1.2",
         "predis/predis": "^1.0",
         "heidilabs/sauth-bundle": "dev-master",
-        "guzzlehttp/guzzle": "^6.1@dev"
+        "guzzlehttp/guzzle": "^6.1@dev",
+        "knplabs/knp-paginator-bundle": "^2.4@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

@@ -30,6 +30,44 @@ class StoryRepository extends EntityRepository
             ->getOneOrNullResult();
     }
 
+    public function findFromCollection($collectionId)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        return $qb->select('s')
+            ->from('AppBundle:Story', 's')
+            ->join('s.collections', 'c')
+            ->where('s.published = 1')
+            ->andwhere('c.id = ?1')
+            ->orderBy('s.created', 'DESC')
+            ->setParameter(1, $collectionId);
+    }
+
+    public function findFromAuthor($authorId)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        return $qb->select('s')
+            ->from('AppBundle:Story', 's')
+            ->join('s.author', 'a')
+            ->where('s.published = 1')
+            ->andwhere('a.id = ?1')
+            ->orderBy('s.created', 'DESC')
+            ->setParameter(1, $authorId);
+    }
+
+    public function findAllFromAuthor($authorId)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        return $qb->select('s')
+            ->from('AppBundle:Story', 's')
+            ->join('s.author', 'a')
+            ->andwhere('a.id = ?1')
+            ->orderBy('s.created', 'DESC')
+            ->setParameter(1, $authorId);
+    }
+
     public function findAllOrderedByDate()
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
@@ -37,9 +75,7 @@ class StoryRepository extends EntityRepository
         return $qb->select('s')
             ->from('AppBundle:Story', 's')
             ->where('s.published = 1')
-            ->orderBy('s.created', 'DESC')
-            ->getQuery()
-            ->getResult();
+            ->orderBy('s.created', 'DESC');
     }
 
     public function searchPosts($search)

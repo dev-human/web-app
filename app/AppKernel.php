@@ -20,6 +20,7 @@ class AppKernel extends Kernel
 
             new \Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new \HeidiLabs\SauthBundle\HeidiLabsSauthBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

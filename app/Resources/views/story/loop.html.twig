@@ -54,4 +54,11 @@
             </div>
         </div>
     {% endfor %}
+    <div class="col-xs-12 push-down-30 text-center">
+        <div class="pagination" style="margin: 0 auto">
+            <nav>
+                {{ knp_pagination_render(stories) }}
+            </nav>
+        </div>
+    </div>
 {% endif %}

@@ -5,36 +5,49 @@
         <p><h3>Your Stories</h3><p>
     </div>
     <div class="row">
-        <div class="col-xs-12  col-md-12">
-            {% if user.stories is defined %}
-                {% for story in user.stories %}
+        {% if stories is defined %}
+            <div class="col-xs-12  col-md-12">
+                {% for story in stories %}
                     <!-- Post without featured image -->
-                    <div class="boxed  push-down-30">
+                    <div class="boxed push-down-30 {% if story.published == 0 %} text-muted{% endif %}">
                         <!-- Start of the blogpost -->
                         <div class="row">
                             <div class="col-xs-10  col-xs-offset-1">
                                 <!-- Start of the content -->
                                 <div class="post-content--front-page">
-                                    <h3><a href="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}" title="{{ story.title }}">{{ story.title }}</a> <span class="pull-right">[ <a href="{{ path('devhuman_edit_story', {story: story.id}) }}">edit</a> ]</span></h3>
-                                    <p class="search-subtitle">{{ story.preview|default(story.getHTMLContent()|striptags|truncate(240)) }}</p>
+                                    <h3><a href="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}" title="{{ story.title }}">{{ story.title }}</a></h3>
+                                    <p class="search-subtitle">{{ story.preview|default(story.getHTMLContent()|striptags|truncate(140)) }}</p>
                                 </div>
                                 <!-- End of the content -->
-                                <a href="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}" title="{{ story.title }}">
+
                                     <div class="read-more">
-                                        Continue reading
-                                        <div class="read-more__arrow">
-                                            <span class="glyphicon  glyphicon-chevron-right"></span>
-                                        </div>
+                                        <p class="pull-right"><a href="{{ path('devhuman_edit_story', {story: story.id}) }}">
+                                                <span class="glyphicon glyphicon-pencil"></span> edit story</a></p>
+                                        {% if story.published == 0 %}
+                                            <span class="label label-default">Unpublished</span>
+                                        {% else %}
+                                            <span class="label label-success">Published</span>
+                                        {% endif %}
                                     </div>
-                                </a>
+
                             </div>
                         </div>
                     </div>
                 {% endfor %}
-            {% else %}
-            <p>No content found.</p>
-            {% endif %}
-        </div>
+            </div>
+
+            <div class="col-xs-12 push-down-30 text-center">
+                <div class="pagination" style="margin: 0 auto">
+                    <nav>
+                        {{ knp_pagination_render(stories) }}
+                    </nav>
+                </div>
+            </div>
+
+        {% else %}
+        <p>No content found.</p>
+        {% endif %}
+
     </div>
 
 {% endblock %}

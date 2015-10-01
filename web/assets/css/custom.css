@@ -89,3 +89,8 @@ div.home-content {
     padding: 30px 10px;
     font-family: "Open Sans", sans-serif;
 }
+
+div.pagination {
+    font-family: "Open Sans", sans-serif;
+    text-align: center;
+}

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Exception\CollectionNotFoundException;
 use Michelf\MarkdownExtra;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,23 +19,45 @@ class DefaultController extends Controller
     {
         $doctrine = $this->getDoctrine();
 
-        $data['stories'] = $doctrine->getRepository('AppBundle:Story')->findAllOrderedByDate();
+        $qbuilder = $doctrine->getRepository('AppBundle:Story')->findAllOrderedByDate();
 
-        return $this->render('default/index.html.twig', $data);
+        $paginator  = $this->get('knp_paginator');
+        $stories = $paginator->paginate(
+            $qbuilder,
+            $request->query->getInt('page', 1)/*page number*/,
+            6/*limit per page*/
+        );
+
+        return $this->render('default/index.html.twig', [
+            'stories' => $stories
+        ]);
     }
 
     /**
      * Shows the list of articles in a collection
      * @Route("/c/{slug}", name="devhuman_collection")
      */
-    public function collectionAction($slug)
+    public function collectionAction($slug, Request $request)
     {
         $doctrine = $this->getDoctrine();
         $collection = $doctrine->getRepository('AppBundle:Collection')->findOneBySlug($slug);
 
+        if (!$collection) {
+            throw new CollectionNotFoundException("The requested collection could not be found.");
+        }
+
+        $qbuilder = $doctrine->getRepository('AppBundle:Story')->findFromCollection($collection->getId());
+
+        $paginator  = $this->get('knp_paginator');
+        $stories = $paginator->paginate(
+            $qbuilder,
+            $request->query->getInt('page', 1)/*page number*/,
+            4/*limit per page*/
+        );
+
         return $this->render('story/collection.html.twig', [
             'collection' => $collection,
-            'stories' => $collection->getStories()
+            'stories'    => $stories
         ]);
     }
 
@@ -71,7 +94,7 @@ class DefaultController extends Controller
      * Show the User/Author Profile
      * @Route("/~{user}", name="devhuman_user")
      */
-    public function userProfileAction($user)
+    public function userProfileAction($user, Request $request)
     {
         $doctrine = $this->getDoctrine();
         $user = $doctrine->getRepository('AppBundle:User')->findOneByUsername($user);
@@ -80,8 +103,17 @@ class DefaultController extends Controller
             throw new NotFoundHttpException("User not found.");
         }
 
+        $qbuilder = $doctrine->getRepository('AppBundle:Story')->findFromAuthor($user->getId());
+        $paginator = $this->get('knp_paginator');
+        $stories = $paginator->paginate(
+            $qbuilder,
+            $request->query->getInt('page', 1)/*page number*/,
+            4/*limit per page*/
+        );
+
         return $this->render('default/profile.html.twig', [
-            'user'   => $user
+            'user'    => $user,
+            'stories' => $stories
         ]);
     }
 

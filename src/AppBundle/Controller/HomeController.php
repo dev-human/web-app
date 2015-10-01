@@ -30,12 +30,22 @@ class HomeController extends Controller
      * Home
      * @Route("/home/stories", name="devhuman_userstories")
      */
-    public function storiesAction()
+    public function storiesAction(Request $request)
     {
+        $doctrine = $this->getDoctrine();
         $user = $this->getUser();
 
+        $qbuilder = $doctrine->getRepository('AppBundle:Story')->findAllFromAuthor($user->getId());
+        $paginator = $this->get('knp_paginator');
+        $stories = $paginator->paginate(
+            $qbuilder,
+            $request->query->getInt('page', 1)/*page number*/,
+            6/*limit per page*/
+        );
+
         return $this->render('user/home-stories.html.twig', [
-            'user'   => $user
+            'user'    => $user,
+            'stories' => $stories
         ]);
     }
 

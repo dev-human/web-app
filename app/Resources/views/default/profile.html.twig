@@ -5,7 +5,7 @@
 {% block content %}
 
     {% if user.stories is defined %}
-        {% include 'story/loop.html.twig' with { 'stories': user.stories} %}
+        {% include 'story/loop.html.twig' with { 'stories': stories} %}
         {% else %}
         <p>No content found from this author.</p>
     {% endif %}
