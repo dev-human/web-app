@@ -84,4 +84,18 @@ class DefaultController extends Controller
             'user'   => $user
         ]);
     }
+
+    /**
+     * @Route("/search", name="devhuman_search")
+     */
+    public function searchAction(Request $request)
+    {
+        $query = $request->query->get('q');
+
+        if (!$query) {
+            throw new \Exception("You need to provide a search parameter.");
+        }
+
+
+    }
 }

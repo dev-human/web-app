@@ -90,7 +90,7 @@ class StoryController extends Controller
 
     /**
      * Shows an Article
-     * @Route("/{author}/{slug}", name="devhuman_show_article")
+     * @Route("/~{author}/{slug}", name="devhuman_show_article")
      */
     public function showArticleAction($author, $slug)
     {

@@ -3,28 +3,27 @@
 * @return void
 */
 
-define( [ 'jquery' ], function ( $ ) {
-	$( '.js--toggle-search-mode' ).on( 'click', function ( ev ) {
-		ev.preventDefault();
 
-		$( 'body' ).toggleClass( 'search-mode' );
+$( '.js--toggle-search-mode' ).on( 'click', function ( ev ) {
+	ev.preventDefault();
 
-		if ( $( 'body' ).hasClass( 'search-mode' ) ) {
-			// set focus to the text field
-			setTimeout(function () {
-				$('.js--search-panel-text').focus();
-			}, 10);
+	$( 'body' ).toggleClass( 'search-mode' );
 
-			// on escape key leave the search mode
-			$( document ).on( 'keyup.searchMode', function( ev ) {
-				ev.preventDefault();
-				if ( ev.keyCode === 27 ){
-					$( 'body' ).toggleClass( 'search-mode' );
-					$( document ).off( 'keyup.searchMode' );
-				}
-			} );
-		} else {
-			$( document ).off( 'keyup.searchMode' );
-		}
-	} );
+	if ( $( 'body' ).hasClass( 'search-mode' ) ) {
+		// set focus to the text field
+		setTimeout(function () {
+			$('.js--search-panel-text').focus();
+		}, 10);
+
+		// on escape key leave the search mode
+		$( document ).on( 'keyup.searchMode', function( ev ) {
+			ev.preventDefault();
+			if ( ev.keyCode === 27 ){
+				$( 'body' ).toggleClass( 'search-mode' );
+				$( document ).off( 'keyup.searchMode' );
+			}
+		} );
+	} else {
+		$( document ).off( 'keyup.searchMode' );
+	}
 } );

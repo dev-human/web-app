@@ -15,12 +15,22 @@ use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends Controller
 {
-
     /**
      * Home
      * @Route("/home", name="devhuman_userhome")
      */
     public function homeAction()
+    {
+         return $this->render('user/home-default.html.twig', [
+
+        ]);
+    }
+
+    /**
+     * Home
+     * @Route("/home/stories", name="devhuman_userstories")
+     */
+    public function storiesAction()
     {
         $user = $this->getUser();
 
@@ -33,7 +43,7 @@ class HomeController extends Controller
      * Edit Profile Form
      * @Route("/home/settings", name="devhuman_user_settings")
      */
-    public function editStoryAction(Request $request)
+    public function settingsAction(Request $request)
     {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
@@ -44,8 +54,8 @@ class HomeController extends Controller
         if ($form->isValid()) {
             $em->persist($user);
             $em->flush();
-
-            return $this->redirectToRoute('devhuman_userhome');
+            //add flashbag msg
+            //return $this->redirectToRoute('devhuman_userhome');
         }
 
         return $this->render('user/home-settings.html.twig', [

@@ -21,7 +21,8 @@ class StoryRepository extends EntityRepository
         return $qb->select('s')
             ->from('AppBundle:Story', 's')
             ->join('s.author', 'a')
-            ->where('s.slug = ?1')
+            ->where('s.published = 1')
+            ->andwhere('s.slug = ?1')
             ->andWhere('a.username = ?2')
             ->setParameter(1, $slug)
             ->setParameter(2, $author)
@@ -35,9 +36,25 @@ class StoryRepository extends EntityRepository
 
         return $qb->select('s')
             ->from('AppBundle:Story', 's')
+            ->where('s.published = 1')
             ->orderBy('s.created', 'DESC')
             ->getQuery()
             ->getResult();
+    }
+
+    public function searchPosts($search)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        $query =  $qb->select('s')
+        ->from('AppBundle:Story', 's');
+
+        return $query
+                ->where('s.published = 1')
+                ->andWhere($query->expr()->like('s.title', "'%" . $search . "%'"))
+                ->orderBy('s.created', 'DESC')
+                ->getQuery()
+                ->getResult();
     }
 
     public function findTopPosts($limit = 3)
@@ -46,6 +63,7 @@ class StoryRepository extends EntityRepository
 
         return $qb->select('s')
             ->from('AppBundle:Story', 's')
+            ->where('s.published = 1')
             ->orderBy('s.views', 'DESC')
             ->setMaxResults($limit)
             ->getQuery()
@@ -58,7 +76,8 @@ class StoryRepository extends EntityRepository
 
         $result = $qb->select('s')
             ->from('AppBundle:Story', 's')
-            ->where('s.featured = 1')
+            ->where('s.published = 1')
+            ->andwhere('s.featured = 1')
             ->orderBy('s.created', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
@@ -77,6 +96,7 @@ class StoryRepository extends EntityRepository
 
         return $qb->select('s')
             ->from('AppBundle:Story', 's')
+            ->where('s.published = 1')
             ->orderBy('s.created', 'DESC')
             ->setMaxResults($limit)
             ->getQuery()

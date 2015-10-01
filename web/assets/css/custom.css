@@ -85,3 +85,7 @@ ul.editor-menu-floating li a:hover {
     background-color: #00c69f;
 }
 
+div.home-content {
+    padding: 30px 10px;
+    font-family: "Open Sans", sans-serif;
+}

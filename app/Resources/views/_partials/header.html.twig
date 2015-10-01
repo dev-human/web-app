@@ -65,11 +65,12 @@
             </div>
             {% if app.user and is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <div class="social">
-                    <a href="#" class="social__container">
+                    <a href="{{ path('devhuman_user', {user: app.user.username}) }}" class="social__container">
                         <img src="{{ gravatar(app.user.email, 30) }}" class="img-circle" alt="Meta avatar" width="30" height="30">
                     </a>
                     <ul class="social__dropdown">
-                        <li><a href="{{ path('devhuman_userhome') }}" class="social__container">My Stuff</a></li>
+                        <li><a href="{{ path('devhuman_user', {user: app.user.username}) }}" class="social__container">Profile</a></li>
+                        <li><a href="{{ path('devhuman_userhome') }}" class="social__container">Settings</a></li>
                         <li><a href="{{ path('sauth_logout') }}" class="social__container">Logout</a></li>
                     </ul>
                 </div>

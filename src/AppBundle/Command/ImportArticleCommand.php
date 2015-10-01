@@ -75,6 +75,7 @@ class ImportArticleCommand extends ContainerAwareCommand
         $story->setCollections($this->getCollections($meta));
         $story->setTags($this->getTags($meta));
         $story->setViews(0);
+        $story->setPublished(true);
 
         return $story;
     }
