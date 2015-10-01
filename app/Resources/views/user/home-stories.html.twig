@@ -1,0 +1,40 @@
+{% extends 'user/home.html.twig' %}
+
+{% block homecontent %}
+    <div class="search-results">
+        <p><h3>Your Stories</h3><p>
+    </div>
+    <div class="row">
+        <div class="col-xs-12  col-md-12">
+            {% if user.stories is defined %}
+                {% for story in user.stories %}
+                    <!-- Post without featured image -->
+                    <div class="boxed  push-down-30">
+                        <!-- Start of the blogpost -->
+                        <div class="row">
+                            <div class="col-xs-10  col-xs-offset-1">
+                                <!-- Start of the content -->
+                                <div class="post-content--front-page">
+                                    <h3><a href="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}" title="{{ story.title }}">{{ story.title }}</a> <span class="pull-right">[ <a href="{{ path('devhuman_edit_story', {story: story.id}) }}">edit</a> ]</span></h3>
+                                    <p class="search-subtitle">{{ story.preview|default(story.getHTMLContent()|striptags|truncate(240)) }}</p>
+                                </div>
+                                <!-- End of the content -->
+                                <a href="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}" title="{{ story.title }}">
+                                    <div class="read-more">
+                                        Continue reading
+                                        <div class="read-more__arrow">
+                                            <span class="glyphicon  glyphicon-chevron-right"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+            <p>No content found.</p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

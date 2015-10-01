@@ -1,0 +1,22 @@
+{% extends 'user/home.html.twig' %}
+
+{% block homecontent %}
+    <div class="search-results">
+        <p><h3>Edit your Profile and Settings</h3><p>
+    </div>
+    <div class="row">
+        <div class="col-xs-12  col-md-12">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary btn-lg">Save Info</button>
+                </div>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}
