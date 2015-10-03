@@ -30,6 +30,10 @@
     copy=no
   when: not is_installed
 
+- name: Clear any previous failed attempts
+  command: make distclean chdir=/tmp/redis-{{ redis_version }}
+  when: not is_installed
+
 - name: Compile
   command: make -j5
            chdir=/tmp/redis-{{ redis_version }}

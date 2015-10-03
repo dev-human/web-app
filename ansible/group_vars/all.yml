@@ -1,7 +1,7 @@
 ---
 server:
     install: '1'
-    packages: [vim, git]
+    packages: [vim, git, build-essential, tcl8.5]
     timezone: Europe/Amsterdam
     locale: en_US.UTF-8
 vagrant_local:

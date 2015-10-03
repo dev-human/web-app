@@ -1,7 +1,7 @@
 ---
 server:
     install: '1'
-    packages: [vim, git, fail2ban]
+    packages: [vim, git, fail2ban, build-essential, tcl8.5]
     timezone: Europe/Amsterdam
     locale: en_US.UTF-8
 app:
@@ -9,7 +9,7 @@ app:
     web_user: www-data
     docroot: /var/www/devhuman
 vagrant_local:
-    install: '0'
+    install: 0
 nginx:
     install: '1'
     docroot: /var/www/devhuman/web
