@@ -1,11 +1,25 @@
 div.story-form {
-    padding: 50px 80px;
+    padding: 100px;
+    padding-top: 60px;
 }
 
-input.story-title {
-    border: 0;
+div.story-form .story-link {
+    padding: 0 10px;
+    color: #666666;
+    font-family: "Open Sans", sans-serif;
+    font-size: 0.8em;
+    margin-bottom: 25px;
+}
+
+div.story-title {
+    padding: 0 22px;
+    margin-bottom: 10px;
+}
+
+div.story-title input {
     font-size: 36px;
     height: 2em;
+    margin: 0;
 }
 
 input.story-teaser {

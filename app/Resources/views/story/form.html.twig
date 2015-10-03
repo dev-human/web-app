@@ -7,17 +7,20 @@
 
     <div class="container">
         <div class="boxed  push-down-60">
-
             <!-- Start of the content -->
             <div class="story-form">
 
                 {{ form_start(form) }}
 
-                {{ form_widget(form.published, {id: 'content-published'}) }}
+                {{ form_widget(form.published, {id: 'content-published', value: story.published|default(0)}) }}
 
-                <div class="form-group">
-                    {{ form_widget(form.title, {id: 'content-title', attr: {class: 'input-lg story-title'}}) }}
+                <div class="form-group story-title">
+                    {{ form_widget(form.title, {id: 'content-title',  attr: {class: 'input-lg '}}) }}
                 </div>
+
+                {% if story is defined and story.published %}
+                    <div class="story-link">Your story is live at: <a href="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}">{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}</a></div>
+                {% endif %}
 
                 <div class="editor-buttons clearfix">
                     <ul class="editor-menu-buttons">
@@ -29,7 +32,7 @@
                     <ul class="editor-menu-floating">
                         <li><a href="#" id="button-save" onclick="save()"><span class="glyphicon glyphicon-save"></span> Save Story</a></li>
                         {% if story is defined and story.published == 0 %}
-                            <li><a href="#" id="button-publish" class="publish" onclick="save()"><span class="glyphicon glyphicon-cloud-upload"></span> Publish Story</a></li>
+                            <li><a href="#" id="button-publish" class="publish" onclick="publish()"><span class="glyphicon glyphicon-cloud-upload"></span> Publish Story</a></li>
                         {% else %}
                             <li><a href="#" id="button-unpublish" class="unpublish" onclick="unpublish()"><span class="glyphicon glyphicon-remove"></span> Unpublish Story</a></li>
                         {% endif %}
@@ -161,12 +164,12 @@
         }
 
         function unpublish() {
-            $('#content-published').val(0);
+            $('#content-published').val("0");
             save();
         }
 
         function publish() {
-            $('#content-published').val(1);
+            $('#content-published').val("1");
             save();
         }
 
