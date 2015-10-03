@@ -102,3 +102,7 @@ div.editor-meta {
     border-top: 0;
     padding: 20px 40px;
 }
+
+div.editor-tab-content {
+    display: none;
+}

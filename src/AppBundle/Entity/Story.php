@@ -439,6 +439,6 @@ class Story
             $tags[] = $tag->getName();
         }
 
-        return implode(',', $tags);
+        return implode(', ', $tags);
     }
 }
