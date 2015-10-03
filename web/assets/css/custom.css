@@ -25,6 +25,11 @@ div.editor-buttons {
 
 div.editor-buttons {
     font-family: "Open Sans", sans-serif;
+    padding: 13px 0;
+    padding-bottom: 12px;
+    background-color: #e5e5e5;
+    margin: 0 10px;
+    border: 0;
 }
 
 div.editor-preview {
@@ -32,12 +37,9 @@ div.editor-preview {
 }
 
 ul.editor-menu-buttons {
-    margin: 0 10px;
-    padding: 0;
-    padding-top: 13px;
-    padding-bottom: 11px;
-    background-color: #e5e5e5;
+    margin: 0;
     border: 0;
+    float: left;
 }
 
 ul.editor-menu-buttons li {
@@ -60,12 +62,9 @@ ul.editor-menu-buttons li a.active, ul.editor-menu-buttons li a:hover {
 }
 
 ul.editor-menu-floating {
-    position: absolute;
-    z-index: 10000;
-    margin: 0;
+    float: right;
+    margin: 2px;
     padding: 0;
-    top: 14px;
-    left: 800px;
     border: 0;
 }
 
@@ -79,6 +78,24 @@ ul.editor-menu-floating li a {
     background-color: #00AA88;
     padding: 12px 16px;
     color: #FFFFFF;
+    border: 0;
+}
+
+ul.editor-menu-floating li a.publish {
+    background-color: #0099e1 !important;
+}
+
+ul.editor-menu-floating li a.publish:hover {
+    background-color: #15b3f7 !important;
+}
+
+ul.editor-menu-floating li a.unpublish {
+    background-color: #f5b42a !important;
+    color: #333333;
+}
+
+ul.editor-menu-floating li a.unpublish:hover {
+    background-color: #fdd65e !important;
 }
 
 ul.editor-menu-floating li a:hover {

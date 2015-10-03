@@ -78,11 +78,17 @@ class StoryController extends Controller
             $em->persist($theStory);
             $em->flush();
 
-            return $this->redirectToRoute('devhuman_userhome');
+            $this->addFlash(
+                'success',
+                'Your changes were saved!'
+            );
+
+            return $this->redirectToRoute('devhuman_edit_story', ['story' => $story]);
         }
 
         return $this->render('story/form.html.twig', [
-            'form' => $form->createView()
+            'form'  => $form->createView(),
+            'story' => $theStory
         ]);
     }
 

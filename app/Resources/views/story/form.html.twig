@@ -13,11 +13,13 @@
 
                 {{ form_start(form) }}
 
+                {{ form_widget(form.published, {id: 'content-published'}) }}
+
                 <div class="form-group">
                     {{ form_widget(form.title, {id: 'content-title', attr: {class: 'input-lg story-title'}}) }}
                 </div>
 
-                <div class="editor-buttons">
+                <div class="editor-buttons clearfix">
                     <ul class="editor-menu-buttons">
                         <li><a href="#" id="button-write" onclick="edit()" class="editor-tab active"><span class="glyphicon glyphicon-pencil"></span> Write</a></li>
                         <li><a href="#" id="button-preview" onclick="preview()" class="editor-tab"><span class="glyphicon glyphicon-eye-open"></span> Preview</a></li>
@@ -26,7 +28,11 @@
 
                     <ul class="editor-menu-floating">
                         <li><a href="#" id="button-save" onclick="save()"><span class="glyphicon glyphicon-save"></span> Save Story</a></li>
-                        <!--<li><a href="#" id="button-fullscreen" onclick="fullscreen()"><span class="glyphicon glyphicon-resize-full"></span> Full Screen</a></li>-->
+                        {% if story is defined and story.published == 0 %}
+                            <li><a href="#" id="button-publish" class="publish" onclick="save()"><span class="glyphicon glyphicon-cloud-upload"></span> Publish Story</a></li>
+                        {% else %}
+                            <li><a href="#" id="button-unpublish" class="unpublish" onclick="unpublish()"><span class="glyphicon glyphicon-remove"></span> Unpublish Story</a></li>
+                        {% endif %}
                     </ul>
                 </div>
 
@@ -152,6 +158,16 @@
 
         function save() {
             $( ".form-horizontal" ).submit();
+        }
+
+        function unpublish() {
+            $('#content-published').val(0);
+            save();
+        }
+
+        function publish() {
+            $('#content-published').val(1);
+            save();
         }
 
         function fullscreen() {
