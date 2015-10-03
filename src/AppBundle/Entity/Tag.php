@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Tag
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="TagRepository")
  */
 class Tag
 {

@@ -39,11 +39,6 @@ class Collection
     protected $slug;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Story", mappedBy="collections")
-     */
-    protected $stories;
-
-    /**
      * @return int
      */
     public function getId()
@@ -121,31 +116,5 @@ class Collection
     public function setImage($image)
     {
         $this->image = $image;
-    }
-
-    /**
-     * @return Story[]
-     */
-    public function getStories()
-    {
-        return $this->stories;
-    }
-
-    /**
-     * @param Story[] $stories
-     */
-    public function setStories(array $stories)
-    {
-        foreach ($stories as $story) {
-            $this->addStory($story);
-        }
-    }
-
-    /**
-     * @param Story $story
-     */
-    public function addStory(Story $story)
-    {
-        $this->stories[] = $story;
     }
 }

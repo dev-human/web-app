@@ -58,6 +58,23 @@ class StoryController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+
+            $tagsList = explode(',', $theStory->tagsList);
+            if (count($tagsList)) {
+                $theStory->clearTags();
+                $em->persist($theStory);
+
+                foreach ($tagsList as $tagName) {
+                    $name = trim(strtolower($tagName));
+                    if (empty($name)) {
+                        continue;
+                    }
+
+                    $tag = $em->getRepository('AppBundle:Tag')->getExistingOrCreateNew($name);
+                    $theStory->addTag($tag);
+                }
+            }
+
             $em->persist($theStory);
             $em->flush();
 

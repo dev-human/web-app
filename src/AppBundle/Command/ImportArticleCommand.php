@@ -72,7 +72,7 @@ class ImportArticleCommand extends ContainerAwareCommand
         $story->setContentChanged($date);
         $story->setAuthor($this->getAuthor($meta));
         $story->setSlug($this->getSlug($file));
-        $story->setCollections($this->getCollections($meta));
+        $story->setCollection($this->getCollection($meta));
         $story->setTags($this->getTags($meta));
         $story->setViews(0);
         $story->setPublished(true);
@@ -124,17 +124,29 @@ class ImportArticleCommand extends ContainerAwareCommand
     }
 
     /**
+     * Stories can be in 1 collection only, but they can have multiple tags.
+     * This will get the first category and return a collection from it (existing or new)
      * @param array $meta
-     * @return Collection[]
+     * @return Collection
      */
-    protected function getCollections(array $meta)
+    protected function getCollection(array $meta)
     {
-        $collections = [];
-        foreach ($meta['categories'] as $category) {
-            $collections[] = $this->getCollection($category);
+        if (count($meta['categories'])) {
+            $category = $meta['categories'][0];
+
+            $em = $this->getDoctrine();
+            $collection = $em->getRepository('AppBundle:Collection')->findOneByName($category);
+
+            if (!$collection) {
+                $collection = new Collection();
+                $collection->setName($category);
+                $this->getDoctrine()->persist($collection);
+            }
+
+            return $collection;
         }
 
-        return $collections;
+        return null;
     }
 
     protected function getTags(array $meta)
@@ -145,24 +157,6 @@ class ImportArticleCommand extends ContainerAwareCommand
         }
 
         return $tags;
-    }
-
-    /**
-     * @param string $name
-     * @return Collection
-     */
-    protected function getCollection($name)
-    {
-        $em = $this->getDoctrine();
-        $collection = $em->getRepository('AppBundle:Collection')->findOneByName($name);
-
-        if (!$collection) {
-            $collection = new Collection();
-            $collection->setName($name);
-            $this->getDoctrine()->persist($collection);
-        }
-
-        return $collection;
     }
 
     /**

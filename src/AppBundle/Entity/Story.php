@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use \DateTime;
@@ -14,43 +15,54 @@ use Michelf\MarkdownExtra;
 class Story
 {
     /**
+     * @var int
      * @ORM\Id @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
     protected $id;
 
     /**
+     * @var string
      * @ORM\Column(type="string")
      */
     protected $title;
 
     /**
+     * @var User
      * @ORM\ManyToOne(targetEntity="User", inversedBy="stories")
      */
     protected $author;
 
     /**
+     * @var string
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(length=128, unique=true)
      */
     protected $slug;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Collection", inversedBy="stories")
+     * @var Collection
+     * @ORM\ManyToOne(targetEntity="Collection")
      */
-    protected $collections;
+    protected $collection;
 
     /**
+     * @var Tag[]
      * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
      */
     protected $tags;
 
+    /** @var string */
+    public $tagsList;
+
     /**
+     * @var string
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $preview;
 
     /**
+     * @var string
      * @ORM\Column(type="text")
      */
     protected $content;
@@ -98,14 +110,25 @@ class Story
     protected $contentChanged;
 
     /**
+     * @var \DateTime
+     * @ORM\Column(name="content_published", type="datetime", nullable=true)
+     */
+    protected $contentPublished;
+
+    /**
      * @var int $views
      *
      * @ORM\Column(type="integer", options={"unsigned": true})
      */
     protected $views;
 
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
+
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -113,7 +136,7 @@ class Story
     }
 
     /**
-     * @param mixed $id
+     * @param int $id
      */
     public function setId($id)
     {
@@ -121,7 +144,7 @@ class Story
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getTitle()
     {
@@ -129,7 +152,7 @@ class Story
     }
 
     /**
-     * @param mixed $title
+     * @param string $title
      */
     public function setTitle($title)
     {
@@ -137,7 +160,7 @@ class Story
     }
 
     /**
-     * @return mixed
+     * @return User
      */
     public function getAuthor()
     {
@@ -145,7 +168,7 @@ class Story
     }
 
     /**
-     * @param mixed $author
+     * @param User $author
      */
     public function setAuthor($author)
     {
@@ -153,7 +176,7 @@ class Story
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getSlug()
     {
@@ -161,7 +184,7 @@ class Story
     }
 
     /**
-     * @param mixed $slug
+     * @param string $slug
      */
     public function setSlug($slug)
     {
@@ -169,23 +192,23 @@ class Story
     }
 
     /**
-     * @return mixed
+     * @return Collection
      */
-    public function getCollections()
+    public function getCollection()
     {
-        return $this->collections;
+        return $this->collection;
     }
 
     /**
-     * @param mixed $collections
+     * @param Collection $collection
      */
-    public function setCollections($collections)
+    public function setCollection($collection)
     {
-        $this->collections = $collections;
+        $this->collection = $collection;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getPreview()
     {
@@ -193,7 +216,7 @@ class Story
     }
 
     /**
-     * @param mixed $preview
+     * @param string $preview
      */
     public function setPreview($preview)
     {
@@ -201,7 +224,7 @@ class Story
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getContent()
     {
@@ -209,7 +232,7 @@ class Story
     }
 
     /**
-     * @param mixed $content
+     * @param string $content
      */
     public function setContent($content)
     {
@@ -227,7 +250,7 @@ class Story
     /**
      * @param DateTime $created
      */
-    public function setCreated($created)
+    public function setCreated(DateTime $created)
     {
         $this->created = $created;
     }
@@ -243,7 +266,7 @@ class Story
     /**
      * @param DateTime $updated
      */
-    public function setUpdated($updated)
+    public function setUpdated(DateTime $updated)
     {
         $this->updated = $updated;
     }
@@ -259,9 +282,25 @@ class Story
     /**
      * @param DateTime $contentChanged
      */
-    public function setContentChanged($contentChanged)
+    public function setContentChanged(DateTime $contentChanged)
     {
         $this->contentChanged = $contentChanged;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getContentPublished()
+    {
+        return $this->contentPublished;
+    }
+
+    /**
+     * @param DateTime $contentPublished
+     */
+    public function setContentPublished(DateTime $contentPublished)
+    {
+        $this->contentPublished = $contentPublished;
     }
 
     /**
@@ -286,6 +325,7 @@ class Story
     {
         $this->tags[] = $tag;
     }
+
     /**
      * @return int
      */
@@ -302,16 +342,14 @@ class Story
         $this->views = $views;
     }
 
-    /**
-     *
-     */
+
     public function addView()
     {
         $this->views++;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getHTMLContent()
     {
@@ -364,5 +402,43 @@ class Story
     public function setCommentsEnabled($value)
     {
         $this->commentsEnabled = $value;
+    }
+
+    /**
+     * @param Tag $tag
+     */
+    public function removeTag(Tag $tag)
+    {
+        if (!$this->tags->contains($tag)) {
+            return;
+        }
+
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * clears tags
+     */
+    public function clearTags()
+    {
+        if (count($this->getTags())) {
+            foreach ($this->getTags() as $tag) {
+                $this->removeTag($tag);
+            }
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getTagsList()
+    {
+        $tags = [];
+
+        foreach ($this->tags as $tag) {
+            $tags[] = $tag->getName();
+        }
+
+        return implode(',', $tags);
     }
 }

@@ -94,3 +94,11 @@ div.pagination {
     font-family: "Open Sans", sans-serif;
     text-align: center;
 }
+
+div.editor-meta {
+    font-family: "Open Sans", sans-serif;
+    margin: 0 10px;
+    border: 1px solid #e5e5e5;
+    border-top: 0;
+    padding: 20px 40px;
+}

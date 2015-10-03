@@ -2,40 +2,12 @@
 
 {% block title %}{{ story.title }} ~ dev-human{% endblock %}
 
-
 {% block body %}
 
 <div class="container">
     <div class="boxed  push-down-60">
-        <!-- Meta without image start (Needed for WP theme)-->
-        <div class="meta">
-            <div class="row">
-                <div class="col-xs-12  col-sm-10  col-sm-offset-1  col-md-8  col-md-offset-2">
-                    <div class="meta__container--without-image">
-                        <div class="row">
-                            <div class="col-xs-12  col-sm-8">
-                                <div class="meta__info">
-                                    <span class="meta__author"><img src="{{ gravatar(story.author.email, 30) }}" alt="Meta avatar" width="30" height="30"> <a href="#">{{ story.author.name }}</a>
-                                        {% if story.collections %}in
-                                            {% for collection in story.collections %}
-                                                {% if loop.index != 1 %}, {% endif %}<a href="{{ path('devhuman_collection', {slug: collection.slug}) }}" title="See all articles under {{ collection.name }}">{{ collection.name }}</a>
-                                            {% endfor %}
-                                        {% endif %}
-                                    </span>
-                                    <span class="meta__date"><span class="glyphicon glyphicon-calendar"></span> &nbsp; {{ story.created|date('F d, Y') }}</span>
-                                </div>
-                            </div>
-                            <div class="col-xs-12  col-sm-4">
-                                <div class="meta__comments">
-                                    <span class="glyphicon glyphicon-comment"></span> &nbsp; <a href="#disqus_thread"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Meta without image end -->
+
+        {% include '_partials/story_header_noimage.html.twig' with { 'story': story} %}
 
         <!-- Start of the blogpost -->
         <div class="row">

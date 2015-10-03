@@ -19,6 +19,12 @@ class StoryType extends AbstractType
         $builder
             ->add('title')
             ->add('content', 'hidden')
+            ->add('preview', 'textarea')
+            ->add('collection', 'entity', [
+                'class' => 'AppBundle:Collection',
+                'choice_label' => 'name',
+            ])
+            ->add('tagsList')
         ;
     }
 

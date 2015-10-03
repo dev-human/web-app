@@ -19,9 +19,9 @@
 
                 <div class="editor-buttons">
                     <ul class="editor-menu-buttons">
-                        <li><a href="#" id="button-write" onclick="edit()" class="active"><span class="glyphicon glyphicon-pencil"></span> Write</a></li>
-                        <li><a href="#" id="button-preview" onclick="preview()"><span class="glyphicon glyphicon-eye-open"></span> Preview</a></li>
-
+                        <li><a href="#" id="button-write" onclick="edit()" class="editor-tab active"><span class="glyphicon glyphicon-pencil"></span> Write</a></li>
+                        <li><a href="#" id="button-preview" onclick="preview()" class="editor-tab"><span class="glyphicon glyphicon-eye-open"></span> Preview</a></li>
+                        <li><a href="#" id="button-meta" onclick="showMeta()" class="editor-tab"><span class="glyphicon glyphicon-tags"></span> Post Meta</a> </li>
                     </ul>
 
                     <ul class="editor-menu-floating">
@@ -30,11 +30,33 @@
                     </ul>
                 </div>
 
-                <div class="editor-content tab-pane active" id="editor-content">
-                    <div id="epiceditor"></div>
-                    {{ form_widget(form.content, {id: 'epic-editor-content', attr: {placeholder: 'Content'}}) }}
-                </div>
-                <div class="editor-preview tab-pane" id="editor-preview">
+                <div class="tab-content">
+
+                    <div class="editor-content editor-tab-content active" id="editor-content">
+                        <div id="epiceditor"></div>
+                        {{ form_widget(form.content, {id: 'epic-editor-content', attr: {placeholder: 'Content'}}) }}
+                    </div>
+
+                    <div class="editor-preview editor-tab-content" id="editor-preview">
+
+                    </div>
+
+                    <div class="editor-meta editor-tab-content" id="editor-meta">
+                        <div class="form-group">
+                            <label for="content-preview">Teaser (short preview of the content, text-only)</label>
+                            {{ form_widget(form.preview, {id: 'content-preview', attr: {class: 'input-lg'}}) }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="content-preview">Collection</label>
+                            {{ form_widget(form.collection, {id: 'content-collection', attr: {class: 'input-lg'}}) }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="content-tags">Tags</label>
+                            {{ form_widget(form.tagsList, {id: 'content-tags', attr: {class: 'input-lg'}}) }}
+                        </div>
+                    </div>
                 </div>
 
                 {{ form_end(form) }}
@@ -97,7 +119,7 @@
         });
 
         function preview() {
-            $('#button-write').removeClass('active');
+            $('.editor-tab').removeClass('active');
             $('#button-preview').addClass('active');
 
             var title = $('#content-title').val();
@@ -108,16 +130,24 @@
                         $('#editor-preview').html(data);
                     });
 
-            $('#editor-content').fadeOut();
+            $('.editor-tab-content').hide();
             $('#editor-preview').fadeIn();
         }
 
         function edit() {
-            $('#button-preview').removeClass('active');
+            $('.editor-tab').removeClass('active');
             $('#button-write').addClass('active');
 
-            $('#editor-preview').fadeOut();
+            $('.editor-tab-content').hide();
             $('#editor-content').fadeIn();
+        }
+
+        function showMeta() {
+            $('.editor-tab').removeClass('active');
+            $('#button-meta').addClass('active');
+
+            $('.editor-tab-content').hide();
+            $('#editor-meta').fadeIn();
         }
 
         function save() {
