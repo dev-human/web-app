@@ -2,6 +2,7 @@ html { padding: 0; margin: 0}
 
 body {
     border: 1px solid #e5e5e5;
+    min-height: 500px;
     border-top: 0;
     background: rgb(255,255,255);
     font-family: monospace;

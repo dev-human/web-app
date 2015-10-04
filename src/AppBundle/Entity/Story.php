@@ -110,17 +110,11 @@ class Story
     protected $contentChanged;
 
     /**
-     * @var \DateTime
-     * @ORM\Column(name="content_published", type="datetime", nullable=true)
-     */
-    protected $contentPublished;
-
-    /**
      * @var int $views
      *
      * @ORM\Column(type="integer", options={"unsigned": true})
      */
-    protected $views;
+    protected $views = 0;
 
     public function __construct()
     {
@@ -285,22 +279,6 @@ class Story
     public function setContentChanged(DateTime $contentChanged)
     {
         $this->contentChanged = $contentChanged;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getContentPublished()
-    {
-        return $this->contentPublished;
-    }
-
-    /**
-     * @param DateTime $contentPublished
-     */
-    public function setContentPublished(DateTime $contentPublished)
-    {
-        $this->contentPublished = $contentPublished;
     }
 
     /**

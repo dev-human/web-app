@@ -33,16 +33,14 @@ div.editor-content {
     padding: 0;
 }
 
-div.editor-buttons {
-    position: relative;
-}
 
 div.editor-buttons {
+    width: 100%;
     font-family: "Open Sans", sans-serif;
     padding: 13px 0;
     padding-bottom: 12px;
     background-color: #e5e5e5;
-    margin: 0 10px;
+    margin: 0;
     border: 0;
 }
 
@@ -69,10 +67,18 @@ ul.editor-menu-buttons li a {
     border: 1px solid #e5e5e5;
     border-bottom: 0;
     font-size: 16px;
+    color: #00AA88;
+}
+
+ul.editor-menu-buttons li a:active {
+    color: #00AA88;
+    text-decoration: none !important;
+    border: none;
 }
 
 ul.editor-menu-buttons li a.active, ul.editor-menu-buttons li a:hover {
     background-color: #ffffff;
+    text-decoration: none !important;
 }
 
 ul.editor-menu-floating {
@@ -95,6 +101,10 @@ ul.editor-menu-floating li a {
     border: 0;
 }
 
+ul.editor-menu-floating li a:hover {
+    background-color: #00c69f;
+}
+
 ul.editor-menu-floating li a.publish {
     background-color: #0099e1 !important;
 }
@@ -112,9 +122,10 @@ ul.editor-menu-floating li a.unpublish:hover {
     background-color: #fdd65e !important;
 }
 
-ul.editor-menu-floating li a:hover {
-    background-color: #00c69f;
+ul.editor-menu-floating li a.remove {
+    background-color: #9a7166 !important;
 }
+
 
 div.home-content {
     padding: 30px 10px;
@@ -136,4 +147,8 @@ div.editor-meta {
 
 div.editor-tab-content {
     display: none;
+}
+
+div.editor-preview-box {
+    padding: 10px 100px;
 }

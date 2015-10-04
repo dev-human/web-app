@@ -30,12 +30,15 @@
                     </ul>
 
                     <ul class="editor-menu-floating">
-                        <li><a href="#" id="button-save" onclick="save()"><span class="glyphicon glyphicon-save"></span> Save Story</a></li>
+                        {% if story is defined and story.id %}
+                            <li><a href="#" class="remove" onclick="storyRemove('{{ story.id }}')" title="Permanently delete this story"><span class="glyphicon glyphicon-remove-circle"></span></a></li>
+                        {% endif %}
                         {% if story is defined and story.published == 0 %}
                             <li><a href="#" id="button-publish" class="publish" onclick="publish()"><span class="glyphicon glyphicon-cloud-upload"></span> Publish Story</a></li>
                         {% else %}
                             <li><a href="#" id="button-unpublish" class="unpublish" onclick="unpublish()"><span class="glyphicon glyphicon-remove"></span> Unpublish Story</a></li>
                         {% endif %}
+                            <li><a href="#" id="button-save" onclick="save()"><span class="glyphicon glyphicon-save"></span> Save Story</a></li>
                     </ul>
                 </div>
 
@@ -62,16 +65,27 @@
                         </div>
 
                         <div class="form-group">
+                            <label>Date Created</label>
+                            {{ form_widget(form.created, {attr: {class: 'input-lg'}}) }}
+                        </div>
+
+                        <div class="form-group">
                             <label for="content-tags">Tags</label>
                             {{ form_widget(form.tagsList, {id: 'content-tags', attr: {class: 'input-lg'}}) }}
                         </div>
                     </div>
+
                 </div>
 
                 {{ form_end(form) }}
 
             </div>
             <!-- End of the blogpost -->
+            {% if story.id %}
+                <form name="form_story_{{ story.id }}_remove" id="form_story_{{ story.id }}_remove" action="{{ path('devhuman_story_remove', {storyId: story.id}) }}">
+
+                </form>
+            {% endif %}
         </div>
     </div>
 
@@ -89,7 +103,7 @@
             container: 'epiceditor',
             textarea: 'epic-editor-content',
             basePath: '/assets/css',
-            clientSideStorage: true,
+            clientSideStorage: false,
             localStorageName: 'epiceditor',
             useNativeFullscreen: true,
             parser: marked,
@@ -177,6 +191,12 @@
             editor.enterFullscreen(function () {
                 console.log('Welcome to fullscreen mode!');
             });
+        }
+
+        function storyRemove(storyId) {
+            if (confirm("Are you sure you want to delete this story permanently? This action cannot be undone.\nUse the 'Unpublish' button if you just want to take it offline!")) {
+                $( '#form_story_' + storyId + '_remove' ).submit();
+            }
         }
 
     </script>

@@ -20,12 +20,11 @@
                 <!-- End of the content -->
                 <div class="row">
                     <div class="col-xs-12  col-sm-6">
-                        {% if story.commentsEnabled %}
-                            <!-- Start of comments button -->
+                        {% if story.author == app.user %}
                             <div class="post-comments">
-                                <a class="btn  btn-primary" href="#disqus_thread">Leave a Comment</a>
+                                <a class="btn  btn-success" href="{{ path('devhuman_edit_story', { story: story.id}) }}">
+                                    <span class="glyphicon glyphicon-pencil"></span> Edit Story</a>
                             </div>
-                            <!-- End of comments button -->
                         {% endif %}
                     </div>
                     <div class="col-xs-12  col-sm-6">

@@ -5,13 +5,17 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Story;
+use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Exception\StoryNotFoundException;
 use AppBundle\Exception\UnauthorizedException;
 use AppBundle\Form\StoryType;
 use Michelf\MarkdownExtra;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class StoryController extends Controller
 {
@@ -59,21 +63,7 @@ class StoryController extends Controller
 
         if ($form->isValid()) {
 
-            $tagsList = explode(',', $theStory->tagsList);
-            if (count($tagsList)) {
-                $theStory->clearTags();
-                $em->persist($theStory);
-
-                foreach ($tagsList as $tagName) {
-                    $name = trim(strtolower($tagName));
-                    if (empty($name)) {
-                        continue;
-                    }
-
-                    $tag = $em->getRepository('AppBundle:Tag')->getExistingOrCreateNew($name);
-                    $theStory->addTag($tag);
-                }
-            }
+            $this->handleFormTags($theStory);
 
             $em->persist($theStory);
             $em->flush();
@@ -90,6 +80,101 @@ class StoryController extends Controller
             'form'  => $form->createView(),
             'story' => $theStory
         ]);
+    }
+
+    /**
+     * @Route("/s/create", name="devhuman_story_create")
+     */
+    public function createNewStoryAction(Request $request)
+    {
+
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $story = new Story();
+        $form = $this->createForm(new StoryType(), $story);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+
+            $story->setAuthor($user);
+            $story->setCreated(new \DateTime());
+            $this->handleFormTags($story);
+            $em->persist($story);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                sprintf('Your new Story "%s" was successfully saved.', $story->getTitle())
+            );
+
+            return $this->redirectToRoute('devhuman_edit_story', ['story' => $story->getSlug()]);
+        }
+
+        return $this->render('story/form.html.twig', [
+            'form'  => $form->createView(),
+            'story' => $story
+        ]);
+    }
+
+    /**
+     * @param Story $story
+     * @return Story
+     */
+    private function handleFormTags(Story $story)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $tagsList = explode(',', $story->tagsList);
+        if (count($tagsList)) {
+
+            if ($story->getId()) {
+                $story->clearTags();
+                $em->persist($story);
+            }
+
+            foreach ($tagsList as $tagName) {
+
+                $name = trim(strtolower($tagName));
+                if (empty($name)) {
+                    continue;
+                }
+
+                $tag = $em->getRepository('AppBundle:Tag')->getExistingOrCreateNew($name);
+                $story->addTag($tag);
+            }
+        }
+
+        return $story;
+    }
+
+    /**
+     * @Route("/s/{storyId}/remove", name="devhuman_story_remove")
+     */
+    public function removeStoryAction($storyId)
+    {
+        $user = $this->getUser();
+
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $story = $em->getRepository('AppBundle:Story')->find($storyId);
+
+        if (!$story) {
+            throw new StoryNotFoundException("The requested story could not be found.");
+        }
+
+        if ($story->getAuthor() !== $user) {
+            throw new UnauthorizedException("You don't have permission to delete this story.");
+        }
+
+        $em->remove($story);
+        $em->flush();
+
+        $this->addFlash(
+            'success',
+            sprintf('The story "%s" was successfully deleted.', $story->getTitle())
+        );
+
+        return $this->redirectToRoute('devhuman_userhome');
     }
 
     /**

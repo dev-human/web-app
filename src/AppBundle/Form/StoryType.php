@@ -25,6 +25,7 @@ class StoryType extends AbstractType
                 'class' => 'AppBundle:Collection',
                 'choice_label' => 'name',
             ])
+            ->add('created', 'datetime')
             ->add('tagsList')
         ;
     }
