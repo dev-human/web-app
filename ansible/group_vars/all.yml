@@ -28,3 +28,8 @@ redis:
     install: '1'
     port: '6379'
 
+github:
+    client_name: dev-human
+    client_id: 1ef6a79cebfbfcf5060e
+    client_secret: cc607b4499f82ab1d7badcba2591c47c92cae2bd
+    callback_url: http://dev.dev-human.com/app_dev.php/connect/github
