@@ -152,3 +152,12 @@ div.editor-tab-content {
 div.editor-preview-box {
     padding: 10px 100px;
 }
+
+div.about {
+    font-family: "Open Sans", sans-serif;
+    padding: 20px 0;
+}
+
+div.about ol li {
+    margin-bottom: 10px;
+}
