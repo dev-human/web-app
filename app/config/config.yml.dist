@@ -93,8 +93,8 @@ heidi_labs_sauth:
             class: HeidiLabs\SauthBundle\OAuthService\GithubService
             config:
                 client_name: dev-human
-                client_id: 34f21becacd88ed7ac9c
-                client_secret: 4b40fe7399ff38b75a3af0c1a7c29f78fae8523d
+                client_id: GH_CLIENT_ID
+                client_secret: GH_CLIENT_SECRET
                 callback_url: http://dev.dev-human.com/app_dev.php/connect/github
 
 knp_paginator:
