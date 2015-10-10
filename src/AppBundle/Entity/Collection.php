@@ -138,4 +138,12 @@ class Collection
     {
         $this->stories = $stories;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

@@ -27,7 +27,9 @@
         "predis/predis": "^1.0",
         "heidilabs/sauth-bundle": "^0.2.0",
         "guzzlehttp/guzzle": "^6.1@dev",
-        "knplabs/knp-paginator-bundle": "^2.4@dev"
+        "knplabs/knp-paginator-bundle": "^2.4@dev",
+        "sonata-project/admin-bundle": "^2.4@dev",
+        "sonata-project/doctrine-orm-admin-bundle": "^2.4@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

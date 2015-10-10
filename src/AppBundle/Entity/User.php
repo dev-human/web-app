@@ -147,4 +147,12 @@ class User extends AbstractUser
     {
         $this->githubUrl = $githubUrl;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getUsername();
+    }
 }

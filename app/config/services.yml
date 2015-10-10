@@ -23,3 +23,37 @@ services:
   cache:
         class: AppBundle\Service\RedisCacheService
         arguments: ["@redis"]
+
+
+  sonata.admin.collection:
+      class: AppBundle\Admin\CollectionAdmin
+      tags:
+          - { name: sonata.admin, manager_type: orm, group: "Content", label: "Collections" }
+      arguments:
+          - ~
+          - AppBundle\Entity\Collection
+          - ~
+      calls:
+          - [ setTranslationDomain, [AppBundle]]
+
+  sonata.admin.user:
+      class: AppBundle\Admin\UserAdmin
+      tags:
+          - { name: sonata.admin, manager_type: orm, group: "People", label: "Users" }
+      arguments:
+          - ~
+          - AppBundle\Entity\User
+          - ~
+      calls:
+          - [ setTranslationDomain, [AppBundle]]
+
+  sonata.admin.story:
+      class: AppBundle\Admin\StoryAdmin
+      tags:
+          - { name: sonata.admin, manager_type: orm, group: "Content", label: "Stories" }
+      arguments:
+          - ~
+          - AppBundle\Entity\Story
+          - ~
+      calls:
+          - [ setTranslationDomain, [AppBundle]]

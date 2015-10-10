@@ -419,4 +419,12 @@ class Story
 
         return implode(', ', $tags);
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 }
