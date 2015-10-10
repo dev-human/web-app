@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "62ad797de8a74543dd14048917b3792c",
-    "content-hash": "e9a242bb1773c51cc0b7b00edaece8c7",
+    "hash": "6d1ca9190e498007ab75c262f3038654",
+    "content-hash": "7efba72a8905a1a7a66bccfe5c81df35",
     "packages": [
         {
             "name": "behat/transliterator",
-            "version": "v1.0.1",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Behat/Transliterator.git",
-                "reference": "c93521d3462a554332d1ef5bb0e9b5b8ca4106c4"
+                "reference": "868e05be3a9f25ba6424c2dd4849567f50715003"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/Transliterator/zipball/c93521d3462a554332d1ef5bb0e9b5b8ca4106c4",
-                "reference": "c93521d3462a554332d1ef5bb0e9b5b8ca4106c4",
+                "url": "https://api.github.com/repos/Behat/Transliterator/zipball/868e05be3a9f25ba6424c2dd4849567f50715003",
+                "reference": "868e05be3a9f25ba6424c2dd4849567f50715003",
                 "shasum": ""
             },
             "require": {
@@ -27,7 +27,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.1-dev"
                 }
             },
             "autoload": {
@@ -45,7 +45,7 @@
                 "slug",
                 "transliterator"
             ],
-            "time": "2014-05-15 22:08:22"
+            "time": "2015-09-28 16:26:35"
         },
         {
             "name": "doctrine/annotations",
@@ -745,16 +745,16 @@
         },
         {
             "name": "gedmo/doctrine-extensions",
-            "version": "v2.4.6",
+            "version": "v2.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "5d330411e27ab0ced67e1e5383ccae975c23c17d"
+                "reference": "1a86ba1c7426238b4f765089e0af51174a38af7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/5d330411e27ab0ced67e1e5383ccae975c23c17d",
-                "reference": "5d330411e27ab0ced67e1e5383ccae975c23c17d",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/1a86ba1c7426238b4f765089e0af51174a38af7f",
+                "reference": "1a86ba1c7426238b4f765089e0af51174a38af7f",
                 "shasum": ""
             },
             "require": {
@@ -764,7 +764,7 @@
             },
             "require-dev": {
                 "doctrine/common": ">=2.5.0",
-                "doctrine/mongodb-odm": "dev-master",
+                "doctrine/mongodb-odm": ">=1.0.2",
                 "doctrine/orm": ">=2.5.0",
                 "phpunit/phpunit": "~4.4",
                 "phpunit/phpunit-mock-objects": "~2.3",
@@ -820,7 +820,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2015-08-28 11:07:14"
+            "time": "2015-09-28 16:39:27"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -995,16 +995,16 @@
         },
         {
             "name": "heidilabs/sauth-bundle",
-            "version": "dev-master",
+            "version": "0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/heidilabs/HeidiLabsSauthBundle.git",
-                "reference": "3320c48c4b37fe64bec294463bf9ba2f6d4f1695"
+                "reference": "1a40e9ed7f2965f37e3c62b5a874891f44f49505"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/heidilabs/HeidiLabsSauthBundle/zipball/1a40e9ed7f2965f37e3c62b5a874891f44f49505",
-                "reference": "3320c48c4b37fe64bec294463bf9ba2f6d4f1695",
+                "reference": "1a40e9ed7f2965f37e3c62b5a874891f44f49505",
                 "shasum": ""
             },
             "require": {
@@ -1035,7 +1035,7 @@
                 "oauth",
                 "symfony"
             ],
-            "time": "2015-09-23 20:42:39"
+            "time": "2015-09-27 17:07:55"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1954,34 +1954,34 @@
         },
         {
             "name": "symfony/monolog-bundle",
-            "version": "v2.7.1",
+            "version": "2.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/monolog-bundle.git",
-                "reference": "9320b6863404c70ebe111e9040dab96f251de7ac"
+                "reference": "7117b9a145722e3c5768db4585f6ad0643ed5c4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/9320b6863404c70ebe111e9040dab96f251de7ac",
-                "reference": "9320b6863404c70ebe111e9040dab96f251de7ac",
+                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/7117b9a145722e3c5768db4585f6ad0643ed5c4a",
+                "reference": "7117b9a145722e3c5768db4585f6ad0643ed5c4a",
                 "shasum": ""
             },
             "require": {
                 "monolog/monolog": "~1.8",
                 "php": ">=5.3.2",
-                "symfony/config": "~2.3",
-                "symfony/dependency-injection": "~2.3",
-                "symfony/http-kernel": "~2.3",
-                "symfony/monolog-bridge": "~2.3"
+                "symfony/config": "~2.3|3.*",
+                "symfony/dependency-injection": "~2.3|3.*",
+                "symfony/http-kernel": "~2.3|3.*",
+                "symfony/monolog-bridge": "~2.3|3.*"
             },
             "require-dev": {
-                "symfony/console": "~2.3",
+                "symfony/console": "~2.3|3.*",
                 "symfony/yaml": "~2.3"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.7.x-dev"
+                    "dev-master": "2.8.x-dev"
                 }
             },
             "autoload": {
@@ -2009,7 +2009,7 @@
                 "log",
                 "logging"
             ],
-            "time": "2015-01-04 20:21:17"
+            "time": "2015-10-02 11:51:59"
         },
         {
             "name": "symfony/swiftmailer-bundle",
@@ -2357,7 +2357,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "heidilabs/sauth-bundle": 20,
         "guzzlehttp/guzzle": 20,
         "knplabs/knp-paginator-bundle": 20
     },

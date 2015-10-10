@@ -25,7 +25,7 @@
         "symfony/yaml": "^2.7",
         "twig/extensions": "^1.2",
         "predis/predis": "^1.0",
-        "heidilabs/sauth-bundle": "dev-master",
+        "heidilabs/sauth-bundle": "^0.2.0",
         "guzzlehttp/guzzle": "^6.1@dev",
         "knplabs/knp-paginator-bundle": "^2.4@dev"
     },
