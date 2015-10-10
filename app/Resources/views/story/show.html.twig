@@ -40,7 +40,7 @@
                 </div>
                 <!-- End of the content -->
                 <div class="row">
-                    <div class="col-xs-12  col-sm-6">
+                    <div class="col-xs-12  col-sm-2">
                         {% if story.author == app.user %}
                             <div class="post-comments">
                                 <a class="btn  btn-success" href="{{ path('devhuman_edit_story', { story: story.id}) }}">
@@ -48,13 +48,9 @@
                             </div>
                         {% endif %}
                     </div>
-                    <div class="col-xs-12  col-sm-6">
+                    <div class="col-xs-12  col-sm-10">
                         <!-- Start of social icons -->
-                        <div class="social-icons">
-                            <a href="#" class="social-icons__container"><span class="zocial-facebook"></span></a>
-                            <a href="#" class="social-icons__container"><span class="zocial-twitter"></span></a>
-                            <a href="#" class="social-icons__container"><span class="zocial-email"></span></a>
-                        </div>
+                        <div class="addthis_sharing_toolbox"></div>
                         <!-- End of social icons -->
                     </div>
                 </div>
@@ -121,5 +117,12 @@
             <!-- End of the blogpost -->
         </div>
     </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-526833fd774882a3" async="async"></script>
 
 {% endblock %}

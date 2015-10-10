@@ -92,10 +92,10 @@ heidi_labs_sauth:
         github:
             class: HeidiLabs\SauthBundle\OAuthService\GithubService
             config:
-                client_name: {{ github.client_name }}
-                client_id: {{ github.client_id }}
-                client_secret: {{ github.client_secret }}
-                callback_url: {{ github.callback_url }}
+                client_name: hacktoberfest
+                client_id: "%github_app_id%"
+                client_secret: "%github_app_secret%"
+                callback_url: "%github_callback_url%"
 
 knp_paginator:
     page_range: 3                      # default page range used in pagination control

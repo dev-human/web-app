@@ -1,8 +1,10 @@
 ---
-- hosts: devhuman-prod
+- hosts: all
   user: "{{ app.system_user }}"
+  environment:
+    SYMFONY_ENV: "prod"
   vars:
-    repository: 'git@github.com:dev-human/web-app.git'
+    repository: 'https://github.com/dev-human/web-app.git'
     deps: [ 'acl' ]
   vars_prompt:
     - name: deploy_version
@@ -27,15 +29,13 @@
     - name: Checkout code
       git: repo={{ repository }} dest={{ app.docroot }} accept_hostkey=true version={{ deploy_version }}
 
-    - name: Make sure config.yml is in place
-      template: src=roles/app/templates/config.yml.tpl dest={{ app.docroot }}/app/config/config.yml
-
-    - name: Self-update Composer
-      sudo: yes
-      shell: /usr/local/bin/composer self-update
+    - name: Make sure parameters.yml is in place
+      template: src=roles/app/templates/parameters.yml.tpl dest={{ app.docroot }}/app/config/parameters.yml
 
     - name: Run Composer
-      shell: /usr/local/bin/composer install --no-dev --no-progress --prefer-dist chdir={{ app.docroot }}
+      shell: /usr/local/bin/composer install --no-dev --no-progress --optimize-autoloader --prefer-dist chdir={{ app.docroot }}
+      environment:
+        SYMFONY_ENV: prod
 
     - name: Read ACLs for web_user
       sudo: yes
@@ -44,6 +44,24 @@
     - name: Read and Write ACLs for shell user
       sudo: yes
       shell: 'setfacl -Rn -m u:"{{ app.system_user }}":rwX -m d:u:"{{ app.system_user }}":rwX {{ app.docroot }}'
+
+    - name: Read and Write ACLs for web user on cache
+      sudo: yes
+      shell: 'setfacl -Rn -m u:"{{ app.web_user }}":rwX -m d:u:"{{ app.web_user }}":rwX {{ app.docroot }}/app/cache'
+
+    - name: Read and Write ACLs for web user on logs
+      sudo: yes
+      shell: 'setfacl -Rn -m u:"{{ app.web_user }}":rwX -m d:u:"{{ app.web_user }}":rwX {{ app.docroot }}/app/logs'
+
+    - name: Clears Cache
+      shell: php app/console cache:clear --env=prod --no-debug chdir={{ app.docroot }}
+      environment:
+        SYMFONY_ENV: prod
+
+    - name: Dumps Assets
+      shell: php app/console assetic:dump --env=prod --no-debug chdir={{ app.docroot }}
+      environment:
+        SYMFONY_ENV: prod
 
     - name: Remove maintenance page
       file: path="{{ nginx.docroot }}/maintenance.html" state=absent
