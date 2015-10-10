@@ -39,6 +39,11 @@ class Collection
     protected $slug;
 
     /**
+     * @ORM\OneToMany(targetEntity="Story", mappedBy="collection")
+     */
+    protected $stories;
+
+    /**
      * @return int
      */
     public function getId()
@@ -116,5 +121,21 @@ class Collection
     public function setImage($image)
     {
         $this->image = $image;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStories()
+    {
+        return $this->stories;
+    }
+
+    /**
+     * @param mixed $stories
+     */
+    public function setStories($stories)
+    {
+        $this->stories = $stories;
     }
 }

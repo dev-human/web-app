@@ -42,7 +42,7 @@ class Story
 
     /**
      * @var Collection
-     * @ORM\ManyToOne(targetEntity="Collection")
+     * @ORM\ManyToOne(targetEntity="Collection", inversedBy="stories")
      */
     protected $collection;
 
