@@ -36,11 +36,24 @@ class StoryRepository extends EntityRepository
 
         return $qb->select('s')
             ->from('AppBundle:Story', 's')
-            ->join('s.collections', 'c')
+            ->join('s.collection', 'c')
             ->where('s.published = 1')
             ->andwhere('c.id = ?1')
             ->orderBy('s.created', 'DESC')
             ->setParameter(1, $collectionId);
+    }
+
+    public function findFromTag($tagId)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        return $qb->select('s')
+            ->from('AppBundle:Story', 's')
+            ->join('s.tags', 't')
+            ->where('s.published = 1')
+            ->andwhere('t.id = ?1')
+            ->orderBy('s.created', 'DESC')
+            ->setParameter(1, $tagId);
     }
 
     public function findFromAuthor($authorId)
@@ -88,9 +101,7 @@ class StoryRepository extends EntityRepository
         return $query
                 ->where('s.published = 1')
                 ->andWhere($query->expr()->like('s.title', "'%" . $search . "%'"))
-                ->orderBy('s.created', 'DESC')
-                ->getQuery()
-                ->getResult();
+                ->orderBy('s.created', 'DESC');
     }
 
     public function findTopPosts($limit = 3)
@@ -147,6 +158,25 @@ class StoryRepository extends EntityRepository
      */
     public function findRelatedPosts($post, $limit = 3)
     {
-        return $this->findRecentPosts($limit);
+        $postObj = $this->find($post);
+
+        if (!$postObj) {
+            return null;
+        }
+
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        return $qb->select('s')
+            ->from('AppBundle:Story', 's')
+            ->join('s.collection', 'c')
+            ->where('s.published = 1')
+            ->andWhere($qb->expr()->not('s.id = ?1'))
+            ->andwhere('c.id = ?2')
+            ->orderBy('s.created', 'DESC')
+            ->setMaxResults($limit)
+            ->setParameter(1, $postObj->getId())
+            ->setParameter(2, $postObj->getCollection()->getId())
+            ->getQuery()
+            ->getResult();
     }
 }

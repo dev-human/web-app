@@ -4,8 +4,8 @@
         <h6>Related Stories</h6>
         {% for story in relatedPosts %}
             <hr>
-            <h4><a href="#">{{ story.title }}</a></h4>
-            <h5>{{ story.preview }}</h5>
+            <h4><a href="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}" title="{{ story.title }}">{{ story.title }}</a></h4>
+            <h5>{{ story.preview|default(story.getHTMLContent()|striptags|truncate(140)) }}</h5>
         {% endfor %}
     </div>
     <!-- End of related stories -->

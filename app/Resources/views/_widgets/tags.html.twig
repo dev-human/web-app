@@ -2,6 +2,6 @@
     <h6>Tags</h6>
     <hr>
     {% for tag in tags %}
-        <a href="#" class="tags__link">{{ tag.name }}</a>
+        <a href="{{ path('devhuman_tag', {slug: tag.slug}) }}" class="tags__link">{{ tag.name }}</a>
     {% endfor %}
 </div>

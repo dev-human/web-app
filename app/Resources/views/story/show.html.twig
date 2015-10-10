@@ -2,6 +2,27 @@
 
 {% block title %}{{ story.title }} ~ dev-human{% endblock %}
 
+{% block meta %}
+    <meta name="description" content="{{ story.preview|default(story.getHTMLContent()|striptags|truncate(140)) }}">
+    <meta name="keywords" content="{{ story.getTagsList }}" />
+
+    <meta name="author" content="{{ story.author.googlePlusUrl|default(story.author.username) }}">
+    <link rel="author" href="{{ story.author.googlePlusUrl|default(story.author.username) }}">
+
+    <!-- Facebook -->
+    <meta property="og:title" content="{{ story.title }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="http://dev-human.com/assets/images/dev-human-logo.png" />
+    <meta property="og:url" content="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}" />
+    <meta property="og:description" content="{{ story.preview|default(story.getHTMLContent()|striptags|truncate(140)) }}" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="{{ story.title }}" />
+    <meta name="twitter:description" content="{{ story.preview|default(story.getHTMLContent()|striptags|truncate(140)) }}" />
+    <meta name="twitter:image" content="http://dev-human.com/assets/images/dev-human-logo.png" />
+{% endblock %}
+
 {% block body %}
 
 <div class="container">
@@ -66,7 +87,7 @@
                             <h6>Tags</h6>
                             <hr>
                             {% for tag in story.tags %}
-                                <a href="#" class="tags__link">{{ tag.name }}</a>
+                                <a href="{{ path('devhuman_tag', {slug: tag.slug}) }}" class="tags__link">{{ tag.name }}</a>
                             {% endfor %}
                         </div>
                         <!-- End of post tags -->

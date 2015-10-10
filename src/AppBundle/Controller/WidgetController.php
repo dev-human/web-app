@@ -105,7 +105,7 @@ class WidgetController extends Controller
     }
 
     /**
-     * @param $post
+     * @param int $post ID
      * @param int $max
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/widget/relatedPosts/{post}", name="widget_relatedPosts")

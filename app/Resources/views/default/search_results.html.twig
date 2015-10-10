@@ -1,0 +1,22 @@
+{% set active='authors' %}
+{% extends 'main.html.twig' %}
+
+{% block title %}dev-human search{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="search-results">
+            <p><h3>Search Results ({{ stories.getTotalItemCount }}):</h3> &nbsp; <h2>"{{ query }}"</h2><p>
+        </div>
+        <div class="row">
+            <div class="col-xs-12  col-md-8">
+               {% if stories.getTotalItemCount != 0 %}
+                   {% include 'story/loop.html.twig' with { 'stories': stories} %}
+               {% else %}
+                   <p>We couldn't find any stories with the search term "{{ query }}".</p>
+               {% endif %}
+            </div>
+        </div><!--row-->
+    </div>
+{% endblock %}

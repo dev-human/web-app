@@ -184,7 +184,7 @@ class StoryController extends Controller
     public function showArticleAltAction($slug)
     {
         $doctrine = $this->getDoctrine();
-        $story = $doctrine->getRepository('AppBundle:Story')->findOneFromSlug($slug);
+        $story = $doctrine->getRepository('AppBundle:Story')->findOneBySlug($slug);
 
         if (!$story) {
             throw new StoryNotFoundException("The requested story could not be found.");
@@ -192,7 +192,26 @@ class StoryController extends Controller
 
         return $this->redirectToRoute(
             'devhuman_show_article',
-            ['slug' => $slug, 'author' => $story->getAuthor()->getUsername]
+            ['slug' => $slug, 'author' => $story->getAuthor()->getUsername() ]
+        );
+    }
+
+    /**
+     * Shows an Article - old permalinks from dev-human.com
+     * @Route("/entries/{year}/{month}/{day}/{slug}/", name="devhuman_show_article_old")
+     */
+    public function showArticleOldAction($year, $month, $day, $slug)
+    {
+        $doctrine = $this->getDoctrine();
+        $story = $doctrine->getRepository('AppBundle:Story')->findOneBySlug($slug);
+
+        if (!$story) {
+            throw new StoryNotFoundException("The requested story could not be found.");
+        }
+
+        return $this->redirectToRoute(
+            'devhuman_show_article',
+            ['slug' => $slug, 'author' => $story->getAuthor()->getUsername() ]
         );
     }
 

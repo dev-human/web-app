@@ -1,0 +1,22 @@
+{% set active='authors' %}
+{% extends 'main.html.twig' %}
+
+{% block title %}dev-human{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="search-results">
+            <p><h3>Posts tagged </h3> &nbsp; <h2>"{{ tag.name }}"</h2> <h3> ({{ stories.getTotalItemCount }})</h3><p>
+        </div>
+        <div class="row">
+            <div class="col-xs-12  col-md-8">
+               {% if stories.getTotalItemCount != 0 %}
+                   {% include 'story/loop.html.twig' with { 'stories': stories} %}
+               {% else %}
+                   <p>We couldn't find any stories under the tag "{{ tag.name }}".</p>
+               {% endif %}
+            </div>
+        </div><!--row-->
+    </div>
+{% endblock %}
