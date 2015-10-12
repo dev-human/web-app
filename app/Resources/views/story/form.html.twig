@@ -1,7 +1,9 @@
+{% if story.id == 0 %}
+    {% set active='create' %}
+{% endif %}
 {% extends 'main.html.twig' %}
 
 {% block title %}edit/new story ~ dev-human{% endblock %}
-
 
 {% block body %}
 

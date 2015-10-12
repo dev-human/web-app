@@ -21,9 +21,7 @@ class HomeController extends Controller
      */
     public function homeAction()
     {
-         return $this->render('user/home-default.html.twig', [
-
-        ]);
+         return $this->redirectToRoute('devhuman_user_settings');
     }
 
     /**
@@ -64,8 +62,8 @@ class HomeController extends Controller
         if ($form->isValid()) {
             $em->persist($user);
             $em->flush();
-            //add flashbag msg
-            //return $this->redirectToRoute('devhuman_userhome');
+
+            $this->addFlash('success', 'Profile updated succesfully.');
         }
 
         return $this->render('user/home-settings.html.twig', [

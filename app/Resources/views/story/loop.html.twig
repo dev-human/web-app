@@ -10,11 +10,7 @@
                     <!-- Start of the content -->
                     <div class="post-content--front-page">
                         <h2 class="front-page-title"><a href="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}">{{ story.title }}</a></h2>
-                        {% if show_full is defined %}
-                            {{ story.getHTMLContent()|raw }}
-                        {% else %}
-                            <p>{{ story.preview|default(story.getHTMLContent()|striptags|truncate(240)) }}</p>
-                        {% endif %}
+                        <p>{{ story.preview|default(story.getHTMLContent()|striptags|truncate(240)) }}</p>
                     </div>
                     <!-- End of the content -->
                     <a href="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}">

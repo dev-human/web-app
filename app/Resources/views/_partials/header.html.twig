@@ -46,6 +46,12 @@
                     <li class="{% if active is defined and active == 'contact' %} active{% endif %}">
                         <a href="{{ path('devhuman_page', {page: 'contact'}) }}">Contact</a>
                     </li>
+
+                    {% if app.user and is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        <li class="{% if active is defined and active == 'create' %} active{% endif %}">
+                            <a href="{{ path('devhuman_story_create') }}"><span class="glyphicon glyphicon-plus"></span> New Story</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -70,7 +76,7 @@
                     </a>
                     <ul class="social__dropdown">
                         <li><a href="{{ path('devhuman_user', {user: app.user.username}) }}" class="social__container">Profile</a></li>
-                        <li><a href="{{ path('devhuman_userhome') }}" class="social__container">Settings</a></li>
+                        <li><a href="{{ path('devhuman_user_settings') }}" class="social__container">Settings</a></li>
                         <li><a href="{{ path('sauth_logout') }}" class="social__container">Logout</a></li>
                     </ul>
                 </div>

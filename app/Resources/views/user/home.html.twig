@@ -12,10 +12,11 @@
                         <div class="col-xs-10  col-xs-offset-1">
                             <div class="widget-categories  push-down-30">
                                 <ul>
-                                    <li><a href="{{ path('devhuman_userhome') }}">Home</a></li>
-                                    <li><a href="{{ path('devhuman_user_settings') }}" title="MENU Collection" class="active">Your Profile and Settings </a></li>
+                                    <li><a href="{{ path('devhuman_user_settings') }}" title="MENU Collection">Your Profile and Settings </a></li>
                                     <li><a href="{{ path('devhuman_userstories') }}" title="MENU Collection">Your Stories </a></li>
                                 </ul>
+
+                                <a href="{{ path('devhuman_story_create') }}" class="btn btn-large btn-primary btn-block">Create New Story</a>
                             </div>
                         </div>
                     </div>
@@ -28,7 +29,7 @@
                         <div class="col-xs-10  col-xs-offset-1">
                             <div class="home-content">
                                 {% block homecontent %}
-                                    CONTENT
+
                                 {% endblock %}
                             </div>
                         </div>
