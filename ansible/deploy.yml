@@ -5,6 +5,7 @@
     SYMFONY_ENV: "prod"
   vars:
     repository: 'https://github.com/dev-human/web-app.git'
+    pr_repository: https://github.com/dev-human/dev-human.git
     deps: [ 'acl' ]
   vars_prompt:
     - name: deploy_version
@@ -28,6 +29,13 @@
 
     - name: Checkout code
       git: repo={{ repository }} dest={{ app.docroot }} accept_hostkey=true version={{ deploy_version }}
+
+    - name: Make sure data directory exists
+      sudo: yes
+      file: path={{ app.docroot }}/app/data state=directory owner={{ app.system_user }} group={{ app.system_user }}
+
+    - name: Checkout "legacy" repository (for PR submissions)
+      git: repo={{ pr_repository }} dest={{ app.docroot }}/app/data/legacy accept_hostkey=true version=master
 
     - name: Make sure parameters.yml is in place
       template: src=roles/app/templates/parameters.yml.tpl dest={{ app.docroot }}/app/config/parameters.yml

@@ -16,6 +16,10 @@ services:
         tags:
             - { name: twig.extension }
 
+  article.importer:
+        class: AppBundle\Service\ArticleImporterService
+        arguments: [ "@doctrine" ]
+
   redis:
         class: AppBundle\Service\RedisService
         arguments: [ "%predis_settings%" ]
