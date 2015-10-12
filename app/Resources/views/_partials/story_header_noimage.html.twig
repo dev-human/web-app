@@ -3,19 +3,19 @@
         <div class="col-xs-12  col-sm-10  col-sm-offset-1">
             <div class="meta__container--without-image">
                 <div class="row">
-                    <div class="col-xs-12  col-sm-10">
+                    <div class="col-xs-12  col-sm-6">
                         <div class="meta__info">
                     <span class="meta__author">
                       <a href="{{ path('devhuman_user', {user: story.author.username}) }}" title="{{ story.author.name }}'s Profile"><img src="{{ gravatar(story.author.email, 30) }}" alt="{{ story.author.name }}" width="30" height="30"></a> <a href="{{ path('devhuman_user', {user: story.author.username}) }}" title="{{ story.author.name }}'s Profile">{{ story.author.username }}</a>
                         {% if story.collection %}in
                             <a href="{{ path('devhuman_collection', {slug: story.collection.slug}) }}" title="See all articles under {{ story.collection.name }}">{{ story.collection.name }}</a>
                         {% endif %}</span>
-                            <span class="meta__date"><span class="glyphicon glyphicon-calendar"></span> &nbsp; {{ story.created|date('F d, Y') }}</span>
+
                         </div>
                     </div>
-                    <div class="col-xs-12  col-sm-2">
+                    <div class="col-xs-12  col-sm-6">
                         <div class="meta__comments">
-                            <a href="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}#disqus_thread"><span class="glyphicon glyphicon-comment"></span> &nbsp; </a>
+                            <span class="meta__date"><span class="glyphicon glyphicon-calendar"></span> &nbsp; {{ story.created|date('F d, Y') }}</span>
                         </div>
                     </div>
                 </div>
