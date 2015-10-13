@@ -119,6 +119,15 @@ class DefaultController extends Controller
     }
 
     /**
+     * Redirects to user profile.
+     * @Route("/authors/{user}", name="devhuman_user_alt")
+     */
+    public function authorProfileAction($user)
+    {
+        return $this->redirectToRoute('devhuman_user', ['user' => $user]);
+    }
+
+    /**
      * Show the User/Author Profile
      * @Route("/~{user}", name="devhuman_user")
      */
