@@ -12,7 +12,7 @@
     <!-- Facebook -->
     <meta property="og:title" content="{{ story.title }}" />
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="http://dev-human.com/assets/images/dev-human-logo.png" />
+    <meta property="og:image" content="http://dev-human.io{{ path('imanee_card_facebook', {storyId: story.id}) }}" />
     <meta property="og:url" content="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}" />
     <meta property="og:description" content="{{ story.preview|default(story.getHTMLContent()|striptags|truncate(140)) }}" />
 
@@ -20,7 +20,7 @@
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="{{ story.title }}" />
     <meta name="twitter:description" content="{{ story.preview|default(story.getHTMLContent()|striptags|truncate(140)) }}" />
-    <meta name="twitter:image" content="http://dev-human.com/assets/images/dev-human-logo.png" />
+    <meta name="twitter:image" content="http://dev-human.io{{ path('imanee_card_twitter', {storyId: story.id}) }}" />
 {% endblock %}
 
 {% block body %}

@@ -1,0 +1,81 @@
+canvas#content-canvas {
+    display: none;
+    visibility: hidden;
+    position: absolute;
+    z-index: 1;
+}
+
+div.imanee-highlighter-menu {
+    position: absolute;
+    visibility:hidden;
+    z-index: 500;
+    display: none;
+    top: 0;
+    left: 0;
+}
+
+div.highlighter-menu-active {
+    display: inline-block;
+    visibility: visible;
+}
+
+.highlight-panel {
+    display: none;
+    font-family: "Open Sans", sans-serif;
+    background-color: rgba(0, 0, 0, 0.75);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+}
+
+.highlight-panel form {
+    margin-top: 50px;
+    font-family: "Open Sans", sans-serif;
+}
+
+@media (min-width: 992px) {
+    .highlight-panel form {
+        margin-top: 160px;
+        margin-left: 70px;
+    }
+
+    .highlight-panel img {
+        margin-top: 160px;
+        margin-left: 70px;
+    }
+}
+
+/* line 48, ../sass/components/_top-search-and-social.scss */
+
+.highlight-panel .highlight-panel__form {
+    background: transparent;
+    border: none;
+    color: #efefeb;
+    font-size: 22px;
+    margin-bottom: 30px;
+    outline: none;
+}
+
+/* line 57, ../sass/components/_top-search-and-social.scss */
+
+.highlight-panel input::-webkit-input-placeholder {
+    color: #efefeb;
+    font-weight: 300;
+}
+
+.highlight-panel__form textarea {
+    width: 500px;
+}
+
+body.highlight-mode .highlight-panel {
+    display: block;
+}
+
+.highlight-panel .highlight-panel__text {
+    font-size: 16px;
+    color: #51ab6d;
+    padding-left: 5px;
+}
