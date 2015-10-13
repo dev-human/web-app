@@ -25,11 +25,11 @@ class TextImageGenerator
                     'font_file'      => __DIR__ . '/Resources/fonts/quote_default.otf',
                     'font_size'      => 30,
                     'line_spacing'   => 5,
-                    'padding'        => 20,
+                    'padding'        => 10,
                     'color'          => '#333333',
                     'background'     => '#F5F5F5',
                     'highlight_text' => true,
-                    'highlight'      => '#61e83f'
+                    'highlight'      => '#84d88c'
                 ],
                 $settings
             )
@@ -174,14 +174,14 @@ class TextImageGenerator
         $drawer = $this->getDrawer();
 
         // calculates image height
-        $height = (($fontSize + ($lineSpacing*3)) * count($lines)) + (2 * $padding);
+        $height = (($fontSize + ($lineSpacing*3)) * count($lines)) + (4 * $padding);
 
         $imanee = new Imanee();
         $imanee->newImage($width, $height, $background);
         $imanee->setDrawer($drawer);
 
         $cx = $padding;
-        $cy = $padding;
+        $cy = 2*$padding;
 
         foreach ($lines as $line) {
             $lineImg = $this->getTextLine($line);

@@ -18,6 +18,9 @@ class HighlightCard
     protected $quoteAvatar;
 
     /** @var  string */
+    protected $quoteSource;
+
+    /** @var  string */
     protected $sourceLogo;
 
     /** @var TextImageGenerator */
@@ -28,6 +31,7 @@ class HighlightCard
         $this->setQuoteAvatar(__DIR__ . '/Resources/img/avatar.png');
         $this->setSourceLogo(__DIR__ . '/Resources/img/dev-human-sticker.png');
         $this->setQuoteAuthor('Anonymous');
+        $this->setQuoteSource('dev-human');
 
         $this->settings = $settings;
         $this->generator = new TextImageGenerator($settings);
@@ -82,6 +86,22 @@ class HighlightCard
     }
 
     /**
+     * @return string
+     */
+    public function getQuoteSource()
+    {
+        return $this->quoteSource;
+    }
+
+    /**
+     * @param string $quoteSource
+     */
+    public function setQuoteSource($quoteSource)
+    {
+        $this->quoteSource = $quoteSource;
+    }
+
+    /**
      * @param $text
      * @param int $width
      * @return Imanee
@@ -91,7 +111,7 @@ class HighlightCard
     public function generateQuoteCard($text, $width = 500)
     {
         $textImage = $this->generator->generateImage('"' . $text . '"', $width);
-        $header = $this->getImageHeader($width, 60);
+        $header = $this->getImageHeader($width, 40);
 
         $height = $header->getHeight() + $textImage->getHeight();
 
@@ -113,7 +133,7 @@ class HighlightCard
     public function getImageHeader($width, $height)
     {
         $fontsize = 16;
-        $imageSize = 60;
+        $imageSize = 40;
         $padding = $this->generator->get('padding');
 
         $header = new Imanee();
@@ -136,7 +156,8 @@ class HighlightCard
                 $imageSize,
                 $imageSize
             )
-            ->annotate($this->getQuoteAuthor(), $imageSize + (2*$padding), $padding + ($imageSize/3));
+            ->annotate($this->getQuoteAuthor(), $imageSize + (2*$padding), $padding + ($imageSize/4))
+            ->annotate($this->getQuoteSource(), $imageSize + (2*$padding), ($imageSize), $fontsize*1.2);
 
         return $header;
     }

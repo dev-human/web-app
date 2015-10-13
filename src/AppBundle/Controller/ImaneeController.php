@@ -102,6 +102,8 @@ class ImaneeController extends Controller
      */
     public function generateIndexedQuoteAction($storyId, Request $request)
     {
+        $quoteLimit = 210;
+
         /** @var Story $story */
         $story = $this->getDoctrine()->getManager()->getRepository('AppBundle:Story')->find($storyId);
 
@@ -115,17 +117,29 @@ class ImaneeController extends Controller
             throw new \Exception('Quote index was not provided.');
         }
 
-        $index = explode(',', $q);
+        list ($start, $size) = explode(',', $q);
 
-        $quote = substr(strip_tags($story->getHTMLContent()), $index[0], $index[1]);
+        $append = '';
+        if ($size > $quoteLimit) {
+            $append = '...';
+            $size = $quoteLimit;
+        }
+        $quote = substr(strip_tags($story->getHTMLContent()), $start, $size) . $append;
 
         if (!$quote) {
             $quote = "Error";
         }
 
+        $titleLimit = 55;
+        $title = $story->getTitle();
+        if (strlen($title) > $titleLimit) {
+            $title = substr($title, 0, 55) . '...';
+        }
+
         $card = new HighlightCard();
         $card->setQuoteAuthor($story->getAuthor()->getUsername());
         $card->setSourceLogo(__DIR__ . '/../Resources/img/dev-human-sticker.png');
+        $card->setQuoteSource($title);
 
         $image = $card->generateQuoteCard($quote, 506);
 
