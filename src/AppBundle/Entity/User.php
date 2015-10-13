@@ -10,7 +10,7 @@ use HeidiLabs\SauthBundle\Model\AbstractUser;
 
 /**
  * Class User
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="UserRepository")
  * @ORM\Table="dh_user"
  */
 class User extends AbstractUser

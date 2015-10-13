@@ -96,7 +96,7 @@ class DefaultController extends Controller
     public function authorsAction()
     {
         $doctrine = $this->getDoctrine();
-        $authors = $doctrine->getRepository('AppBundle:User')->findAll();
+        $authors = $doctrine->getRepository('AppBundle:User')->getAuthorsList();
 
         return $this->render('default/authors.html.twig', [
             'authors'   => $authors
