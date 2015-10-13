@@ -20,6 +20,8 @@ class SocialCard
         $this->title = $title;
         $this->author = $author;
         $this->background = $background;
+        $this->titleFontSize = 40;
+        $this->authorFontSize = 30;
     }
 
     /**
@@ -122,7 +124,6 @@ class SocialCard
 
         $author = $generator->generateImage('story  by ' . $this->getAuthor(), $imanee->getWidth());
 
-        //$imanee->placeImage($text, Imanee::IM_POS_MID_CENTER);
         $imanee->compositeImage(
             $text,
             ($imanee->getWidth()/2) - ($text->getWidth()/2),
