@@ -73,7 +73,7 @@ class ArticleImporterService
     {
         $parts = explode('.', basename($file));
 
-        return substr($parts[0], 11);
+        return strtolower(substr($parts[0], 11));
     }
 
     /**
