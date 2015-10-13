@@ -161,7 +161,7 @@
             highlighter.onSelectedText = function(selectedText) {
                 var start = storyContent.indexOf(selectedText);
                 var base_url = "https://twitter.com/intent/tweet";
-                var image_url = "http://dev-human.io/quote/{{ story.id }}?q=" + start + ',' + selectedText.length;
+                var image_url = "http://dev-human.io/quote/{{ story.id }}.jpg?q=" + start + ',' + selectedText.length;
                 var story_url = "http://dev-human.io{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}";
                 var shareText = "{{ story.title|escape('js') }} " + image_url + " " + story_url;
 

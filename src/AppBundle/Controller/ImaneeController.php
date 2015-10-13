@@ -98,7 +98,7 @@ class ImaneeController extends Controller
 
     /**
      * Generates an image for social networks - Facebook
-     * @Route("/quote/{storyId}", name="imanee_indexed_quote")
+     * @Route("/quote/{storyId}.jpg", name="imanee_indexed_quote")
      */
     public function generateIndexedQuoteAction($storyId, Request $request)
     {
