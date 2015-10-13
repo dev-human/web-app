@@ -101,9 +101,10 @@ class ArticleImporterService
      * Stories can be in 1 collection only, but they can have multiple tags.
      * This will get the first category and return a collection from it (existing or new)
      * @param array $meta
+     * @param bool $createNew Wheter or not a new Collection should be created if not existent
      * @return Collection
      */
-    protected function getCollection(array $meta)
+    protected function getCollection(array $meta, $createNew = false)
     {
         if (count($meta['categories'])) {
             $category = $meta['categories'][0];
@@ -111,7 +112,7 @@ class ArticleImporterService
             $em = $this->getDoctrine();
             $collection = $em->getRepository('AppBundle:Collection')->findOneByName($category);
 
-            if (!$collection) {
+            if (!$collection and $createNew) {
                 $collection = new Collection();
                 $collection->setName($category);
                 $this->getDoctrine()->persist($collection);

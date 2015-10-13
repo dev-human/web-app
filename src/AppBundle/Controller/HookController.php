@@ -8,6 +8,7 @@ namespace AppBundle\Controller;
 use AppBundle\Service\ArticleImporterService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 class HookController extends Controller
 {
@@ -43,6 +44,8 @@ class HookController extends Controller
                 $this->writeLog("Imported new article: " . $story->getTitle());
             }
         }
+
+        return new Response('OK');
     }
 
     private function writeLog($message)
