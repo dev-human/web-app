@@ -1,8 +1,7 @@
 {% if featured is defined and featured %}
 <div class="widget-featured-post  push-down-30">
     <h6>Featured post</h6>
-    <img src="{{ asset('images/dummy-licensed/blog-image.jpg')}}" alt="Featured post" width="293" height="127">
     <h4><a href="{{ path('devhuman_show_article', {author: featured.author.username, slug: featured.slug}) }}">{{ featured.title }}</a></h4>
-    <p>{{ featured.preview }}</p>
+    <p>{{ featured.preview|truncate(100)|default(featured.getHTMLContent()|striptags|truncate(100)) }}</p>
 </div>
 {% endif %}

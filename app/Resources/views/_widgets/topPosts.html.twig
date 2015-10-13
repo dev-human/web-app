@@ -24,7 +24,6 @@
             {% if topPosts is defined and topPosts %}
                 {% for story in topPosts %}
                     <div class="push-down-15">
-                        <img src="{{ asset('images/dummy-licensed/blog-image-small.jpg')}}" alt="Posts">
                         <h5><a href="{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}" title="{{ story.title }}">{{ story.title }}</a></h5>
                         <span class="widget-posts__time">19 hours ago</span>
                     </div>
