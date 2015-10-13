@@ -17,6 +17,7 @@
         'assets/bootstrap/css/bootstrap.min.css'
         'assets/css/main.css'
         'assets/css/custom.css'
+        'assets/css/highlighter.css'
         filter='cssrewrite' output='css/app.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
@@ -91,6 +92,7 @@
     {% javascripts
         'assets/bootstrap/js/bootstrap.min.js'
         'assets/js/searchMode.js'
+        'assets/js/highlighter.js'
         output='js/app.js' %}
         <script data-main="scripts/main" src="{{ asset_url }}"></script>
     {% endjavascripts %}

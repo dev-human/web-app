@@ -28,6 +28,7 @@
 
 {% block body %}
     {% include '_partials/flash_messages.html.twig' %}
+    {% include '_partials/highlight_panel.html.twig' %}
 <div class="container">
     <div class="boxed  push-down-60">
 
@@ -37,16 +38,22 @@
         <div class="row">
             <div class="col-xs-10  col-xs-offset-1  col-md-8  col-md-offset-2  push-down-60">
                 <!-- Start of the content -->
-                <div class="post-content">
+                <div class="post-content" id="post-content">
                     <h1>{{ story.title }}</h1>
                     {{ content|raw }}
+
+                    <div class="imanee-highlighter-menu" id="imanee-highlighter-menu">
+                        <a id="share-twitter-button" href="https://twitter.com/intent/tweet" class="btn btn-primary btn-sm">
+                            <span class="zocial zocial-twitter"></span> Share Quote</a>
+                    </div>
+
                 </div>
                 <!-- End of the content -->
                 <div class="row">
                     <div class="col-xs-12  col-sm-6">
                         {% if story.author == app.user %}
                             <div class="post-comments">
-                                <a class="btn  btn-success" href="{{ path('devhuman_edit_story', { story: story.id}) }}">
+                                <a class="btn btn-success" href="{{ path('devhuman_edit_story', { story: story.id}) }}">
                                     <span class="glyphicon glyphicon-pencil"></span> Edit Story</a>
                             </div>
                         {% endif %}
@@ -125,7 +132,43 @@
 
 {% block javascripts %}
     {{ parent() }}
-
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-526833fd774882a3" async="async"></script>
 
+    <script>window.twttr = (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+                    t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+
+            t._e = [];
+            t.ready = function(f) {
+                t._e.push(f);
+            };
+
+            return t;
+        }(document, "script", "twitter-wjs"));</script>
+
+    <script type="text/javascript">
+        {% spaceless %}
+        var storyContent = "{{ content|striptags|escape('js')|replace({"\n":'', "\r":''}) }}";
+        {% endspaceless %}
+
+        $(function() {
+
+            highlighter.onSelectedText = function(selectedText) {
+                var start = storyContent.indexOf(selectedText);
+                var base_url = "https://twitter.com/intent/tweet";
+                var image_url = "http://dev-human.io/quote/{{ story.id }}?q=" + start + ';' + selectedText.length;
+                var shareText = "{{ story.title|escape('js') }} " + image_url;
+
+                $('#share-twitter-button').attr('href', base_url + '?text= ' + encodeURI(shareText) + '&via=devhumanproject');
+                twttr.widgets.load();
+            };
+
+            highlighter.init('post-content');
+        });
+    </script>
 {% endblock %}

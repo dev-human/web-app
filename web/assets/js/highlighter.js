@@ -28,6 +28,8 @@ var highlighter = {
             .css({'top': coordY + 'px', 'left' : coordX + 'px' })
             .addClass('highlighter-menu-active')
         ;
+
+        this.onSelectedText(getSelectionText());
     },
 
     hideHighlighterMenu: function() {
@@ -36,8 +38,11 @@ var highlighter = {
         ;
     },
 
+    onSelectedText: function(selectedText) {
+
+    },
+
     onButtonClick: function(selectedText) {
-        $('#quotable_image').html('<img src="/app_dev.php/imanee/highlighter/quote?text=' + selectedText + '">');
     }
 };
 
@@ -63,30 +68,3 @@ function getSelectionText() {
 
     return text;
 }
-
-$( '.js--toggle-highlight-mode' ).on( 'click', function ( ev ) {
-    ev.preventDefault();
-
-    $( 'body' ).toggleClass( 'highlight-mode' );
-
-    if ( $( 'body' ).hasClass( 'highlight-mode' ) ) {
-        var text = getSelectionText();
-        highlighter.onButtonClick(text);
-        setTimeout(function () {
-            $('.js--highlight-panel-text'). val('"' + text + '"');
-            $('.js--highlight-panel-text').focus();
-        }, 10);
-
-        // on escape key leave the search mode
-        $( document ).on( 'keyup.highlightMode', function( ev ) {
-            ev.preventDefault();
-            if ( ev.keyCode === 27 ){
-                $( 'body' ).toggleClass( 'highlight-mode' );
-                $( document ).off( 'keyup.highlightMode' );
-                highlighter.hideHighlighterMenu();
-            }
-        } );
-    } else {
-        $( document ).off( 'keyup.highlightMode' );
-    }
-} );
