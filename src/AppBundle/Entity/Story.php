@@ -74,6 +74,13 @@ class Story
     protected $published = 0;
 
     /**
+     * Whether or not this story is included in the public listings
+     * @var int
+     * @ORM\Column(type="boolean")
+     */
+    protected $listed = 1;
+
+    /**
      * @var bool Featured
      * @ORM\Column(type="boolean")
      */
@@ -348,6 +355,22 @@ class Story
     public function setPublished($published)
     {
         $this->published = $published;
+    }
+
+    /**
+     * @return int
+     */
+    public function isListed()
+    {
+        return $this->listed;
+    }
+
+    /**
+     * @param int $listed
+     */
+    public function setListed($listed)
+    {
+        $this->listed = $listed;
     }
 
     /**

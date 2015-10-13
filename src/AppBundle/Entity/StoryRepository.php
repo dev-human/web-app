@@ -38,6 +38,7 @@ class StoryRepository extends EntityRepository
             ->from('AppBundle:Story', 's')
             ->join('s.collection', 'c')
             ->where('s.published = 1')
+            ->andWhere('s.listed = 1')
             ->andwhere('c.id = ?1')
             ->orderBy('s.created', 'DESC')
             ->setParameter(1, $collectionId);
@@ -51,6 +52,7 @@ class StoryRepository extends EntityRepository
             ->from('AppBundle:Story', 's')
             ->join('s.tags', 't')
             ->where('s.published = 1')
+            ->andWhere('s.listed = 1')
             ->andwhere('t.id = ?1')
             ->orderBy('s.created', 'DESC')
             ->setParameter(1, $tagId);
@@ -88,6 +90,7 @@ class StoryRepository extends EntityRepository
         return $qb->select('s')
             ->from('AppBundle:Story', 's')
             ->where('s.published = 1')
+            ->andWhere('s.listed = 1')
             ->orderBy('s.created', 'DESC');
     }
 
@@ -144,6 +147,7 @@ class StoryRepository extends EntityRepository
         return $qb->select('s')
             ->from('AppBundle:Story', 's')
             ->where('s.published = 1')
+            ->andWhere('s.listed = 1')
             ->orderBy('s.created', 'DESC')
             ->setMaxResults($limit)
             ->getQuery()
@@ -170,6 +174,7 @@ class StoryRepository extends EntityRepository
             ->from('AppBundle:Story', 's')
             ->join('s.collection', 'c')
             ->where('s.published = 1')
+            ->andWhere('s.listed = 1')
             ->andWhere($qb->expr()->not('s.id = ?1'))
             ->andwhere('c.id = ?2')
             ->orderBy('s.created', 'DESC')

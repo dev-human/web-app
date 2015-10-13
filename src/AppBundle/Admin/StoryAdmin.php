@@ -42,10 +42,11 @@ class StoryAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('title')
-            ->add('slug')
+            ->add('collection')
             ->add('author')
             ->add('created')
             ->add('published', 'boolean', ['editable' => true])
+            ->add('listed', 'boolean', ['editable' => true])
             ->add('featured', 'boolean', ['editable' => true])
         ;
     }
