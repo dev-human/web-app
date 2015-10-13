@@ -115,7 +115,7 @@ class ImaneeController extends Controller
             throw new \Exception('Quote index was not provided.');
         }
 
-        $index = explode(';', $q);
+        $index = explode(',', $q);
 
         $quote = substr(strip_tags($story->getHTMLContent()), $index[0], $index[1]);
 

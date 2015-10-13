@@ -161,7 +161,7 @@
             highlighter.onSelectedText = function(selectedText) {
                 var start = storyContent.indexOf(selectedText);
                 var base_url = "https://twitter.com/intent/tweet";
-                var image_url = "http://dev-human.io/quote/{{ story.id }}?q=" + start + ';' + selectedText.length;
+                var image_url = "http://dev-human.io/quote/{{ story.id }}?q=" + start + ',' + selectedText.length;
                 var shareText = "{{ story.title|escape('js') }} " + image_url;
 
                 $('#share-twitter-button').attr('href', base_url + '?text= ' + encodeURI(shareText) + '&via=devhumanproject');
