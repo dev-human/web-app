@@ -1,3 +1,7 @@
+imanee_image_tools:
+    resource: "@ImaneeImageToolsBundle/Resources/config/routing.yml"
+    prefix:   /
+
 heidilabs_sauth:
     resource: "@HeidiLabsSauthBundle/Resources/config/routing.yml"
     prefix:   /

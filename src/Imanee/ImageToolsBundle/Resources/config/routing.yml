@@ -1,0 +1,3 @@
+imanee_image_tools_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: ImaneeImageToolsBundle:Default:index }

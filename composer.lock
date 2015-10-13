@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e188794bac6ba48897019a9a3b10598f",
-    "content-hash": "6872c27fd4888f6f673ae9ab65a6992d",
+    "hash": "f0c970551cb47df8e396822dc809ba6d",
+    "content-hash": "0a399e491d8f48b64c18fc5bbf7d508b",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1101,6 +1101,66 @@
             "time": "2015-09-27 17:07:55"
         },
         {
+            "name": "imanee/imanee",
+            "version": "1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/imanee/imanee.git",
+                "reference": "e3e3cf92c694f84fd8cb9cdeee6aa4a71655781d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/imanee/imanee/zipball/e3e3cf92c694f84fd8cb9cdeee6aa4a71655781d",
+                "reference": "e3e3cf92c694f84fd8cb9cdeee6aa4a71655781d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "ext-gd": "*",
+                "ext-imagick": "*",
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "3.7.*",
+                "satooshi/php-coveralls": "^0.6.1"
+            },
+            "suggest": {
+                "ext-gd": "To allow Imanee\\ImageResource\\GDResource usage.",
+                "ext-imagick": "To allow Imanee\\ImageResource\\ImagickResource usage."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Imanee\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Erika Heidi",
+                    "email": "erika@erikaheidi.com"
+                }
+            ],
+            "description": "PHP Image Manipulation Library",
+            "homepage": "http://imanee.io",
+            "keywords": [
+                "ImageMagick",
+                "gd",
+                "image",
+                "imagick",
+                "php"
+            ],
+            "time": "2015-09-03 13:02:21"
+        },
+        {
             "name": "incenteev/composer-parameter-handler",
             "version": "v2.1.1",
             "source": {
@@ -1963,7 +2023,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/ff2375d3ab31f1d92e60dbe6427c8afff42fcd54",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/dd9ff78441037c7739d599cb6ea44bf14e60993b",
                 "reference": "ff2375d3ab31f1d92e60dbe6427c8afff42fcd54",
                 "shasum": ""
             },
@@ -2964,7 +3024,8 @@
         "guzzlehttp/guzzle": 20,
         "knplabs/knp-paginator-bundle": 20,
         "sonata-project/admin-bundle": 20,
-        "sonata-project/doctrine-orm-admin-bundle": 20
+        "sonata-project/doctrine-orm-admin-bundle": 20,
+        "imanee/imanee": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

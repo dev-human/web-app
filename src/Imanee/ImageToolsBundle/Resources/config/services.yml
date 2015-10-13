@@ -1,0 +1,4 @@
+services:
+#    imanee_image_tools.example:
+#        class: Imanee\ImageToolsBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
