@@ -127,7 +127,6 @@
             <!-- End of the blogpost -->
         </div>
     </div>
-
 {% endblock %}
 
 {% block javascripts %}
@@ -153,7 +152,7 @@
 
     <script type="text/javascript">
         {% spaceless %}
-        var storyContent = "{{ content|striptags|escape('js')|replace({"\n":'', "\r":''}) }}";
+        var storyContent = "{{ story.getTextOnlyContent|escape('js') }}";
         {% endspaceless %}
 
         $(function() {
@@ -171,5 +170,6 @@
 
             highlighter.init('post-content');
         });
+
     </script>
 {% endblock %}

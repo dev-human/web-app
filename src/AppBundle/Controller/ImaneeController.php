@@ -6,6 +6,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Story;
+use AppBundle\Entity\User;
+use GuzzleHttp\Client;
 use Imanee\ImageToolsBundle\HighlightCard;
 use Imanee\ImageToolsBundle\SocialCard;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -124,7 +126,11 @@ class ImaneeController extends Controller
             $append = '...';
             $size = $quoteLimit;
         }
-        $quote = substr(strip_tags($story->getHTMLContent()), $start, $size) . $append;
+
+        $content = $story->getTextOnlyContent();
+
+        //return new Response($content);
+        $quote = substr($content, $start, $size) . $append;
 
         if (!$quote) {
             $quote = "Error";
@@ -141,10 +147,64 @@ class ImaneeController extends Controller
         $card->setSourceLogo(__DIR__ . '/../Resources/img/dev-human-sticker.png');
         $card->setQuoteSource($title);
 
+        if ($story->getAuthor()->getEmail()) {
+            $avatar = $this->getCachedGravatar($story->getAuthor()->getEmail());
+            $card->setQuoteAvatar($avatar);
+        }
+
         $image = $card->generateQuoteCard($quote, 506);
 
         return new Response($image->output(), 200, [
             'Content-type' => 'image/jpg'
         ]);
+    }
+
+    /**
+     * @param string $email
+     * @return bool|string
+     */
+    public function getCachedGravatar($email)
+    {
+        $cacheDir = __DIR__ . '/../../../app/data/images';
+        $file = md5($email);
+        $image = $cacheDir . '/' . $file;
+
+        if (!is_file($image)) {
+            $guzzle = new Client();
+
+            $url = 'http://www.gravatar.com/avatar/';
+            $url .= md5(strtolower(trim($email)));
+            $url .= "?s=60";
+
+            $response = $guzzle->get($url);
+
+            if ($response->getStatusCode() == 200) {
+                $content = $response->getBody();
+
+                if (!$this->saveCachedImageFile($image, $content)) {
+                    return false;
+                }
+            }
+        }
+
+        return $image;
+    }
+
+    /**
+     * @param string $path
+     * @param string $contents
+     * @return bool
+     */
+    private function saveCachedImageFile($path, $contents)
+    {
+        $fp = fopen($path, "w");
+        if ($fp !== false) {
+            fwrite($fp, $contents);
+            fclose($fp);
+
+            return true;
+        }
+
+        return false;
     }
 }
