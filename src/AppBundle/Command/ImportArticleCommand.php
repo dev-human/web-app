@@ -47,9 +47,9 @@ class ImportArticleCommand extends ContainerAwareCommand
         $em = $this->getDoctrine();
 
         //check for duplicates
-        $story = $em->getRepository('AppBundle:Story')->findOneBySlug($story->getSlug());
+        $check = $em->getRepository('AppBundle:Story')->findOneBySlug($story->getSlug());
 
-        if ($story) {
+        if ($check) {
             $output->writeln(
                 '<info>Story imported before - skipping.</info>'
             );
