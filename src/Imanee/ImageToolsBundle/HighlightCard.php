@@ -139,6 +139,8 @@ class HighlightCard
         $header = new Imanee();
         $header->newImage($width, $height + ($padding), '#E5E5E5');
 
+        $mask = new Imanee(__DIR__ . '/Resources/img/avatar-mask.png');
+
         $drawer = new Drawer();
         $drawer
             ->setFont($this->generator->get('font_file'))
@@ -149,6 +151,7 @@ class HighlightCard
 
         $header
             ->compositeImage($this->getQuoteAvatar(), $padding, $padding/2, $imageSize, $imageSize)
+            ->compositeImage($mask, $padding, $padding/2, $imageSize, $imageSize)
             ->compositeImage(
                 $this->getSourceLogo(),
                 $header->getWidth() - $padding - ($imageSize),
