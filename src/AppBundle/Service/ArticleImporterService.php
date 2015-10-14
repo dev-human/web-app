@@ -91,6 +91,7 @@ class ArticleImporterService
             $user = new User();
             $user->setUsername($username);
             $user->setName($username);
+            $user->setRoles(['ROLE_USER']);
             $this->getDoctrine()->persist($user);
         }
 
