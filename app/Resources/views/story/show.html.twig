@@ -159,6 +159,11 @@
 
             highlighter.onSelectedText = function(selectedText) {
                 var start = storyContent.indexOf(selectedText);
+
+                if (start == -1) {
+                    start = 0;
+                }
+
                 var base_url = "https://twitter.com/intent/tweet";
                 var image_url = "http://dev-human.io/quote/{{ story.id }}.jpg?q=" + start + ',' + selectedText.length;
                 var story_url = "http://dev-human.io{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}";

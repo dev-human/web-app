@@ -75,6 +75,8 @@ class ImaneeController extends Controller
      */
     public function generateQuoteAction($storyId, Request $request)
     {
+        $quoteLimit = 240;
+
         $story = $this->getDoctrine()->getManager()->getRepository('AppBundle:Story')->find($storyId);
 
         if (!$story) {
@@ -87,11 +89,37 @@ class ImaneeController extends Controller
             throw new \Exception('You must provide a quote.');
         }
 
+        $q = $request->query->get('q');
+
+        if (!$q) {
+            throw new \Exception('Quote index was not provided.');
+        }
+
+        if (strlen($quote) > $quoteLimit) {
+            $quote = substr($quote, 0, $quoteLimit) . '...';
+        }
+
+        $cacheDir = __DIR__ . '/../../../app/data/images';
+        $imageFile = $cacheDir . '/' . md5($storyId . $q) . '.jpg';
+
+        $titleLimit = 55;
+        $title = $story->getTitle();
+        if (strlen($title) > $titleLimit) {
+            $title = substr($title, 0, 55) . '...';
+        }
+
         $card = new HighlightCard();
         $card->setQuoteAuthor($story->getAuthor()->getUsername());
         $card->setSourceLogo(__DIR__ . '/../Resources/img/dev-human-sticker.png');
+        $card->setQuoteSource($title);
+
+        if ($story->getAuthor()->getEmail()) {
+            $avatar = $this->getCachedGravatar($story->getAuthor()->getEmail());
+            $card->setQuoteAvatar($avatar);
+        }
 
         $image = $card->generateQuoteCard($quote, 506);
+        $this->saveCachedImageFile($imageFile, $image->output());
 
         return new Response($image->output(), 200, [
             'Content-type' => 'image/jpg'
@@ -100,7 +128,7 @@ class ImaneeController extends Controller
 
     /**
      * Generates an image for social networks - Facebook
-     * @Route("/quote/{storyId}.jpg", name="imanee_indexed_quote")
+     * @Route("/quote/{storyId}", name="imanee_indexed_quote")
      */
     public function generateIndexedQuoteAction($storyId, Request $request)
     {
@@ -129,7 +157,6 @@ class ImaneeController extends Controller
 
         $content = $story->getTextOnlyContent();
 
-        //return new Response($content);
         $quote = substr($content, $start, $size) . $append;
 
         if (!$quote) {
@@ -155,6 +182,26 @@ class ImaneeController extends Controller
         $image = $card->generateQuoteCard($quote, 506);
 
         return new Response($image->output(), 200, [
+            'Content-type' => 'image/jpg'
+        ]);
+    }
+
+    /**
+     * Generates an image for social networks - Facebook
+     * @Route("/quote/{storyId}.jpg", name="imanee_indexed_quote")
+     */
+    public function getIndexedQuoteAction($storyId, Request $request)
+    {
+        $q = $request->query->get('q');
+
+        if (!$q) {
+            throw new \Exception('Quote index was not provided.');
+        }
+
+        $cacheDir = __DIR__ . '/../../../app/data/images';
+        $image = $cacheDir . '/' . md5($storyId . $q) . '.jpg';
+
+        return new Response(file_get_contents($image), 200, [
             'Content-type' => 'image/jpg'
         ]);
     }

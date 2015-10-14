@@ -348,7 +348,7 @@ class Story
     {
         $content = $this->getHTMLContent();
         //$content = preg_replace('/<h(.*?)>(.*?)<\/h(.*?)>/', '', $content);
-        $content = strip_tags($content);
+        $content = trim(strip_tags($content));
         //$content = trim(str_replace("\n", ' ', $content));
         //$content = trim(str_replace("\r", ' ', $content));
         //$content = str_replace("  ", " ", $content);
