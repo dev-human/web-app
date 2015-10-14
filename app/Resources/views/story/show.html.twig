@@ -28,7 +28,6 @@
 
 {% block body %}
     {% include '_partials/flash_messages.html.twig' %}
-    {% include '_partials/highlight_panel.html.twig' %}
 <div class="container">
     <div class="boxed  push-down-60">
 
@@ -41,12 +40,6 @@
                 <div class="post-content" id="post-content">
                     <h1>{{ story.title }}</h1>
                     {{ content|raw }}
-
-                    <div class="imanee-highlighter-menu" id="imanee-highlighter-menu">
-                        <a id="share-twitter-button" href="https://twitter.com/intent/tweet" class="btn btn-primary btn-sm">
-                            <span class="zocial zocial-twitter"></span> Share Quote</a>
-                    </div>
-
                 </div>
                 <!-- End of the content -->
                 <div class="row">
@@ -133,48 +126,4 @@
     {{ parent() }}
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-526833fd774882a3" async="async"></script>
 
-    <script>window.twttr = (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0],
-                    t = window.twttr || {};
-            if (d.getElementById(id)) return t;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://platform.twitter.com/widgets.js";
-            fjs.parentNode.insertBefore(js, fjs);
-
-            t._e = [];
-            t.ready = function(f) {
-                t._e.push(f);
-            };
-
-            return t;
-        }(document, "script", "twitter-wjs"));</script>
-
-    <script type="text/javascript">
-        {% spaceless %}
-        var storyContent = "{{ story.getTextOnlyContent|escape('js') }}";
-        {% endspaceless %}
-
-        $(function() {
-
-            highlighter.onSelectedText = function(selectedText) {
-                var start = storyContent.indexOf(selectedText);
-
-                if (start == -1) {
-                    start = 0;
-                }
-
-                var base_url = "https://twitter.com/intent/tweet";
-                var image_url = "http://dev-human.io/quote/{{ story.id }}.jpg?q=" + start + ',' + selectedText.length;
-                var story_url = "http://dev-human.io{{ path('devhuman_show_article', {author: story.author.username, slug: story.slug}) }}";
-                var shareText = "{{ story.title|escape('js') }} " + image_url + " " + story_url;
-
-                $('#share-twitter-button').attr('href', base_url + '?text= ' + encodeURI(shareText) + '&via=devhumanproject');
-                twttr.widgets.load();
-            };
-
-            highlighter.init('post-content');
-        });
-
-    </script>
 {% endblock %}
