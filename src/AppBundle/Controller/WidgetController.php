@@ -121,4 +121,15 @@ class WidgetController extends Controller
             ]
         );
     }
+    
+    /**
+     * @Route("/widget/feed", name="widget_feed")
+     */
+    public function feedWidgetAction()
+    {
+
+        return $this->render(
+            '_widgets/feed.html.twig'
+        );
+    }
 }
