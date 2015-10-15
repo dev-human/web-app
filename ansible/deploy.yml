@@ -45,6 +45,10 @@
       environment:
         SYMFONY_ENV: prod
 
+    - name: Make sure images data directory exists
+      sudo: yes
+      file: path={{ app.docroot }}/app/data/images state=directory owner={{ app.system_user }} group={{ app.system_user }}
+
     - name: Read ACLs for web_user
       sudo: yes
       shell: 'setfacl -Rn -m u:"{{ app.web_user }}":rX -m d:u:"{{ app.web_user }}":rX {{ app.docroot }}'
@@ -60,6 +64,10 @@
     - name: Read and Write ACLs for web user on logs
       sudo: yes
       shell: 'setfacl -Rn -m u:"{{ app.web_user }}":rwX -m d:u:"{{ app.web_user }}":rwX {{ app.docroot }}/app/logs'
+
+    - name: Read and Write ACLs for web user on cached images
+      sudo: yes
+      shell: 'setfacl -Rn -m u:"{{ app.web_user }}":rwX -m d:u:"{{ app.web_user }}":rwX {{ app.docroot }}/app/data/images'
 
     - name: Clears Cache
       shell: php app/console cache:clear --env=prod --no-debug chdir={{ app.docroot }}

@@ -75,7 +75,7 @@ class ImaneeController extends Controller
      */
     public function generateQuoteAction($storyId, Request $request)
     {
-        $quoteLimit = 240;
+        $quoteLimit = 260;
 
         $story = $this->getDoctrine()->getManager()->getRepository('AppBundle:Story')->find($storyId);
 
@@ -89,18 +89,9 @@ class ImaneeController extends Controller
             throw new \Exception('You must provide a quote.');
         }
 
-        $q = $request->query->get('q');
-
-        if (!$q) {
-            throw new \Exception('Quote index was not provided.');
-        }
-
         if (strlen($quote) > $quoteLimit) {
             $quote = substr($quote, 0, $quoteLimit) . '...';
         }
-
-        $cacheDir = __DIR__ . '/../../../app/data/images';
-        $imageFile = $cacheDir . '/' . md5($storyId . $q) . '.jpg';
 
         $titleLimit = 55;
         $title = $story->getTitle();
@@ -119,7 +110,6 @@ class ImaneeController extends Controller
         }
 
         $image = $card->generateQuoteCard($quote, 506);
-        $this->saveCachedImageFile($imageFile, $image->output());
 
         return new Response($image->output(), 200, [
             'Content-type' => 'image/jpg'
