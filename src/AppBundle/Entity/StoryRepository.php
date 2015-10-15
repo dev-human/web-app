@@ -184,4 +184,21 @@ class StoryRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+    
+    public function findFromCollectionWithLimit($collectionId, $limit=3)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        return $qb->select('s')
+            ->from('AppBundle:Story', 's')
+            ->join('s.collection', 'c')
+            ->where('s.published = 1')
+            ->andWhere('s.listed = 1')
+            ->andwhere('c.id = ?1')
+            ->orderBy('s.created', 'DESC')
+            ->setParameter(1, $collectionId)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }

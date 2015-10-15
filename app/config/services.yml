@@ -61,3 +61,7 @@ services:
           - ~
       calls:
           - [ setTranslationDomain, [AppBundle]]
+          
+  debril.provider.default:
+      class: AppBundle\Provider\DefaultFeedContentProvider
+      arguments: ["@doctrine", "@router"]
