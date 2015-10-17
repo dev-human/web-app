@@ -2,9 +2,9 @@
     <div class="container">
         <div class="col-xs-12  col-md-3">
             <div class="widget-about  push-down-30">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" width="176" height="70"><br/>
-                    <span class="footer__text"><strong>dev-human</strong> is a collaborative, non-technical blog written by developers. We talk about life and stuff robots can't understand.</span>
-                    <br/><br/>
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" width="176" height="70"><br/><br/>
+                <p class="text-justify">
+                <span class="footer__text"><strong>dev-human</strong> is a collaborative, non-technical blog written by developers. We talk about life and stuff robots can't understand.</span></p>
 
             </div>
         </div>
@@ -38,10 +38,13 @@
 <footer class="copyrights">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12  col-sm-6">
+            <div class="col-xs-12  col-sm-4">
                 Made with <span class="glyphicon glyphicon-heart"></span> by <a href="http://twitter.com/erikaheidi" target="_blank">@erikaheidi</a>
             </div>
-            <div class="col-xs-12  col-sm-6">
+            <div class="col-xs-12  col-sm-4">
+                <p class="text-center"><span class="zocial zocial-rss"></span> <a href="{{ url('devhuman_homepage') }}rss">RSS</a> | <a href="{{ url('devhuman_homepage') }}atom">Atom</a></p>
+            </div>
+            <div class="col-xs-12  col-sm-4">
                 <div class="copyrights--right">
                     Proudly hosted by <a href="http://digitalocean.com" target="_blank">DigitalOcean</a>
                 </div>

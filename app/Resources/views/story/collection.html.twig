@@ -14,6 +14,7 @@
                     <div class="slider__container">
                         <h1 class="slider__title">{{ collection.name }}</h1>
                         <h3 class="slider__subtitle">{{ collection.description }}</h3>
+                        <p><small>Subscribe to this collection: <a href="{{ path('feed_rss', {id: collection.slug}) }}">RSS</a> | <a href="{{ path('feed_atom', {id: collection.slug}) }}">Atom</a> </small></p>
                     </div>
 
                 </div>
