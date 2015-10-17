@@ -1,16 +1,23 @@
 <div class="highlight-panel">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-md-6">
-                <form action="{{ path('devhuman_search') }}">
-                    <textarea name="text" class="highlight-panel__form  js--highlight-panel-text" placeholder="Text to Share">
-                    </textarea>
-                    <p class="highlight-panel__text">SHARE</p>
-                </form>
+            <div class="col-xs-offset-2 col-xs-8 col-md-offset-2 col-md-6 share-highlight-box">
+                <div id="story-quote-image"></div>
+                <div class="form-group short-url-container">
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-link"></span></div>
+                        <input type="text" class="form-control" id="quote-short-url" value=" ">
+                    </div>
+                </div>
+
+                <p><em>press ESC to close</em></p>
             </div>
-            <div class="col-xs-12 col-md-6">
-                <div id="quotable_image"> </div>
+            <div class="col-xs-2 col-md-1 share-highlight-buttons">
+                <a href="#" id="share-download-button" class="btn btn-default btn-block" title="Download Quote Image"><span class="glyphicon glyphicon-download"></span></a>
+                <a href="#" id="share-link-button" class="btn btn-default btn-block" title="Get short URL for this Image"><span class="glyphicon glyphicon-link"></span></a>
+                <a href="#" id="share-twitter-button" class="btn btn-default btn-block" title="Share on Twitter"><span class="zocial zocial-twitter"></span></a>
             </div>
         </div>
+
     </div>
 </div>

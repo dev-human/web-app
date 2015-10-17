@@ -39,10 +39,11 @@ var highlighter = {
     },
 
     onSelectedText: function(selectedText) {
-
+        return 1;
     },
 
     onButtonClick: function(selectedText) {
+        return 1;
     }
 };
 
@@ -68,3 +69,29 @@ function getSelectionText() {
 
     return text;
 }
+
+$('#highlight-share-button').on('click', function(ev) {
+    ev.preventDefault();
+
+    $('body').toggleClass( 'highlight-mode' );
+
+    if ( $('body').hasClass( 'highlight-mode' ) ) {
+        $('.share-highlight-box').css('margin-top', $(window).height() / 3);
+        $('.share-highlight-buttons').css('margin-top', $(window).height() / 3);
+
+        var text = getSelectionText();
+        highlighter.onButtonClick(text);
+
+        // on escape key leave the highlight mode
+        $( document ).on( 'keyup.highlightMode', function( ev ) {
+            ev.preventDefault();
+            if ( ev.keyCode === 27 ){
+                $( 'body' ).toggleClass( 'highlight-mode' );
+                $( document ).off( 'keyup.highlightMode' );
+                highlighter.hideHighlighterMenu();
+            }
+        } );
+    } else {
+        $( document ).off( 'keyup.highlightMode' );
+    }
+});

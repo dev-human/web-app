@@ -3,10 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Exception\CollectionNotFoundException;
+use AppBundle\Service\UrlShortenerService;
 use Michelf\MarkdownExtra;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
@@ -178,5 +180,23 @@ class DefaultController extends Controller
             'stories' => $stories,
             'query'   => $query
         ]);
+    }
+
+    /**
+     * @Route("/tools/shorten", name="devhuman_shorten_url")
+     */
+    public function getShortUrlAction(Request $request)
+    {
+        $url = $request->query->get('url');
+
+        if (!$url) {
+            throw new \Exception('You must provide a url to shorten.');
+        }
+
+        /** @var UrlShortenerService $shortener */
+        $shortener = $this->get('shortener');
+        $response = $shortener->shorten($url);
+
+        return new Response($response->id);
     }
 }

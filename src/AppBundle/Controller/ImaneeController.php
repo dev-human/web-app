@@ -111,7 +111,21 @@ class ImaneeController extends Controller
 
         $image = $card->generateQuoteCard($quote, 506);
 
+        if ($request->query->has('download')) {
+            $response = new Response();
+
+            $response->headers->set('Cache-Control', 'public');
+            $response->headers->set('Content-type', 'image/jpeg');
+            $response->headers->set('Content-Disposition', 'attachment; filename="devhuman_quote.jpg";');
+
+            $response->sendHeaders();
+            $response->setContent($image->output());
+
+            return $response;
+        }
+
         return new Response($image->output(), 200, [
+            'Cache-Control' => 'public',
             'Content-type' => 'image/jpg'
         ]);
     }
