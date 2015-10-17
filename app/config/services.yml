@@ -28,6 +28,8 @@ services:
         class: AppBundle\Service\RedisCacheService
         arguments: ["@redis"]
 
+  shortener:
+      class: AppBundle\Service\UrlShortenerService
 
   sonata.admin.collection:
       class: AppBundle\Admin\CollectionAdmin
