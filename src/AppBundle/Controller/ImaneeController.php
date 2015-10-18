@@ -103,6 +103,7 @@ class ImaneeController extends Controller
         $card->setQuoteAuthor($story->getAuthor()->getUsername());
         $card->setSourceLogo(__DIR__ . '/../Resources/img/dev-human-sticker.png');
         $card->setQuoteSource($title);
+        $card->setSourceUrl('dev-human.io/s/' . $storyId);
 
         if ($story->getAuthor()->getEmail()) {
             $avatar = $this->getCachedGravatar($story->getAuthor()->getEmail());

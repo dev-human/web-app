@@ -197,6 +197,25 @@ class StoryController extends Controller
     }
 
     /**
+     * Shows an Article - another alternative link (shorter)
+     * @Route("/s/{storyId}", name="devhuman_show_article_alt2")
+     */
+    public function showArticleAlt2Action($storyId)
+    {
+        $doctrine = $this->getDoctrine();
+        $story = $doctrine->getRepository('AppBundle:Story')->find($storyId);
+
+        if (!$story) {
+            throw new StoryNotFoundException("The requested story could not be found.");
+        }
+
+        return $this->redirectToRoute(
+            'devhuman_show_article',
+            ['slug' => $story->getSlug(), 'author' => $story->getAuthor()->getUsername() ]
+        );
+    }
+
+    /**
      * Shows an Article - old permalinks from dev-human.com
      * @Route("/entries/{year}/{month}/{day}/{slug}/", name="devhuman_show_article_old")
      */

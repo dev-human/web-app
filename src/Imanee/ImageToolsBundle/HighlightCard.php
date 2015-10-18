@@ -23,15 +23,19 @@ class HighlightCard
     /** @var  string */
     protected $sourceLogo;
 
+    /** @var  string */
+    protected $sourceUrl;
+
     /** @var TextImageGenerator */
     protected $generator;
 
     public function __construct(array $settings = [])
     {
         $this->setQuoteAvatar(__DIR__ . '/Resources/img/avatar.png');
-        $this->setSourceLogo(__DIR__ . '/Resources/img/dev-human-sticker.png');
+        $this->setSourceLogo(__DIR__ . '/Resources/img/imanee-icon.png');
         $this->setQuoteAuthor('Anonymous');
-        $this->setQuoteSource('dev-human');
+        $this->setQuoteSource('imanee');
+        $this->setSourceUrl(" ");
 
         $this->settings = $settings;
         $this->generator = new TextImageGenerator($settings);
@@ -102,6 +106,22 @@ class HighlightCard
     }
 
     /**
+     * @return string
+     */
+    public function getSourceUrl()
+    {
+        return $this->sourceUrl;
+    }
+
+    /**
+     * @param string $sourceUrl
+     */
+    public function setSourceUrl($sourceUrl)
+    {
+        $this->sourceUrl = $sourceUrl;
+    }
+
+    /**
      * @param $text
      * @param int $width
      * @return Imanee
@@ -112,14 +132,22 @@ class HighlightCard
     {
         $textImage = $this->generator->generateImage('"' . $text . '"', $width);
         $header = $this->getImageHeader($width, 40);
+        $footer = $this->getImageFooter();
+        $padding = $this->generator->get('padding');
 
-        $height = $header->getHeight() + $textImage->getHeight();
+        $height =
+            $header->getHeight() + $textImage->getHeight() + ($footer->getHeight() + $padding);
 
         $imanee = new Imanee();
         $imanee
             ->newImage($width, $height, $this->generator->get('background'))
             ->placeImage($header, Imanee::IM_POS_TOP_LEFT)
-            ->compositeImage($textImage, 0, $header->getHeight());
+            ->compositeImage($textImage, 0, $header->getHeight())
+            ->compositeImage(
+                $footer,
+                $width - $footer->getWidth() - $padding,
+                $height - $footer->getHeight() - $padding
+            );
 
         return $imanee;
     }
@@ -132,7 +160,7 @@ class HighlightCard
      */
     public function getImageHeader($width, $height)
     {
-        $fontsize = 16;
+        $fontSize = 16;
         $imageSize = 40;
         $padding = $this->generator->get('padding');
 
@@ -145,7 +173,7 @@ class HighlightCard
         $drawer
             ->setFont($this->generator->get('font_file'))
             ->setFontColor($this->generator->get('color'))
-            ->setFontSize($fontsize);
+            ->setFontSize($fontSize);
 
         $header->setDrawer($drawer);
 
@@ -160,8 +188,25 @@ class HighlightCard
                 $imageSize
             )
             ->annotate($this->getQuoteAuthor(), $imageSize + (2*$padding), $padding + ($imageSize/4))
-            ->annotate($this->getQuoteSource(), $imageSize + (2*$padding), ($imageSize), $fontsize*1.2);
+            ->annotate($this->getQuoteSource(), $imageSize + (2*$padding), ($imageSize), $fontSize*1.2);
 
         return $header;
+    }
+
+    /**
+     * Appends Source URL
+     * @return Imanee
+     */
+    public function getImageFooter()
+    {
+        $fontSize = 14;
+        $fontColor = '#666666';
+
+        $drawer = new Drawer();
+        $drawer
+            ->setFontColor($fontColor)
+            ->setFontSize($fontSize);
+
+        return Imanee::textGen($this->getSourceUrl(), $drawer);
     }
 }
