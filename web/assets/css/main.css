@@ -10164,7 +10164,8 @@ body.search-mode .search-panel {
 /* line 25, ../sass/components/_slider.scss */
 
 .carousel-inner > .item > img {
-  max-width: none;
+  min-width: 1920px;
+  width: 100%;
 }
 
 /* line 29, ../sass/components/_slider.scss */
