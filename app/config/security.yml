@@ -24,8 +24,8 @@ security:
 
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/home, roles: ROLE_USER }
-        - { path: ^/s/create, roles: ROLE_USER }
-        - { path: edit, roles: ROLE_USER }
-        - { path: remove, roles: ROLE_USER }
+        - { path: ^/home, roles: IS_AUTHENTICATED_REMEMBERED }
+        - { path: ^/s/create, roles: IS_AUTHENTICATED_REMEMBERED }
+        - { path: edit, roles: IS_AUTHENTICATED_REMEMBERED }
+        - { path: remove, roles: IS_AUTHENTICATED_REMEMBERED }
         - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
