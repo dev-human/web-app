@@ -108,7 +108,7 @@ class StoryController extends Controller
                 sprintf('Your new Story "%s" was successfully saved.', $story->getTitle())
             );
 
-            return $this->redirectToRoute('devhuman_edit_story', ['story' => $story->getSlug()]);
+            return $this->redirectToRoute('devhuman_edit_story', ['story' => $story->getId()]);
         }
 
         return $this->render('story/form.html.twig', [
