@@ -70,8 +70,10 @@ class WidgetController extends Controller
     {
         $tags = $this->get('cache')->fetch($this->getParameter('key_cache_tags'));
 
-        shuffle($tags);
-        array_splice($tags, $max);
+        if ($tags) {
+            shuffle($tags);
+            array_splice($tags, $max);
+        }
 
         return $this->render(
             '_widgets/tags.html.twig',
