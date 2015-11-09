@@ -8684,6 +8684,7 @@ h2 + h3 {
   border-left: 1px solid #dcdddd;
   border-right: 1px solid #dcdddd;
   color: #51ab6d;
+  font-family: 'Lato', sans-serif;
 }
 
 /* line 15, ../sass/components/_top-search-and-social.scss */
